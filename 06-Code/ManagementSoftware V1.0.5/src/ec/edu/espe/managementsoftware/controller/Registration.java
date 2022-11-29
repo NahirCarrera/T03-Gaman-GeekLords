@@ -30,7 +30,7 @@ public class Registration {
     }
     
     public static boolean logIn(Scanner scannerKeyboard){
-        File userDataBase = new File ("./userDataBase.json");
+        File userDataBase = createUserDataBaseFile();
         String loginUserName;
         String loginPassword;
         User userFromFile;
@@ -93,7 +93,7 @@ public class Registration {
     }
     
     public static User searchUser(){
-        File userDataBase = new File ("./userDataBase.json");       
+        File userDataBase = createUserDataBaseFile();     
         User foundUser;
         foundUser = readUserFromFile(userDataBase);
         return foundUser;
@@ -101,7 +101,7 @@ public class Registration {
     
     
     public static void signIn(){
-     File userDataBase = new File ("./userDataBase.json");
+     File userDataBase = createUserDataBaseFile();
      Scanner scUserDataBase;
         try {
             scUserDataBase = new Scanner(userDataBase);       
@@ -165,7 +165,7 @@ public class Registration {
     
 
     public static void showUserProfile(Scanner scannerKeyboard){
-        File userDataBase = new File ("./userDataBase.json");
+        File userDataBase = createUserDataBaseFile();
         Scanner scUserDataBase;
         try { 
             scUserDataBase = new Scanner(userDataBase);
@@ -235,7 +235,7 @@ public class Registration {
     
     
     private static void updateUserInformation(){
-        File userDataBase = new File ("./userDataBase.json");
+        File userDataBase = createUserDataBaseFile();
         try(FileWriter fileWriter = new FileWriter(userDataBase);){
                     User newUser;
                     Gson gson = new Gson();
@@ -309,6 +309,11 @@ public class Registration {
                               WHAT DO YOU WANT TO DO? 
         """;
         System.out.println(userProfileMenu);
+    }
+    private static File createUserDataBaseFile(){
+        String userDataBaseDirectoryName = System.getProperty("user.dir") + "\\userDataBase.json";
+        File userDataBase = new File (userDataBaseDirectoryName);
+        return userDataBase;
     }
 }
 
