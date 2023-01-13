@@ -52,7 +52,7 @@ public class FrmProfile extends javax.swing.JFrame {
     private void InitContentUpdate()
     {
         PnlUpdate pnlUpdate = new PnlUpdate();
-        pnlUpdate.setSize(499,548);
+        pnlUpdate.setSize(522,627);
         pnlUpdate.setLocation(0,0);
         PnlContent.add(pnlUpdate, BorderLayout.CENTER);
         PnlContent.revalidate();
@@ -77,16 +77,18 @@ public class FrmProfile extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
         PnlContent = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(0, 62, 101));
+        jPanel2.setBackground(new java.awt.Color(0, 30, 57));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/white.png"))); // NOI18N
         jLabel1.setText("jLabel1");
+        jLabel1.setMinimumSize(new java.awt.Dimension(415, 5));
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 92, 270, 10));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -94,7 +96,7 @@ public class FrmProfile extends javax.swing.JFrame {
         jLabel2.setText("MENU");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, -1, -1));
 
-        btnUpdate.setBackground(new java.awt.Color(0, 226, 255));
+        btnUpdate.setBackground(new java.awt.Color(0, 62, 101));
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdate.setText("Update");
@@ -105,9 +107,9 @@ public class FrmProfile extends javax.swing.JFrame {
                 btnUpdateActionPerformed(evt);
             }
         });
-        jPanel2.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 192, 270, 50));
+        jPanel2.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 270, 50));
 
-        btnLogout.setBackground(new java.awt.Color(0, 159, 209));
+        btnLogout.setBackground(new java.awt.Color(0, 62, 101));
         btnLogout.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnLogout.setForeground(new java.awt.Color(255, 255, 255));
         btnLogout.setText("Log out");
@@ -118,9 +120,9 @@ public class FrmProfile extends javax.swing.JFrame {
                 btnLogoutActionPerformed(evt);
             }
         });
-        jPanel2.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 270, 50));
+        jPanel2.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 270, 50));
 
-        btnBack.setBackground(new java.awt.Color(0, 105, 125));
+        btnBack.setBackground(new java.awt.Color(0, 62, 101));
         btnBack.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("Back");
@@ -131,7 +133,7 @@ public class FrmProfile extends javax.swing.JFrame {
                 btnBackActionPerformed(evt);
             }
         });
-        jPanel2.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 270, 50));
+        jPanel2.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 270, 50));
 
         PnlContent.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -146,7 +148,22 @@ public class FrmProfile extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/User.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/profile.png"))); // NOI18N
+        jLabel4.setMaximumSize(new java.awt.Dimension(450, 193));
+        jLabel4.setMinimumSize(new java.awt.Dimension(450, 193));
+
+        jPanel4.setBackground(new java.awt.Color(0, 30, 57));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -157,17 +174,25 @@ public class FrmProfile extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PnlContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 424, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(PnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -187,6 +212,8 @@ public class FrmProfile extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // InitContentUpdate();
+        MongoCollection userCollection;
+        userCollection = Registration.createConnectionToCollection();
         PnlUpdate pnlUpdate = new PnlUpdate();
         pnlUpdate.setSize(499,548);
         pnlUpdate.setLocation(0,0);
@@ -194,15 +221,22 @@ public class FrmProfile extends javax.swing.JFrame {
         PnlContent.add(pnlUpdate, BorderLayout.CENTER);
         PnlContent.revalidate();
         PnlContent.repaint();
+        String userName = Registration.findValue(userCollection, 1, "userName");
+        String email = Registration.findValue(userCollection, 1, "email");
+        String currentSalary = String.valueOf(Registration.findValue(userCollection, 1, "currentSalary"));
+        String password = Registration.findValue(userCollection, 1, "password");
+        pnlUpdate.txtUserName.setText(userName);
+        pnlUpdate.txtEmail.setText(email);
+        pnlUpdate.txtCurrentSalary.setText(currentSalary);
+        pnlUpdate.pflPassword.setText(password);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        int option = JOptionPane.showConfirmDialog(this, "Hope to see you back soon Are you sure want to log out?");
-        if (option==0) 
-        {
+        int option = JOptionPane.showConfirmDialog(this, "Hope to see you back soon! Are you sure want to log out?");
+        if (option==0) {
             this.setVisible(false);
-        FrmLogin frmLogin = new FrmLogin();
-        frmLogin.setVisible(true);
+            FrmLogin frmLogin = new FrmLogin();
+            frmLogin.setVisible(true);
             
         }
         
@@ -240,5 +274,6 @@ public class FrmProfile extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
 }
