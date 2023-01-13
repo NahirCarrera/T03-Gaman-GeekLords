@@ -4,6 +4,7 @@
  */
 package ec.edu.espe.EHAManagement.view;
 
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.mongodb.client.MongoCollection;
 import ec.edu.espe.ehamanagement.controller.Inventory;
 import ec.edu.espe.ehamanagement.model.Product;
@@ -24,7 +25,9 @@ public class FrmProduct extends javax.swing.JFrame {
     /**
      * Creates new form frmProduct
      */
-    public FrmProduct() {
+    public FrmProduct() 
+    {
+        initComponents();
         String uri = "mongodb+srv://oop:oop@cluster0.og4urrq.mongodb.net/?retryWrites=true&w=majority";
         String dataBase = "ManagementSoftware";
         String pCollection = "Products";
@@ -32,7 +35,7 @@ public class FrmProduct extends javax.swing.JFrame {
         productsCollection = MongoDbManager.connectToCollection(uri, dataBase, pCollection);
         materialsCollection = MongoDbManager.connectToCollection(uri, dataBase, mCollection);
         
-        initComponents();
+        
         model =  new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Material");
@@ -490,27 +493,7 @@ public class FrmProduct extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        FlatMaterialLighterIJTheme.setup();
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
