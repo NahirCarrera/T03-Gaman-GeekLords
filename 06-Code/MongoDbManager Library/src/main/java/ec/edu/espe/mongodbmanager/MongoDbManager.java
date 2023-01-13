@@ -63,23 +63,7 @@ public class MongoDbManager {
         return readedValues;
     }
     
-    public static ArrayList read(MongoCollection collection){
-        ArrayList readedDocuments = new ArrayList();
-        int document;
-        Bson filter = Filters.and(Filters.gt("id", 0));
-        Document projectionDocument = new Document("_id", 0).append("id", 1);
-        try(MongoCursor<Document> cursor = collection.find(filter).projection(projectionDocument).iterator()) {
-            if(cursor.hasNext()){
-                while(cursor.hasNext()){
-                    document = Integer.parseInt( cursor.next().toJson().replaceAll("[{}: "+"\"\""+"]", "").replaceFirst("id",""));
-                    readedDocuments.add(document);
-                }
-            }else{
-                System.out.println("-> There is no documents in the database, or database doesn't exists");
-            }
-        }
-        return readedDocuments;
-    }
+
     
     public static boolean update(MongoCollection collection, int documentId, String key, Object newValue){
         if (findDocument(collection,"id", documentId)){

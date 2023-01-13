@@ -91,22 +91,5 @@ public class User {
         this.id = id;
     }
     
-    public static ArrayList getAttributesNames(){
-        ArrayList keys = new ArrayList(4);
-        keys.add("id");
-        keys.add("userName");
-        keys.add("email");
-        keys.add("password");
-        keys.add("currentSalary");
-        return keys;   
-    }
-    public static ArrayList getAttributes(User user){
-        ArrayList values = new ArrayList(4);
-        values.add(user.getId());
-        values.add(user.getUserName());
-        values.add(user.getEmail());
-        values.add(user.getPassword());
-        values.add(user.getCurrentSalary());
-        return values;
-    }
+
 }

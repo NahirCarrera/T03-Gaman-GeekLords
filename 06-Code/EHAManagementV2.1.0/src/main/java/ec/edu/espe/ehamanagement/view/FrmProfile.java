@@ -5,7 +5,9 @@
 package ec.edu.espe.ehamanagement.view;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
-import ec.edu.espe.ehamanagement.view.panels.PnlAbout;
+import com.mongodb.client.MongoCollection;
+import ec.edu.espe.ehamanagement.controller.Registration;
+
 
 
 import java.awt.BorderLayout;
@@ -16,7 +18,7 @@ import javax.swing.JOptionPane;
  * @author Jairo Bonilla, Gaman GeekLords, DCCO-ESPE
  */
 public class FrmProfile extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form FrmProfile
      */
@@ -24,9 +26,13 @@ public class FrmProfile extends javax.swing.JFrame {
         initComponents();
         InitContent();
         
+        
     }
+    
     private void InitContent()
     {
+        MongoCollection userCollection;
+        userCollection = Registration.createConnectionToCollection();
         PnlUser pnlUser = new PnlUser();
         pnlUser.setSize(486,646);
         pnlUser.setLocation(0,0);
@@ -34,6 +40,13 @@ public class FrmProfile extends javax.swing.JFrame {
         PnlContent.add(pnlUser, BorderLayout.CENTER);
         PnlContent.revalidate();
         PnlContent.repaint();
+        String userName = Registration.findValue(userCollection, 1,"userName");
+        String email = Registration.findValue(userCollection, 1,"email");
+        String currentSalary = Registration.findValue(userCollection, 1,"currentSalary");
+        pnlUser.txtUserName.setText(userName);
+        pnlUser.txtEmail.setText(email);
+        pnlUser.txtCurrentSalary.setText(currentSalary);
+        
     }
     private void InitContentUpdate()
     {
@@ -68,7 +81,7 @@ public class FrmProfile extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(13, 71, 161));
+        jPanel2.setBackground(new java.awt.Color(0, 62, 101));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/white.png"))); // NOI18N
@@ -78,9 +91,9 @@ public class FrmProfile extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("MENU");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, -1, -1));
 
-        btnUpdate.setBackground(new java.awt.Color(51, 51, 255));
+        btnUpdate.setBackground(new java.awt.Color(0, 226, 255));
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdate.setText("Update");
@@ -173,7 +186,7 @@ public class FrmProfile extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // InitContentUpdate();
-         PnlUpdate pnlUpdate = new PnlUpdate();
+        PnlUpdate pnlUpdate = new PnlUpdate();
         pnlUpdate.setSize(499,548);
         pnlUpdate.setLocation(0,0);
         PnlContent.removeAll();
@@ -212,6 +225,7 @@ public class FrmProfile extends javax.swing.JFrame {
             public void run() {
                 new FrmProfile().setVisible(true);
             }
+            
         });
     }
 

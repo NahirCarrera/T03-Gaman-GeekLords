@@ -5,15 +5,18 @@
 package ec.edu.espe.ehamanagement.view;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
+import com.mongodb.client.MongoCollection;
+import ec.edu.espe.ehamanagement.controller.Registration;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Jairo Bonilla, Gaman GeekLords, DCCO-ESPE
  */
 public class FrmLogin extends javax.swing.JFrame {
-
+       MongoCollection userCollection;
     /**
      * Creates new form FrmLogin
      */
@@ -21,7 +24,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
         initComponents();
         btnLogin.setEnabled(false);
-        //lbPrueba.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); 
+        userCollection = Registration.createConnectionToCollection(); 
     }
 
     /**
@@ -75,6 +78,11 @@ public class FrmLogin extends javax.swing.JFrame {
         txtUserName.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 txtUserNameMousePressed(evt);
+            }
+        });
+        txtUserName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserNameActionPerformed(evt);
             }
         });
         txtUserName.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -324,10 +332,24 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUserNameKeyTyped
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        this.setVisible(false);
-        FrmPrincipalMenuBar frmPrincipalMenuBar = new FrmPrincipalMenuBar();
-        frmPrincipalMenuBar.setVisible(true);
+        String userName = txtUserName.getText();
+        String password = pflPassword.getText();
+        
+        String correctUserName = Registration.findValue(userCollection, 1, "userName");
+        String correctPassword = Registration.findValue(userCollection, 1, "password");
+        
+        if (userName.equals(correctUserName) && password.equals(correctPassword)){
+            this.setVisible(false);
+            FrmPrincipalMenuBar frmPrincipalMenuBar = new FrmPrincipalMenuBar();
+            frmPrincipalMenuBar.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this,"The username or password is incorrect, please try again", "Login Failed", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserNameActionPerformed
 
     /**
      * @param args the command line arguments

@@ -225,32 +225,33 @@ public class FrmInventory extends javax.swing.JFrame {
         }
     }
     private void cleanTable(){
-        int row =  tblInventory.getRowCount();
-        for(int i = row - 1; i >=0 ; i--){
-            model.removeRow(i);
-        }
+        //int row =  tblInventory.getRowCount();
+        //for(int i = row - 1; i >=0 ; i--){
+        //    model.removeRow(i);
+        //}
     }
+    
     private void insertDataTable(){
-        ArrayList <Integer> productsIds = Inventory.readDatabase();
-        if(!productsIds.isEmpty()){
-            for (int i = 0; i< productsIds.size(); i++){
-                int id = productsIds.get(i);
-                String name = (String) MongoDbManager.readAll(productsCollection, "name").get(i);
-                String cost = (String) MongoDbManager.readAll(productsCollection, "cost").get(i);
-                String description = (String) MongoDbManager.readAll(productsCollection, "description").get(i);
-                String quantity = (String) MongoDbManager.readAll(productsCollection, "quantity").get(i);
-                String[] information = new String[5];
+        //ArrayList <Integer> productsIds = Inventory.readDatabase();
+        //if(!productsIds.isEmpty()){
+        //    for (int i = 0; i< productsIds.size(); i++){
+        //        int id = productsIds.get(i);
+                //String name = (String) MongoDbManager.readAll(productsCollection, "name").get(i);
+                //String cost = (String) MongoDbManager.readAll(productsCollection, "cost").get(i);
+                //String description = (String) MongoDbManager.readAll(productsCollection, "description").get(i);
+                //String quantity = (String) MongoDbManager.readAll(productsCollection, "quantity").get(i);
+                //String[] information = new String[5];
                 
-                information[0] = String.valueOf(id);
-                information[1] = name;
-                information[2] = description;
-                information[3] = cost;
-                information[4] = quantity;
-                model.addRow(information);
-            }
-        }else{
-            JOptionPane.showMessageDialog(this,"There's no products in your inventory", "Inventory Empty", JOptionPane.INFORMATION_MESSAGE);
-        }
+                //information[0] = String.valueOf(id);
+                //information[1] = name;
+                //information[2] = description;
+                //information[3] = cost;
+                //information[4] = quantity;
+                //model.addRow(information);
+           // }
+        //}else{
+        //    JOptionPane.showMessageDialog(this,"There's no products in your inventory", "Inventory Empty", JOptionPane.INFORMATION_MESSAGE);
+        //}
         
     }
     /**

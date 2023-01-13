@@ -20,21 +20,13 @@ import utils.CostCalculator;
  */
 public class FrmProduct extends javax.swing.JFrame {
     DefaultTableModel model;
-    MongoCollection productsCollection;
-    MongoCollection materialsCollection;
     /**
      * Creates new form frmProduct
      */
     public FrmProduct() 
     {
         initComponents();
-        String uri = "mongodb+srv://oop:oop@cluster0.og4urrq.mongodb.net/?retryWrites=true&w=majority";
-        String dataBase = "ManagementSoftware";
-        String pCollection = "Products";
-        String mCollection = "Materials";
-        productsCollection = MongoDbManager.connectToCollection(uri, dataBase, pCollection);
-        materialsCollection = MongoDbManager.connectToCollection(uri, dataBase, mCollection);
-        
+      
         
         model =  new DefaultTableModel();
         model.addColumn("ID");
@@ -375,8 +367,8 @@ public class FrmProduct extends javax.swing.JFrame {
         String name = txtName.getText();
         if(validateTxt(name) && !name.equals("") ){
             Product productToAdd;  
-            productToAdd = collectInformation(productsCollection);
-            Inventory.insertProduct(productsCollection, productToAdd);
+            productToAdd = collectInformation();
+            Inventory.insertProduct(productToAdd);
             CostCalculator.calculateTotalProductProductionCost(productToAdd);
             JOptionPane.showMessageDialog(this,"Product added successfully :)", "Saved", JOptionPane.PLAIN_MESSAGE);
             cleanFields();
@@ -421,8 +413,8 @@ public class FrmProduct extends javax.swing.JFrame {
         cleanTableInfo();
         
     }
-    public Product collectInformation(MongoCollection productsCollection){
-        int id = Inventory.assignIdToProduct(productsCollection);
+    public Product collectInformation(){
+        int id = Inventory.assignIdToProduct();
         String name = txtName.getText();
         float productionCost = 0.0F;
         String description = txtADescription.getText();
@@ -436,7 +428,8 @@ public class FrmProduct extends javax.swing.JFrame {
     }
     
     private int findMaterialId(String material){
-        int id = Integer.parseInt(MongoDbManager.findValue(materialsCollection,"name", material, "id"));
+        //int id = Integer.parseInt(MongoDbManager.findValue(materialsCollection,"name", material, "id"));
+        int id = 0;
         return id;
     }
     
