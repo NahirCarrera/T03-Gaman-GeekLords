@@ -29,6 +29,7 @@ public class FrmProfile extends javax.swing.JFrame {
     {
         PnlUser pnlUser = new PnlUser();
         pnlUser.setSize(486,646);
+        
         pnlUser.setLocation(0,0);
         PnlContent.removeAll();
         PnlContent.add(pnlUser, BorderLayout.CENTER);
