@@ -11,14 +11,42 @@ import java.util.Collections;
  * @author Nahir Carrera, Gaman GeekLords, DCC0-ESPE
  */
 public class Inventory {
-    public static void insertProduct(MongoCollection productsCollection, Product product){
-        ArrayList keys = Product.getAttributesNames();
-        ArrayList values = Product.getAttributes(product);
+
+    private static ArrayList getKeysToInsert(){
+        ArrayList keys = new ArrayList(8);
+        keys.add("id");
+        keys.add("name");
+        keys.add("cost");
+        keys.add("description");
+        keys.add("materialsIds");
+        keys.add("materialsQuantities");
+        keys.add("workingTime");
+        keys.add("quantity");
+        return keys;   
+    }
+    
+    private static ArrayList getValuesToInsert(Product product){
+        ArrayList values = new ArrayList(8);
+        values.add(product.getId());
+        values.add(product.getName());
+        values.add(product.getProductionCost());
+        values.add(product.getDescription());
+        values.add(product.getMaterialsIds());
+        values.add(product.getMaterialsQuantities());
+        values.add(product.getWorkingTime());
+        values.add(product.getQuantity());
+        return values;
+    }
+    public static void insertProduct(Product product){
+        MongoCollection productsCollection = createConnectionToCollection();
+        ArrayList keys = getKeysToInsert();
+        ArrayList values = getValuesToInsert(product);
         MongoDbManager.insert(productsCollection, keys, values);
     }
     
-    public static int assignIdToProduct(MongoCollection collection){
-        ArrayList products = MongoDbManager.read(collection);
+    public static int assignIdToProduct(){
+        MongoCollection productsCollection = createConnectionToCollection();
+        ArrayList products = MongoDbManager.readAll(productsCollection, "id");
         if(!products.isEmpty()){
             int lastId = (int) Collections.max(products);
             int newId = lastId + 1;
@@ -32,17 +60,19 @@ public class Inventory {
         MongoCollection productsCollection = createConnectionToCollection();
         return MongoDbManager.delete(productsCollection, id);
     }
-    public static String findValue(MongoCollection productsCollection, int id, String key){
+    public static String findValue(int id, String key){
+        MongoCollection productsCollection = createConnectionToCollection();
         String foundValue;
         foundValue = MongoDbManager.findValue(productsCollection, "id",id, key);
         return foundValue;
     }
-    public static ArrayList readDatabase(){
+    public static ArrayList readDatabase(String key){
         MongoCollection productsCollection = createConnectionToCollection();
         ArrayList productsIds;
-        productsIds = MongoDbManager.read(productsCollection);
+        productsIds = MongoDbManager.readAll(productsCollection, key);
         return productsIds;
     }
+    
     public static void updateProduct(Product product, int id){
         MongoCollection productsCollection = createConnectionToCollection();
         MongoDbManager.update(productsCollection, id, "name", product.getName());
@@ -59,4 +89,5 @@ public class Inventory {
         MongoCollection productsCollection =MongoDbManager.connectToCollection(uri, dataBase, collection);
         return productsCollection;
     }
+    
 }

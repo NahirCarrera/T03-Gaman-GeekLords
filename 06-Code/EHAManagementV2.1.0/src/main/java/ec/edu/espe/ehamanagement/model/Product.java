@@ -140,29 +140,5 @@ public class Product {
         this.productionCost = productionCost;
     }
      
-    public static ArrayList getAttributesNames(){
-        ArrayList keys = new ArrayList(7);
-        keys.add("id");
-        keys.add("name");
-        keys.add("cost");
-        keys.add("description");
-        keys.add("materialsIds");
-        keys.add("materialsQuantities");
-        keys.add("workingTime");
-        keys.add("quantity");
-        return keys;   
-    }
-    
-    public static ArrayList getAttributes(Product product){
-        ArrayList values = new ArrayList(7);
-        values.add(product.getId());
-        values.add(product.getName());
-        values.add(product.getProductionCost());
-        values.add(product.getDescription());
-        values.add(product.getMaterialsIds());
-        values.add(product.getMaterialsQuantities());
-        values.add(product.getWorkingTime());
-        values.add(product.getQuantity());
-        return values;
-    }
+
 }

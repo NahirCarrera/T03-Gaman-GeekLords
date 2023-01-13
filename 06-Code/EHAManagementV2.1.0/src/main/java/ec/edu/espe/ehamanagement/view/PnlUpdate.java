@@ -4,6 +4,8 @@
  */
 package ec.edu.espe.ehamanagement.view;
 
+import ec.edu.espe.ehamanagement.controller.Registration;
+import ec.edu.espe.ehamanagement.model.User;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -53,7 +55,7 @@ public class PnlUpdate extends javax.swing.JPanel {
             }
 
         }
-        if (txtPassword.getText().equals("***************"))
+        if (pflOldPassword.getText().equals("***************"))
         {
             lbWarningPass.setText("this area is required");
             pictureWarningPassword();
@@ -62,13 +64,13 @@ public class PnlUpdate extends javax.swing.JPanel {
             lbWarningPass.setText("");
             pictureWhitePassword();
         }
-         if (txtCurrentSalary.getText().equals("$00.00") || txtPassword.getText().equals("***************") || lbWarningEmail.getText().equals("enter a valid email")
-            || txtEmail.getText().equals("name@gmail.com") || txtUserName.getText().equals("NameUser") || txtUserName.getText().isEmpty() || txtPassword.getText().isEmpty() || txtEmail.getText().isEmpty()
+         if (txtCurrentSalary.getText().equals("$00.00") || pflOldPassword.getText().equals("***************") || lbWarningEmail.getText().equals("enter a valid email")
+            || txtEmail.getText().equals("name@gmail.com") || txtUserName.getText().equals("NameUser") || txtUserName.getText().isEmpty() || pflOldPassword.getText().isEmpty() || txtEmail.getText().isEmpty()
              || txtCurrentSalary.getText().isEmpty()) {
          btnSave.setEnabled(false);
         } else {
             btnSave.setEnabled(true);
-       }
+        }
 
     }
 
@@ -141,9 +143,13 @@ public class PnlUpdate extends javax.swing.JPanel {
         lbWarningPass = new javax.swing.JLabel();
         lbWarningEmail = new javax.swing.JLabel();
         lbWarningUser = new javax.swing.JLabel();
-        txtPassword = new javax.swing.JPasswordField();
+        pflOldPassword = new javax.swing.JPasswordField();
         txtUserName = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        pflPassword = new javax.swing.JPasswordField();
+        btnConfirmPassword = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -217,17 +223,17 @@ public class PnlUpdate extends javax.swing.JPanel {
         lbWarningUser.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         lbWarningUser.setForeground(new java.awt.Color(204, 0, 0));
 
-        txtPassword.setForeground(new java.awt.Color(153, 153, 153));
-        txtPassword.setText("***************");
-        txtPassword.setBorder(null);
-        txtPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+        pflOldPassword.setForeground(new java.awt.Color(153, 153, 153));
+        pflOldPassword.setText("***************");
+        pflOldPassword.setBorder(null);
+        pflOldPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtPasswordMousePressed(evt);
+                pflOldPasswordMousePressed(evt);
             }
         });
-        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+        pflOldPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPasswordKeyReleased(evt);
+                pflOldPasswordKeyReleased(evt);
             }
         });
 
@@ -259,47 +265,85 @@ public class PnlUpdate extends javax.swing.JPanel {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setText("confirm old password");
+
+        jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
+
+        pflPassword.setForeground(new java.awt.Color(153, 153, 153));
+        pflPassword.setText("***************");
+        pflPassword.setBorder(null);
+        pflPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pflPasswordMousePressed(evt);
+            }
+        });
+        pflPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pflPasswordKeyReleased(evt);
+            }
+        });
+
+        btnConfirmPassword.setBackground(new java.awt.Color(102, 255, 204));
+        btnConfirmPassword.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnConfirmPassword.setForeground(new java.awt.Color(255, 255, 255));
+        btnConfirmPassword.setText("confirm");
+        btnConfirmPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmPasswordActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
-                    .addComponent(jSeparator3)
-                    .addComponent(jSeparator4)
-                    .addComponent(jSeparator1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtCurrentSalary, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtUserName)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lbValidateEmailPicture, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbValidateCurrentSPicture, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbValidatePassPicture, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbValidateUserPicture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbWarningCurrentS, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbWarningEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbWarningPass, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lbWarningUser, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pflPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnConfirmPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCurrentSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUserName, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pflOldPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lbValidateEmailPicture, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbValidateCurrentSPicture, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbValidatePassPicture, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbValidateUserPicture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbWarningCurrentS, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbWarningEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbWarningPass, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(10, 10, 10))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lbWarningUser, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,21 +376,29 @@ public class PnlUpdate extends javax.swing.JPanel {
                     .addComponent(lbWarningCurrentS, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jLabel4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbValidatePassPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbWarningPass, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(14, 14, 14))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(btnConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(pflOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)))
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addGap(24, 24, 24)
+                .addComponent(pflPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -368,9 +420,9 @@ public class PnlUpdate extends javax.swing.JPanel {
 
         }
 
-        if (String.valueOf(txtPassword.getPassword()).isEmpty()) {
-            txtPassword.setText("***************");
-            txtPassword.setForeground(Color.gray);
+        if (String.valueOf(pflOldPassword.getPassword()).isEmpty()) {
+            pflOldPassword.setText("***************");
+            pflOldPassword.setForeground(Color.gray);
 
         }
         if (txtCurrentSalary.getText().isEmpty()) {
@@ -389,9 +441,9 @@ public class PnlUpdate extends javax.swing.JPanel {
             txtUserName.setForeground(Color.gray);
 
         }
-        if (String.valueOf(txtPassword.getPassword()).isEmpty()) {
-            txtPassword.setText("***************");
-            txtPassword.setForeground(Color.gray);
+        if (String.valueOf(pflOldPassword.getPassword()).isEmpty()) {
+            pflOldPassword.setText("***************");
+            pflOldPassword.setForeground(Color.gray);
 
         }
         if (txtEmail.getText().isEmpty()) {
@@ -400,10 +452,10 @@ public class PnlUpdate extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtCurrentSalaryMousePressed
 
-    private void txtPasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMousePressed
-        if (String.valueOf(txtPassword.getPassword()).equals("***************")) {
-            txtPassword.setText("");
-            txtPassword.setForeground(Color.black);
+    private void pflOldPasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pflOldPasswordMousePressed
+        if (String.valueOf(pflOldPassword.getPassword()).equals("***************")) {
+            pflOldPassword.setText("");
+            pflOldPassword.setForeground(Color.black);
 
         }
         if (txtUserName.getText().isEmpty()) {
@@ -419,7 +471,7 @@ public class PnlUpdate extends javax.swing.JPanel {
             txtCurrentSalary.setForeground(Color.gray);
 
         }
-    }//GEN-LAST:event_txtPasswordMousePressed
+    }//GEN-LAST:event_pflOldPasswordMousePressed
 
     private void txtUserNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUserNameMousePressed
         if (txtUserName.getText().equals("UserName")) {
@@ -434,9 +486,9 @@ public class PnlUpdate extends javax.swing.JPanel {
             txtCurrentSalary.setForeground(Color.gray);
 
         }
-        if (String.valueOf(txtPassword.getPassword()).isEmpty()) {
-            txtPassword.setText("***************");
-            txtPassword.setForeground(Color.gray);
+        if (String.valueOf(pflOldPassword.getPassword()).isEmpty()) {
+            pflOldPassword.setText("***************");
+            pflOldPassword.setForeground(Color.gray);
 
         }
         if (txtEmail.getText().isEmpty()) {
@@ -494,7 +546,7 @@ public class PnlUpdate extends javax.swing.JPanel {
         validateFields();
     }//GEN-LAST:event_txtEmailKeyReleased
 
-    private void txtPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyReleased
+    private void pflOldPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pflOldPasswordKeyReleased
         if (txtUserName.getText().equals("UserName")) {
             lbWarningUser.setText("this area is required");
             pictureWarningUser();
@@ -510,7 +562,7 @@ public class PnlUpdate extends javax.swing.JPanel {
             pictureWhiteSalary();
         }
         validateFields();
-    }//GEN-LAST:event_txtPasswordKeyReleased
+    }//GEN-LAST:event_pflOldPasswordKeyReleased
 
     private void txtCurrentSalaryKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCurrentSalaryKeyReleased
         if (txtUserName.getText().equals("UserName")) {
@@ -544,20 +596,43 @@ public class PnlUpdate extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCurrentSalaryKeyTyped
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-     int option = JOptionPane.showConfirmDialog(this, "Do you want to update ?");        
+     int option = JOptionPane.showConfirmDialog(this, "Do you want to update ?");      
+     if (option == 0){
+         String userName = txtUserName.getText();
+         String email = txtEmail.getText();
+         float currentSalary = Float.parseFloat(txtCurrentSalary.getText());
+         String password = pflOldPassword.getText();
+         User user = new User(1, userName, email, password, currentSalary);
+         Registration.updateUser(user, 1); 
+     }
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void pflPasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pflPasswordMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pflPasswordMousePressed
+
+    private void pflPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pflPasswordKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pflPasswordKeyReleased
+
+    private void btnConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConfirmPasswordActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfirmPassword;
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JLabel lbValidateCurrentSPicture;
     private javax.swing.JLabel lbValidateEmailPicture;
     private javax.swing.JLabel lbValidatePassPicture;
@@ -566,9 +641,10 @@ public class PnlUpdate extends javax.swing.JPanel {
     private javax.swing.JLabel lbWarningEmail;
     private javax.swing.JLabel lbWarningPass;
     private javax.swing.JLabel lbWarningUser;
+    private javax.swing.JPasswordField pflOldPassword;
+    private javax.swing.JPasswordField pflPassword;
     private javax.swing.JTextField txtCurrentSalary;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
 }
