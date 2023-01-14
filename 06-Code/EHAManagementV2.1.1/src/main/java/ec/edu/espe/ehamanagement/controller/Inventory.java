@@ -37,11 +37,12 @@ public class Inventory {
         values.add(product.getQuantity());
         return values;
     }
-    public static void insertProduct(Product product){
+    public static boolean insertProduct(Product product){
         MongoCollection productsCollection = createConnectionToCollection();
         ArrayList keys = getKeysToInsert();
         ArrayList values = getValuesToInsert(product);
         MongoDbManager.insert(productsCollection, keys, values);
+        return true;
     }
     
     public static int assignIdToProduct(){
@@ -66,14 +67,15 @@ public class Inventory {
         foundValue = MongoDbManager.findValue(productsCollection, "id",id, key);
         return foundValue;
     }
-    public static ArrayList readDatabase(String key){
+    public static ArrayList readAll(String key){
         MongoCollection productsCollection = createConnectionToCollection();
         ArrayList productsIds;
         productsIds = MongoDbManager.readAll(productsCollection, key);
         return productsIds;
     }
     
-    public static void updateProduct(Product product, int id){
+    public static boolean updateProduct(Product product){
+        int id = product.getId();
         MongoCollection productsCollection = createConnectionToCollection();
         MongoDbManager.update(productsCollection, id, "name", product.getName());
         MongoDbManager.update(productsCollection, id, "description", product.getDescription());
@@ -81,6 +83,7 @@ public class Inventory {
         MongoDbManager.update(productsCollection, id, "workingTime", product.getWorkingTime());
         MongoDbManager.update(productsCollection, id, "materialsIds", product.getMaterialsIds());
         MongoDbManager.update(productsCollection, id, "materialsQuantities", product.getMaterialsQuantities());
+        return true;
     }
     public static MongoCollection createConnectionToCollection(){
         String uri = "mongodb+srv://oop:oop@cluster0.og4urrq.mongodb.net/?retryWrites=true&w=majority";

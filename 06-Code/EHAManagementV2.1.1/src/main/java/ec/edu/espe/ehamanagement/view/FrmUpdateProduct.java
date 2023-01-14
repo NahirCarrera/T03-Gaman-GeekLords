@@ -362,7 +362,7 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
         if(validateTxt(name) && !name.equals("") ){
             Product productToAdd;  
             productToAdd = collectInformation();
-            Inventory.updateProduct(productToAdd, idToUpdate);
+            Inventory.updateProduct(productToAdd);
             CostCalculator.calculateTotalProductProductionCost(productToAdd);
             JOptionPane.showMessageDialog(this,"Product added successfully :)", "Saved", JOptionPane.PLAIN_MESSAGE);
             cleanFields();
@@ -412,7 +412,7 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
         idToUpdate = id;
     } 
     private Product collectInformation(){
-        int id = 0;
+        int id = idToUpdate;
         String name = txtName.getText();
         float productionCost = 0.0F;
         String description = txtADescription.getText();

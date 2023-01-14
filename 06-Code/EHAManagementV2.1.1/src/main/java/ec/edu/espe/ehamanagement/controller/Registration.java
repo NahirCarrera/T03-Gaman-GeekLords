@@ -29,11 +29,12 @@ public class Registration {
         return values;
     }
     
-    public static void insertUser(User user){
+    public static boolean insertUser(User user){
         MongoCollection userCollection = createConnectionToCollection();
         ArrayList keys = getKeysToInsert();
         ArrayList values = getValuesToInsert(user);
         MongoDbManager.insert(userCollection, keys, values);
+        return true;
     }
     
   
@@ -48,12 +49,12 @@ public class Registration {
     }
     
     
-    public static boolean updateUser(User user, int id){
+    public static boolean updateUser(User user){
         MongoCollection userCollection = createConnectionToCollection();
-        MongoDbManager.update(userCollection, id, "userName", user.getUserName());
-        MongoDbManager.update(userCollection, id, "email", user.getEmail());
-        MongoDbManager.update(userCollection, id, "password", user.getPassword());
-        MongoDbManager.update(userCollection, id, "currentSalary", user.getCurrentSalary());
+        MongoDbManager.update(userCollection, 1, "userName", user.getUserName());
+        MongoDbManager.update(userCollection, 1, "email", user.getEmail());
+        MongoDbManager.update(userCollection, 1, "password", user.getPassword());
+        MongoDbManager.update(userCollection, 1, "currentSalary", user.getCurrentSalary());
         return true;
     }
     

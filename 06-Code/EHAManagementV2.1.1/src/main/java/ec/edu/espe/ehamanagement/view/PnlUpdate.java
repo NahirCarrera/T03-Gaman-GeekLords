@@ -675,7 +675,7 @@ public class PnlUpdate extends javax.swing.JPanel {
          float currentSalary = Float.parseFloat(txtCurrentSalary.getText());
          String password = pflPassword.getText();
          User user = new User(1, userName, email, password, currentSalary);
-         if(Registration.updateUser(user, 1)){
+         if(Registration.updateUser(user)){
              JOptionPane.showMessageDialog(this,"Your changes  have been successfully saved!", "Updated successfully", JOptionPane.INFORMATION_MESSAGE);
          }else{
              JOptionPane.showMessageDialog(this,"An error occured updating your changes", "Updated failed", JOptionPane.ERROR_MESSAGE);
