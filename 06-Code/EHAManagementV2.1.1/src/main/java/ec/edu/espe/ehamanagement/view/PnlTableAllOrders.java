@@ -1,18 +1,66 @@
 package ec.edu.espe.ehamanagement.view;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author NicolayChillo Gaman GeekLords at DCOO-ESPE
  */
 public class PnlTableAllOrders extends javax.swing.JPanel {
-
+        DefaultTableModel model;
     /**
      * Creates new form PnlTableAllOrders
      */
     public PnlTableAllOrders() {
         initComponents();
+                
+        model =  new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Client Name");
+        model.addColumn("Delivery Date");
+        model.addColumn("Delivered");
+        this.tblAllOrders.setModel(model);
+        refreshInfo();
     }
+    private void cleanTable(){
+        int row =  tblAllOrders.getRowCount();
+        for(int i = row - 1; i >=0 ; i--){
+            model.removeRow(i);    
+        }
+    }
+    
+    private void initPnlOptionTables(boolean visible){
+        rabtnAllOrders.setVisible(visible);
+        rabtnDeliveredOrders.setVisible(visible);
+        rabtnPendingOrders.setVisible(visible);
+        btnRefresh.setVisible(visible);
 
+    }
+    
+    private void refreshInfo(){
+        String[] information1 = new String[4];
+                information1[0] = "1";
+                information1[1] = "Client 1 Name";
+                information1[2] = "12/02/23";
+                information1[3] = "No";
+        String[] information2 = new String[4];
+                information2[0] = "2";
+                information2[1] = "Client 2 Name";
+                information2[2] = "13/03/23";
+                information2[3] = "Yes";
+        if(rabtnAllOrders.isSelected()){
+            cleanTable();
+            model.addRow(information1);
+            model.addRow(information2);
+        }else if (rabtnDeliveredOrders.isSelected()){
+            cleanTable();
+            model.addRow(information2);
+        }else if(rabtnPendingOrders.isSelected()){
+            cleanTable();
+            model.addRow(information1);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -22,37 +70,66 @@ public class PnlTableAllOrders extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         PnlTableAllOrders = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TbAllOrders = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        tblAllOrders = new javax.swing.JTable();
+        tblTableTitle = new javax.swing.JLabel();
+        rabtnAllOrders = new javax.swing.JRadioButton();
+        rabtnDeliveredOrders = new javax.swing.JRadioButton();
+        rabtnPendingOrders = new javax.swing.JRadioButton();
+        btnRefresh = new javax.swing.JButton();
 
-        PnlTableAllOrders.setBackground(new java.awt.Color(252, 154, 11));
+        PnlTableAllOrders.setBackground(new java.awt.Color(255, 255, 255));
+        PnlTableAllOrders.setPreferredSize(new java.awt.Dimension(70, 650));
 
-        TbAllOrders.setBackground(new java.awt.Color(255, 229, 11));
-        TbAllOrders.setModel(new javax.swing.table.DefaultTableModel(
+        tblAllOrders.setBackground(new java.awt.Color(255, 199, 39));
+        tblAllOrders.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        tblAllOrders.setForeground(new java.awt.Color(0, 0, 0));
+        tblAllOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "Client Name", "Delivered Date", "Delivered"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+        ));
+        tblAllOrders.setMaximumSize(new java.awt.Dimension(452, 468));
+        tblAllOrders.setPreferredSize(new java.awt.Dimension(452, 468));
+        jScrollPane1.setViewportView(tblAllOrders);
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        tblTableTitle.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        tblTableTitle.setText("All orders");
+
+        rabtnAllOrders.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rabtnAllOrders);
+        rabtnAllOrders.setForeground(new java.awt.Color(126, 53, 2));
+        rabtnAllOrders.setSelected(true);
+        rabtnAllOrders.setText("All Orders");
+        rabtnAllOrders.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        rabtnDeliveredOrders.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rabtnDeliveredOrders);
+        rabtnDeliveredOrders.setForeground(new java.awt.Color(126, 53, 2));
+        rabtnDeliveredOrders.setText("Delivered Orders");
+
+        rabtnPendingOrders.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rabtnPendingOrders);
+        rabtnPendingOrders.setForeground(new java.awt.Color(126, 53, 2));
+        rabtnPendingOrders.setText("Pending Orders");
+
+        btnRefresh.setBackground(new java.awt.Color(183, 96, 9));
+        btnRefresh.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefresh.setText("Refresh");
+        btnRefresh.setBorder(null);
+        btnRefresh.setBorderPainted(false);
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
             }
         });
-        jScrollPane1.setViewportView(TbAllOrders);
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel2.setText("AGENDA 1");
 
         javax.swing.GroupLayout PnlTableAllOrdersLayout = new javax.swing.GroupLayout(PnlTableAllOrders);
         PnlTableAllOrders.setLayout(PnlTableAllOrdersLayout);
@@ -61,44 +138,65 @@ public class PnlTableAllOrders extends javax.swing.JPanel {
             .addGroup(PnlTableAllOrdersLayout.createSequentialGroup()
                 .addGroup(PnlTableAllOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PnlTableAllOrdersLayout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addGroup(PnlTableAllOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PnlTableAllOrdersLayout.createSequentialGroup()
+                                .addComponent(rabtnAllOrders)
+                                .addGap(18, 18, 18)
+                                .addComponent(rabtnDeliveredOrders)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rabtnPendingOrders)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(PnlTableAllOrdersLayout.createSequentialGroup()
-                        .addGap(255, 255, 255)
-                        .addComponent(jLabel2)))
-                .addContainerGap(376, Short.MAX_VALUE))
+                        .addGap(136, 136, 136)
+                        .addComponent(tblTableTitle)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PnlTableAllOrdersLayout.setVerticalGroup(
             PnlTableAllOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlTableAllOrdersLayout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE)
+                .addComponent(tblTableTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PnlTableAllOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlTableAllOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(rabtnDeliveredOrders)
+                        .addComponent(rabtnAllOrders)
+                        .addComponent(rabtnPendingOrders))
+                    .addComponent(btnRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(PnlTableAllOrders, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(PnlTableAllOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(PnlTableAllOrders, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(PnlTableAllOrders, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        refreshInfo();
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PnlTableAllOrders;
-    private javax.swing.JTable TbAllOrders;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JRadioButton rabtnAllOrders;
+    public javax.swing.JRadioButton rabtnDeliveredOrders;
+    public javax.swing.JRadioButton rabtnPendingOrders;
+    public javax.swing.JTable tblAllOrders;
+    public javax.swing.JLabel tblTableTitle;
     // End of variables declaration//GEN-END:variables
 }

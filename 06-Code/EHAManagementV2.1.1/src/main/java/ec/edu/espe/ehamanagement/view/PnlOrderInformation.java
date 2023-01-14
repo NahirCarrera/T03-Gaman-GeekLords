@@ -27,61 +27,71 @@ public class PnlOrderInformation extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TxtADescription = new javax.swing.JTextArea();
+        txtADescription = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
-        CbxMonthDelivery = new javax.swing.JComboBox<>();
-        CbxDayDelivery = new javax.swing.JComboBox<>();
-        CbxYearDelivery = new javax.swing.JComboBox<>();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        rabtnDelivered = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
-        TxtClientName = new javax.swing.JTextField();
-        TextDeliveryPlace = new javax.swing.JTextField();
+        txtClientName = new javax.swing.JTextField();
+        txtDeliveryPlace = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        txtDeliveryDate = new javax.swing.JTextField();
+        jSeparator4 = new javax.swing.JSeparator();
 
-        PnlOrderInformation.setBackground(new java.awt.Color(252, 154, 11));
+        PnlOrderInformation.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 60)); // NOI18N
-        jLabel2.setText("ORDER");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 60)); // NOI18N
+        jLabel2.setText("Order");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Client Name :");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Description :");
 
-        TxtADescription.setBackground(new java.awt.Color(255, 229, 11));
-        TxtADescription.setColumns(20);
-        TxtADescription.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        TxtADescription.setRows(5);
-        TxtADescription.setBorder(null);
-        jScrollPane1.setViewportView(TxtADescription);
+        txtADescription.setBackground(new java.awt.Color(255, 255, 255));
+        txtADescription.setColumns(20);
+        txtADescription.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtADescription.setRows(5);
+        txtADescription.setText("Product's description");
+        txtADescription.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(80, 22, 2), 2, true));
+        txtADescription.setEnabled(false);
+        jScrollPane1.setViewportView(txtADescription);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Delivery Date");
 
-        CbxMonthDelivery.setBackground(new java.awt.Color(255, 229, 11));
-        CbxMonthDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "Dicember" }));
-        CbxMonthDelivery.setBorder(null);
+        rabtnDelivered.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        rabtnDelivered.setText("Delivered");
+        rabtnDelivered.setBorder(null);
+        rabtnDelivered.setEnabled(false);
 
-        CbxDayDelivery.setBackground(new java.awt.Color(255, 229, 11));
-        CbxDayDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-        CbxDayDelivery.setBorder(null);
-
-        CbxYearDelivery.setBackground(new java.awt.Color(255, 229, 11));
-        CbxYearDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
-        CbxYearDelivery.setBorder(null);
-
-        jRadioButton1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jRadioButton1.setText("Delivered");
-        jRadioButton1.setBorder(null);
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Delivery Place : ");
 
-        TxtClientName.setBackground(new java.awt.Color(255, 229, 11));
-        TxtClientName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtClientName.setBackground(new java.awt.Color(255, 255, 255));
+        txtClientName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtClientName.setText("client's  name");
+        txtClientName.setBorder(null);
+        txtClientName.setEnabled(false);
 
-        TextDeliveryPlace.setBackground(new java.awt.Color(255, 229, 11));
-        TextDeliveryPlace.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtDeliveryPlace.setBackground(new java.awt.Color(255, 255, 255));
+        txtDeliveryPlace.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtDeliveryPlace.setText("216 Newbury Street");
+        txtDeliveryPlace.setBorder(null);
+        txtDeliveryPlace.setEnabled(false);
+
+        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
+
+        jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
+
+        txtDeliveryDate.setBackground(new java.awt.Color(255, 255, 255));
+        txtDeliveryDate.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtDeliveryDate.setText("Delvery date");
+        txtDeliveryDate.setBorder(null);
+        txtDeliveryDate.setEnabled(false);
+
+        jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout PnlOrderInformationLayout = new javax.swing.GroupLayout(PnlOrderInformation);
         PnlOrderInformation.setLayout(PnlOrderInformationLayout);
@@ -90,63 +100,64 @@ public class PnlOrderInformation extends javax.swing.JPanel {
             .addGroup(PnlOrderInformationLayout.createSequentialGroup()
                 .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap()
+                        .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(PnlOrderInformationLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TxtClientName, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(31, 31, 31)
+                                .addComponent(txtClientName, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                                .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(CbxMonthDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                                        .addComponent(CbxDayDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(CbxYearDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(TextDeliveryPlace)))))
+                                    .addComponent(txtDeliveryPlace, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(rabtnDelivered, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                                        .addComponent(txtDeliveryDate))))))
                     .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(jLabel2))
-                    .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(374, Short.MAX_VALUE))
+                        .addGap(132, 132, 132)
+                        .addComponent(jLabel2)))
+                .addContainerGap(368, Short.MAX_VALUE))
         );
         PnlOrderInformationLayout.setVerticalGroup(
             PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PnlOrderInformationLayout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
                 .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(TxtClientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtClientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
                 .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CbxMonthDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CbxDayDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CbxYearDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(jLabel1)
+                    .addComponent(txtDeliveryDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(TextDeliveryPlace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(jRadioButton1)
-                .addGap(18, 18, 18)
+                    .addComponent(txtDeliveryPlace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(rabtnDelivered)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -163,19 +174,20 @@ public class PnlOrderInformation extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CbxDayDelivery;
-    private javax.swing.JComboBox<String> CbxMonthDelivery;
-    private javax.swing.JComboBox<String> CbxYearDelivery;
     private javax.swing.JPanel PnlOrderInformation;
-    private javax.swing.JTextField TextDeliveryPlace;
-    private javax.swing.JTextArea TxtADescription;
-    private javax.swing.JTextField TxtClientName;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    public javax.swing.JRadioButton rabtnDelivered;
+    public javax.swing.JTextArea txtADescription;
+    public javax.swing.JTextField txtClientName;
+    public javax.swing.JTextField txtDeliveryDate;
+    private javax.swing.JTextField txtDeliveryPlace;
     // End of variables declaration//GEN-END:variables
 }

@@ -27,7 +27,7 @@ public class PnlTablePendingOrders extends javax.swing.JPanel {
         TbAllOrders = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
 
-        PnlTableAllOrders.setBackground(new java.awt.Color(252, 154, 11));
+        PnlTableAllOrders.setBackground(new java.awt.Color(255, 255, 255));
 
         TbAllOrders.setBackground(new java.awt.Color(255, 229, 11));
         TbAllOrders.setModel(new javax.swing.table.DefaultTableModel(
@@ -51,8 +51,8 @@ public class PnlTablePendingOrders extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(TbAllOrders);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel2.setText("AGENDA 3");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel2.setText("Pending orders");
 
         javax.swing.GroupLayout PnlTableAllOrdersLayout = new javax.swing.GroupLayout(PnlTableAllOrders);
         PnlTableAllOrders.setLayout(PnlTableAllOrdersLayout);
@@ -61,19 +61,19 @@ public class PnlTablePendingOrders extends javax.swing.JPanel {
             .addGroup(PnlTableAllOrdersLayout.createSequentialGroup()
                 .addGroup(PnlTableAllOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PnlTableAllOrdersLayout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PnlTableAllOrdersLayout.createSequentialGroup()
-                        .addGap(255, 255, 255)
+                        .addGap(111, 111, 111)
                         .addComponent(jLabel2)))
-                .addContainerGap(376, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PnlTableAllOrdersLayout.setVerticalGroup(
             PnlTableAllOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlTableAllOrdersLayout.createSequentialGroup()
-                .addGap(68, 68, 68)
+                .addGap(74, 74, 74)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(61, Short.MAX_VALUE))
         );
@@ -82,13 +82,14 @@ public class PnlTablePendingOrders extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(PnlTableAllOrders, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(PnlTableAllOrders, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
