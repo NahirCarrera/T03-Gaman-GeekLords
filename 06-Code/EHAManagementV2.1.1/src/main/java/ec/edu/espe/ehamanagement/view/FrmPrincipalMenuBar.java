@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.ehamanagement.view;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
@@ -22,6 +18,7 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
     {
         initComponents();
         InitContent();
+        initAgendaMenuOption();
     }
     
 
@@ -35,80 +32,98 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
         PnlAbout pnlAbout = new PnlAbout();
         pnlAbout.setSize(932,525);
         pnlAbout.setLocation(0,0);
-        pnlContent.removeAll();
-        pnlContent.add(pnlAbout, BorderLayout.CENTER);
-        pnlContent.revalidate();
-        pnlContent.repaint();
+        PnlWindow.removeAll();
+        PnlWindow.add(pnlAbout, BorderLayout.CENTER);
+        PnlWindow.revalidate();
+        PnlWindow.repaint();
+    }
+    private void initAgendaMenuOption(){
+        PnlAgendaMenuOption pnlAgendaMenuOption = new PnlAgendaMenuOption();
+        pnlAgendaMenuOption.setSize(1000,650);
+        pnlAgendaMenuOption.setLocation(0,0);
+        PnlWindow.removeAll();
+        PnlWindow.add(pnlAgendaMenuOption, pnlAgendaMenuOption);
+        PnlWindow.revalidate();
+        PnlWindow.repaint();    
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlContent = new javax.swing.JPanel();
+        PnlWindow = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
+        MnEHA = new javax.swing.JMenu();
+        MnProfile = new javax.swing.JMenu();
+        MnInventory = new javax.swing.JMenu();
+        MnAgenda = new javax.swing.JMenu();
+        MnMaterialsOrganizer = new javax.swing.JMenu();
+        MnReport = new javax.swing.JMenu();
+        MnHelp = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        pnlContent.setBackground(new java.awt.Color(255, 255, 255));
-        pnlContent.setPreferredSize(new java.awt.Dimension(929, 470));
+        PnlWindow.setBackground(new java.awt.Color(255, 255, 255));
+        PnlWindow.setPreferredSize(new java.awt.Dimension(929, 470));
 
-        javax.swing.GroupLayout pnlContentLayout = new javax.swing.GroupLayout(pnlContent);
-        pnlContent.setLayout(pnlContentLayout);
-        pnlContentLayout.setHorizontalGroup(
-            pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout PnlWindowLayout = new javax.swing.GroupLayout(PnlWindow);
+        PnlWindow.setLayout(PnlWindowLayout);
+        PnlWindowLayout.setHorizontalGroup(
+            PnlWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 996, Short.MAX_VALUE)
         );
-        pnlContentLayout.setVerticalGroup(
-            pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 623, Short.MAX_VALUE)
+        PnlWindowLayout.setVerticalGroup(
+            PnlWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 624, Short.MAX_VALUE)
         );
 
         jMenuBar1.setBackground(new java.awt.Color(0, 0, 153));
 
-        jMenu1.setText("Entre Hilos & Algodon");
-        jMenu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+        MnEHA.setText("Entre Hilos & Algodon");
+        MnEHA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MnEHA.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu1MouseClicked(evt);
+                MnEHAMouseClicked(evt);
             }
         });
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+        MnEHA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
+                MnEHAActionPerformed(evt);
             }
         });
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(MnEHA);
 
-        jMenu2.setText("Profile");
-        jMenu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+        MnProfile.setText("Profile");
+        MnProfile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MnProfile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu2MouseClicked(evt);
+                MnProfileMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(MnProfile);
 
-        jMenu3.setText("Inventory");
-        jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuBar1.add(jMenu3);
+        MnInventory.setText("Inventory");
+        MnInventory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuBar1.add(MnInventory);
 
-        jMenu4.setText("Agenda");
-        jMenu4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuBar1.add(jMenu4);
+        MnAgenda.setText("Agenda");
+        MnAgenda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MnAgenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MnAgendaMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(MnAgenda);
 
-        jMenu5.setText("Materials Organizer");
-        jMenu5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuBar1.add(jMenu5);
+        MnMaterialsOrganizer.setText("Materials Organizer");
+        MnMaterialsOrganizer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuBar1.add(MnMaterialsOrganizer);
 
-        jMenu6.setText("Help");
-        jMenu6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuBar1.add(jMenu6);
+        MnReport.setText("Report");
+        jMenuBar1.add(MnReport);
+
+        MnHelp.setText("Help");
+        MnHelp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuBar1.add(MnHelp);
 
         setJMenuBar(jMenuBar1);
 
@@ -117,31 +132,35 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, 996, Short.MAX_VALUE)
+                .addComponent(PnlWindow, javax.swing.GroupLayout.DEFAULT_SIZE, 996, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlContent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
+            .addComponent(PnlWindow, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+    private void MnEHAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnEHAActionPerformed
         
-    }//GEN-LAST:event_jMenu1ActionPerformed
+    }//GEN-LAST:event_MnEHAActionPerformed
 
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+    private void MnEHAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MnEHAMouseClicked
         InitContent();
-    }//GEN-LAST:event_jMenu1MouseClicked
+    }//GEN-LAST:event_MnEHAMouseClicked
 
-    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+    private void MnProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MnProfileMouseClicked
         this.setVisible(false);
         FrmProfile frmProfile = new FrmProfile();
         frmProfile.setVisible(true);
-    }//GEN-LAST:event_jMenu2MouseClicked
+    }//GEN-LAST:event_MnProfileMouseClicked
+
+    private void MnAgendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MnAgendaMouseClicked
+        initAgendaMenuOption();
+    }//GEN-LAST:event_MnAgendaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -159,13 +178,14 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu MnAgenda;
+    private javax.swing.JMenu MnEHA;
+    private javax.swing.JMenu MnHelp;
+    private javax.swing.JMenu MnInventory;
+    private javax.swing.JMenu MnMaterialsOrganizer;
+    private javax.swing.JMenu MnProfile;
+    private javax.swing.JMenu MnReport;
+    private javax.swing.JPanel PnlWindow;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel pnlContent;
     // End of variables declaration//GEN-END:variables
 }
