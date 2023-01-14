@@ -27,7 +27,7 @@ public class PnlTableDeliveredOrders extends javax.swing.JPanel {
         TbAllOrders = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
 
-        PnlTableAllOrders.setBackground(new java.awt.Color(252, 154, 11));
+        PnlTableAllOrders.setBackground(new java.awt.Color(255, 255, 255));
 
         TbAllOrders.setBackground(new java.awt.Color(255, 229, 11));
         TbAllOrders.setModel(new javax.swing.table.DefaultTableModel(
@@ -51,22 +51,21 @@ public class PnlTableDeliveredOrders extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(TbAllOrders);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel2.setText("AGENDA 2");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel2.setText("Delivered Oders");
 
         javax.swing.GroupLayout PnlTableAllOrdersLayout = new javax.swing.GroupLayout(PnlTableAllOrders);
         PnlTableAllOrders.setLayout(PnlTableAllOrdersLayout);
         PnlTableAllOrdersLayout.setHorizontalGroup(
             PnlTableAllOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PnlTableAllOrdersLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addGroup(PnlTableAllOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(PnlTableAllOrdersLayout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PnlTableAllOrdersLayout.createSequentialGroup()
-                        .addGap(255, 255, 255)
+                        .addGap(91, 91, 91)
                         .addComponent(jLabel2)))
-                .addContainerGap(376, Short.MAX_VALUE))
+                .addContainerGap(527, Short.MAX_VALUE))
         );
         PnlTableAllOrdersLayout.setVerticalGroup(
             PnlTableAllOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
