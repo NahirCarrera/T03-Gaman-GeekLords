@@ -1,5 +1,7 @@
 package ec.edu.espe.ehamanagement.view;
 
+import java.awt.Color;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,6 +15,67 @@ public class PnlOrderInformation extends javax.swing.JPanel {
      */
     public PnlOrderInformation() {
         initComponents();
+        btnSave.setEnabled(false);
+    }
+    public void validateDates()
+    {
+        if(txtDeliveryPlace.getText().equals("216 Newbury Street"))
+        {
+            lblTextWrningPlace.setText("this area is requerid");
+            pictureWarningPlace();
+        }
+        else
+        {
+            pictureWhitePlace();
+            lblTextWrningPlace.setText("");
+        }
+        
+        if(txtADescription.getText().equals("Product's description"))
+        {
+            pictureWarningDescription();
+        }
+        else
+        {
+            pictureWhiteDescription();
+        }
+        if(txtDeliveryPlace.getText().equals("216 Newbury Street")|| txtADescription.getText().equals("Product's description")|| txtADescription.getText().isEmpty()||txtClientName.getText().equals("client's  name")
+            || txtDeliveryPlace.getText().isEmpty()|| txtClientName.getText().isEmpty())
+        {
+            btnSave.setEnabled(false);
+        }
+        else
+        {
+            btnSave.setEnabled(true);
+        }
+    }
+     
+
+    public void pictureWarningDescription() {
+        lblPictureWrningDes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
+        lblPictureWrningDes.setText("");
+    }
+
+    public void pictureWhiteDescription() {
+        lblPictureWrningDes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
+        lblPictureWrningDes.setText("");
+    }
+     public void pictureWarningClient() {
+        lblpictureWarningClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
+        lblpictureWarningClient.setText("");
+    }
+
+    public void pictureWhiteClient() {
+        lblpictureWarningClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
+        lblpictureWarningClient.setText("");
+    }
+    public void pictureWarningPlace() {
+        lblPictureWarningPalce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
+        lblPictureWarningPalce.setText("");
+    }
+
+    public void pictureWhitePlace() {
+        lblPictureWarningPalce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
+        lblPictureWarningPalce.setText("");
     }
     
     private void UpdateOrder(boolean active){
@@ -25,9 +88,9 @@ public class PnlOrderInformation extends javax.swing.JPanel {
         txtADescription.setEnabled(active);
         btnUpdate.setEnabled(!active);
         btnDelete.setEnabled(!active);
-        btnSave.setEnabled(active);
+        
     }
- 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,6 +122,11 @@ public class PnlOrderInformation extends javax.swing.JPanel {
         cbxMonthDelivery = new javax.swing.JComboBox<>();
         cbxDayDelivery = new javax.swing.JComboBox<>();
         cbxYearDelivery = new javax.swing.JComboBox<>();
+        lblpictureWarningClient = new javax.swing.JLabel();
+        lblTextClient = new javax.swing.JLabel();
+        lblPictureWarningPalce = new javax.swing.JLabel();
+        lblTextWrningPlace = new javax.swing.JLabel();
+        lblPictureWrningDes = new javax.swing.JLabel();
 
         PnlOrderInformation.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -68,13 +136,22 @@ public class PnlOrderInformation extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jLabel4.setText("Description :");
 
-        txtADescription.setBackground(new java.awt.Color(255, 255, 255));
         txtADescription.setColumns(20);
         txtADescription.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtADescription.setRows(5);
         txtADescription.setText("Product's description");
         txtADescription.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(80, 22, 2), 2, true));
         txtADescription.setEnabled(false);
+        txtADescription.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtADescriptionMousePressed(evt);
+            }
+        });
+        txtADescription.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtADescriptionKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(txtADescription);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
@@ -83,17 +160,38 @@ public class PnlOrderInformation extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jLabel5.setText("Delivery Place ");
 
-        txtClientName.setBackground(new java.awt.Color(255, 255, 255));
         txtClientName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtClientName.setText("client's  name");
         txtClientName.setBorder(null);
         txtClientName.setEnabled(false);
+        txtClientName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtClientNameMousePressed(evt);
+            }
+        });
+        txtClientName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtClientNameKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtClientNameKeyTyped(evt);
+            }
+        });
 
-        txtDeliveryPlace.setBackground(new java.awt.Color(255, 255, 255));
         txtDeliveryPlace.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtDeliveryPlace.setText("216 Newbury Street");
         txtDeliveryPlace.setBorder(null);
         txtDeliveryPlace.setEnabled(false);
+        txtDeliveryPlace.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtDeliveryPlaceMousePressed(evt);
+            }
+        });
+        txtDeliveryPlace.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDeliveryPlaceKeyReleased(evt);
+            }
+        });
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -175,23 +273,31 @@ public class PnlOrderInformation extends javax.swing.JPanel {
             }
         });
 
-        cbxMonthDelivery.setBackground(new java.awt.Color(255, 255, 255));
         cbxMonthDelivery.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbxMonthDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "Dicember" }));
         cbxMonthDelivery.setBorder(null);
         cbxMonthDelivery.setEnabled(false);
 
-        cbxDayDelivery.setBackground(new java.awt.Color(255, 255, 255));
         cbxDayDelivery.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbxDayDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
         cbxDayDelivery.setBorder(null);
         cbxDayDelivery.setEnabled(false);
 
-        cbxYearDelivery.setBackground(new java.awt.Color(255, 255, 255));
         cbxYearDelivery.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbxYearDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
         cbxYearDelivery.setBorder(null);
         cbxYearDelivery.setEnabled(false);
+
+        lblpictureWarningClient.setText("jLabel6");
+
+        lblTextClient.setText("jLabel7");
+
+        lblPictureWarningPalce.setText("2");
+
+        lblTextWrningPlace.setForeground(new java.awt.Color(255, 0, 0));
+        lblTextWrningPlace.setText("1");
+
+        lblPictureWrningDes.setText("jLabel6");
 
         javax.swing.GroupLayout PnlOrderInformationLayout = new javax.swing.GroupLayout(PnlOrderInformation);
         PnlOrderInformation.setLayout(PnlOrderInformationLayout);
@@ -199,32 +305,47 @@ public class PnlOrderInformation extends javax.swing.JPanel {
             PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PnlOrderInformationLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
-                    .addComponent(jLabel5)
+                .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSave)
-                        .addGap(14, 14, 14))
-                    .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                        .addComponent(txtClientName)
-                        .addGap(80, 80, 80))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chbxDelivered)
-                    .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PnlOrderInformationLayout.createSequentialGroup()
-                            .addComponent(cbxMonthDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                            .addComponent(cbxDayDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(26, 26, 26)
-                            .addComponent(cbxYearDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtDeliveryPlace, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                                .addComponent(jLabel5)
+                                .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnSave)
+                                    .addGap(14, 14, 14))
+                                .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                                    .addComponent(txtClientName)
+                                    .addGap(80, 80, 80))
+                                .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(37, 37, 37))
+                                .addComponent(chbxDelivered)
+                                .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                                    .addComponent(cbxMonthDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                                    .addComponent(cbxDayDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(26, 26, 26)
+                                    .addComponent(cbxYearDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jSeparator3)
+                                .addComponent(txtDeliveryPlace)
+                                .addComponent(jSeparator4)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jSeparator2))
+                            .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                                .addComponent(lblpictureWarningClient)
+                                .addGap(30, 30, 30)
+                                .addComponent(lblTextClient, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                                .addComponent(lblPictureWarningPalce)
+                                .addGap(22, 22, 22)
+                                .addComponent(lblTextWrningPlace, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlOrderInformationLayout.createSequentialGroup()
+                        .addComponent(lblPictureWrningDes)
+                        .addGap(31, 31, 31)))
                 .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -247,7 +368,11 @@ public class PnlOrderInformation extends javax.swing.JPanel {
                         .addComponent(txtClientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblpictureWarningClient)
+                            .addComponent(lblTextClient))
+                        .addGap(5, 5, 5)
                         .addComponent(jLabel1)
                         .addGap(4, 4, 4)
                         .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -262,10 +387,15 @@ public class PnlOrderInformation extends javax.swing.JPanel {
                         .addComponent(txtDeliveryPlace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
+                        .addGap(1, 1, 1)
+                        .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPictureWarningPalce)
+                            .addComponent(lblTextWrningPlace))
+                        .addGap(1, 1, 1)
                         .addComponent(chbxDelivered)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4))
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(PnlOrderInformationLayout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -274,6 +404,8 @@ public class PnlOrderInformation extends javax.swing.JPanel {
                 .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlOrderInformationLayout.createSequentialGroup()
+                        .addComponent(lblPictureWrningDes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
@@ -302,6 +434,109 @@ public class PnlOrderInformation extends javax.swing.JPanel {
         JOptionPane.showConfirmDialog(this,"Are you sure you want to delete this order?", "Delete Order", JOptionPane.YES_NO_OPTION);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void txtClientNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtClientNameMousePressed
+        if(txtClientName.getText().equals("client's  name"))
+        {
+            txtClientName.setText("");
+            txtClientName.setForeground(Color.black);
+        }
+        if(txtDeliveryPlace.getText().isEmpty())
+        {
+            txtDeliveryPlace.setText("216 Newbury Street");
+            txtDeliveryPlace.setForeground(Color.gray);
+        }
+        if(txtADescription.getText().isEmpty())
+        {
+            txtADescription.setText("Product's description");
+            txtADescription.setForeground(Color.gray);
+        }
+        
+    }//GEN-LAST:event_txtClientNameMousePressed
+
+    private void txtDeliveryPlaceMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDeliveryPlaceMousePressed
+        if(txtDeliveryPlace.getText().equals("216 Newbury Street"))
+        {
+            txtDeliveryPlace.setText("");
+            txtDeliveryPlace.setForeground(Color.black);
+        }
+        if(txtClientName.getText().isEmpty())
+        {
+            txtClientName.setText("client's  name");
+            txtClientName.setForeground(Color.gray);
+        }
+        
+        if(txtADescription.getText().isEmpty())
+        {
+            txtADescription.setText("Product's description");
+            txtADescription.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtDeliveryPlaceMousePressed
+
+    private void txtADescriptionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtADescriptionMousePressed
+       if(txtADescription.getText().equals("Product's description"))
+        {
+            txtADescription.setText("");
+            txtADescription.setForeground(Color.black);
+        }  
+        if(txtDeliveryPlace.getText().isEmpty())
+        {
+            txtDeliveryPlace.setText("216 Newbury Street");
+            txtDeliveryPlace.setForeground(Color.gray);
+        }
+        
+        if(txtClientName.getText().isEmpty())
+        {
+            txtClientName.setText("client's  name");
+            txtClientName.setForeground(Color.gray);
+        }
+        
+        
+    }//GEN-LAST:event_txtADescriptionMousePressed
+
+    private void txtClientNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClientNameKeyReleased
+        
+    }//GEN-LAST:event_txtClientNameKeyReleased
+
+    private void txtDeliveryPlaceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDeliveryPlaceKeyReleased
+         if (txtClientName.getText().equals("client's  name")) {
+            lblTextClient.setText("this area is required");
+            pictureWarningClient();
+        } 
+        validateDates();
+    }//GEN-LAST:event_txtDeliveryPlaceKeyReleased
+
+    private void txtADescriptionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtADescriptionKeyReleased
+         if (txtClientName.getText().equals("client's  name")) {
+            lblTextClient.setText("this area is required");
+            pictureWarningClient();
+        } 
+        validateDates();
+    }//GEN-LAST:event_txtADescriptionKeyReleased
+
+    private void txtClientNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClientNameKeyTyped
+        char c = evt.getKeyChar();
+        if (txtClientName.getText().equals("client's  name")) {
+            lblTextClient.setText("this area is required");
+            pictureWarningClient();
+        } 
+        else
+        {
+            if (!Character.isLetter(c) && (c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_SPACE)) {
+               // getToolkit().beep();
+               // evt.consume();
+               evt.consume();
+                pictureWarningClient();
+                lblTextClient.setText(c + " is not accepted here!");
+
+            } else {
+                lblTextClient.setText("");
+                pictureWhiteClient();
+            }
+
+        }
+        validateDates();
+    }//GEN-LAST:event_txtClientNameKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PnlOrderInformation;
@@ -323,6 +558,11 @@ public class PnlOrderInformation extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JLabel lblPictureWarningPalce;
+    private javax.swing.JLabel lblPictureWrningDes;
+    private javax.swing.JLabel lblTextClient;
+    private javax.swing.JLabel lblTextWrningPlace;
+    private javax.swing.JLabel lblpictureWarningClient;
     public javax.swing.JTextArea txtADescription;
     public javax.swing.JTextField txtClientName;
     private javax.swing.JTextField txtDeliveryPlace;
