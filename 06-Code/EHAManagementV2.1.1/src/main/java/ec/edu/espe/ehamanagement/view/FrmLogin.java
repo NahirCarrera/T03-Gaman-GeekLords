@@ -363,10 +363,12 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void txtUserNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserNameKeyTyped
         char c = evt.getKeyChar();
-        if (txtUserName.getText().equals("Enter your username ")) {
+        if (txtUserName.getText().equals("Enter your username ")) 
+        {
             lbWarningUser.setText("this area is required");
             pictureWarningUser();
-        } else {
+        } else 
+        {
             if (!Character.isLetter(c) && (c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_SPACE)) {
                 //getToolkit().beep();
                 evt.consume();

@@ -1,5 +1,6 @@
 package ec.edu.espe.ehamanagement.view;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -8,14 +9,16 @@ import javax.swing.table.DefaultTableModel;
  * @author NicolayChillo Gaman GeekLords at DCOO-ESPE
  */
 public class PnlOrdersTable extends javax.swing.JPanel {
-        DefaultTableModel model;
+
+    DefaultTableModel model;
+
     /**
      * Creates new form PnlTableAllOrders
      */
     public PnlOrdersTable() {
         initComponents();
-                
-        model =  new DefaultTableModel();
+
+        model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Client Name");
         model.addColumn("Delivery Date");
@@ -23,51 +26,72 @@ public class PnlOrdersTable extends javax.swing.JPanel {
         this.tblAllOrders.setModel(model);
         refreshInfo();
         txtSearch.setEnabled(true);
+        btnSearch.setEnabled(false);
     }
-    private void cleanTable(){
-        int row =  tblAllOrders.getRowCount();
-        for(int i = row - 1; i >=0 ; i--){
-            model.removeRow(i);    
+
+    public void validateDates() {
+
+        if (!txtSearch.getText().isEmpty() && !txtSearch.getText().equals("Search...")) {
+            btnSearch.setEnabled(true);
+        } else {
+            btnSearch.setEnabled(false);
         }
     }
-    
-    private void initPnlOrderInformation(){
+
+    private void pictureWarningSearch() {
+        lblPictureWarning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
+        lblPictureWarning.setText("");
+    }
+
+    public void pictureWhiteSearch() {
+        lblPictureWarning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/picture1.png"))); // NOI18N
+        lblPictureWarning.setText("");
+    }
+
+    private void cleanTable() {
+        int row = tblAllOrders.getRowCount();
+        for (int i = row - 1; i >= 0; i--) {
+            model.removeRow(i);
+        }
+    }
+
+    private void initPnlOrderInformation() {
         PnlOrderInformation pnlOrderInformation = new PnlOrderInformation();
-        pnlOrderInformation.setSize(714,523);
+        pnlOrderInformation.setSize(714, 523);
         pnlOrderInformation.setLocation(0, 0);
         pnlTable.removeAll();
-        pnlTable.add(pnlOrderInformation,pnlOrderInformation);
+        pnlTable.add(pnlOrderInformation, pnlOrderInformation);
         pnlTable.revalidate();
         pnlTable.repaint();
     }
-    
-    private void refreshInfo(){
+
+    private void refreshInfo() {
         String[] information1 = new String[4];
-                information1[0] = "1";
-                information1[1] = "Client 1 Name";
-                information1[2] = "12/02/23";
-                information1[3] = "No";
+        information1[0] = "1";
+        information1[1] = "Client 1 Name";
+        information1[2] = "12/02/23";
+        information1[3] = "No";
         String[] information2 = new String[4];
-                information2[0] = "2";
-                information2[1] = "Client 2 Name";
-                information2[2] = "13/03/23";
-                information2[3] = "Yes";
-        if(rbtnAllOrders.isSelected()){
+        information2[0] = "2";
+        information2[1] = "Client 2 Name";
+        information2[2] = "13/03/23";
+        information2[3] = "Yes";
+        if (rbtnAllOrders.isSelected()) {
             cleanTable();
             lblTableTitle.setText("All Orders");
             model.addRow(information1);
             model.addRow(information2);
-        }else if (rbtnDeliveredOrders.isSelected()){
+        } else if (rbtnDeliveredOrders.isSelected()) {
             lblTableTitle.setText("Delivered Orders");
             cleanTable();
             model.addRow(information2);
-        }else if(rbtnPendingOrders.isSelected()){
+        } else if (rbtnPendingOrders.isSelected()) {
             lblTableTitle.setText("Pending Orders");
             cleanTable();
             model.addRow(information1);
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,6 +118,8 @@ public class PnlOrdersTable extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         btnSearch = new javax.swing.JButton();
         txtSearch = new javax.swing.JTextField();
+        lblPictureWarning = new javax.swing.JLabel();
+        lblTextWarning = new javax.swing.JLabel();
 
         PnlWindow.setBackground(new java.awt.Color(255, 255, 255));
         PnlWindow.setPreferredSize(new java.awt.Dimension(450, 650));
@@ -164,11 +190,32 @@ public class PnlOrdersTable extends javax.swing.JPanel {
         rbtnByID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         rbtnByID.setSelected(true);
         rbtnByID.setText("By ID");
+        rbtnByID.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rbtnByIDMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                rbtnByIDMousePressed(evt);
+            }
+        });
+        rbtnByID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                rbtnByIDKeyReleased(evt);
+            }
+        });
 
         rbtnByName.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup2.add(rbtnByName);
         rbtnByName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         rbtnByName.setText("ByName");
+        rbtnByName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rbtnByNameMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                rbtnByNameMousePressed(evt);
+            }
+        });
 
         jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
@@ -177,16 +224,42 @@ public class PnlOrdersTable extends javax.swing.JPanel {
         btnSearch.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSearch.setForeground(new java.awt.Color(255, 255, 255));
         btnSearch.setText("Search");
+        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSearchMouseClicked(evt);
+            }
+        });
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
             }
         });
 
-        txtSearch.setBackground(new java.awt.Color(255, 255, 255));
         txtSearch.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtSearch.setText("Search...");
         txtSearch.setBorder(null);
+        txtSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtSearchMousePressed(evt);
+            }
+        });
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSearchKeyTyped(evt);
+            }
+        });
+
+        lblPictureWarning.setText("jLabel1");
+
+        lblTextWarning.setText("jLabel3");
 
         javax.swing.GroupLayout pnlTableLayout = new javax.swing.GroupLayout(pnlTable);
         pnlTable.setLayout(pnlTableLayout);
@@ -201,7 +274,7 @@ public class PnlOrdersTable extends javax.swing.JPanel {
                         .addComponent(rbtnPendingOrders)
                         .addGap(18, 18, 18)
                         .addComponent(rbtnDeliveredOrders)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
                         .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlTableLayout.createSequentialGroup()
                         .addGap(284, 284, 284)
@@ -215,10 +288,15 @@ public class PnlOrdersTable extends javax.swing.JPanel {
                             .addComponent(rbtnByID)
                             .addComponent(rbtnByName))
                         .addGap(39, 39, 39)
-                        .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSeparator1)
-                            .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlTableLayout.createSequentialGroup()
+                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblPictureWarning)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTextWarning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(28, 28, 28)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -240,20 +318,25 @@ public class PnlOrdersTable extends javax.swing.JPanel {
                         .addGap(28, 28, 28)
                         .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnlTableLayout.createSequentialGroup()
-                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12))
-                            .addGroup(pnlTableLayout.createSequentialGroup()
                                 .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(pnlTableLayout.createSequentialGroup()
                                         .addComponent(rbtnByID)
                                         .addGap(17, 17, 17))
                                     .addGroup(pnlTableLayout.createSequentialGroup()
                                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                    .addGroup(pnlTableLayout.createSequentialGroup()
+                                        .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(lblPictureWarning)
+                                            .addComponent(lblTextWarning))
+                                        .addGap(18, 18, 18)))
                                 .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(rbtnByName))))
-                        .addGap(0, 25, Short.MAX_VALUE))
+                                    .addComponent(rbtnByName)))
+                            .addGroup(pnlTableLayout.createSequentialGroup()
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15)))
+                        .addGap(0, 33, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTableLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
@@ -278,23 +361,112 @@ public class PnlOrdersTable extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        if(rbtnByID.isSelected() && txtSearch.getText().equals("1")){
+        if (rbtnByID.isSelected() && txtSearch.getText().equals("1")) {
             initPnlOrderInformation();
-        }else if(rbtnByName.isSelected() && txtSearch.getText().equals("order 1")){
+        } else if (rbtnByName.isSelected() && txtSearch.getText().equals("order 1")) {
             initPnlOrderInformation();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Order not found", "Search failed", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    private void txtSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMousePressed
+        if (txtSearch.getText().equals("Search...")) {
+            txtSearch.setText("");
+        }
+
+
+    }//GEN-LAST:event_txtSearchMousePressed
+
+    private void rbtnByIDMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtnByIDMousePressed
+        if (txtSearch.getText().isEmpty()) {
+            txtSearch.setText("Search...");
+        }
+    }//GEN-LAST:event_rbtnByIDMousePressed
+
+    private void rbtnByNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtnByNameMousePressed
+        if (txtSearch.getText().isEmpty()) {
+            txtSearch.setText("Search...");
+        }
+    }//GEN-LAST:event_rbtnByNameMousePressed
+
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+        validateDates();
+    }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
+
+    }//GEN-LAST:event_btnSearchMouseClicked
+
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+
+    }//GEN-LAST:event_txtSearchActionPerformed
+
+    private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
+        char c = evt.getKeyChar();
+        if (txtSearch.getText().equals("Search...")) {
+            lblTextWarning.setText(" requiered to search");
+            pictureWarningSearch();
+        } 
+        else 
+        {
+            if (rbtnByName.isSelected() && !Character.isLetter(c) && (c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_SPACE)) 
+            {
+                evt.consume();
+                pictureWarningSearch();
+                lblTextWarning.setText(c + " is not accepted here!");
+                txtSearch.setText("");
+            } 
+            else 
+            {
+                if (rbtnByID.isSelected() && !Character.isDigit(c) && (c != KeyEvent.VK_BACK_SPACE )) {
+                    evt.consume();
+                    pictureWarningSearch();
+                    lblTextWarning.setText(c + " is not accepted here!");
+                    txtSearch.setText("");
+                }
+                else 
+                {
+
+                    lblTextWarning.setText("");
+                    pictureWhiteSearch();
+
+                }
+
+                
+
+            }
+
+        }
+
+
+    }//GEN-LAST:event_txtSearchKeyTyped
+
+    private void rbtnByIDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rbtnByIDKeyReleased
+
+    }//GEN-LAST:event_rbtnByIDKeyReleased
+
+    private void rbtnByIDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtnByIDMouseClicked
+        if (txtSearch.getText().equals("Search...")) {
+            lblTextWarning.setText(" requiered to search");
+            pictureWarningSearch();
+        } else {
+            lblTextWarning.setText("");
+        }
+    }//GEN-LAST:event_rbtnByIDMouseClicked
+
+    private void rbtnByNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtnByNameMouseClicked
+        if (txtSearch.getText().equals("Search...")) {
+            lblTextWarning.setText(" requiered to search");
+            pictureWarningSearch();
+        } else {
+            lblTextWarning.setText("");
+        }
+    }//GEN-LAST:event_rbtnByNameMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PnlWindow;
-    private javax.swing.JPanel PnlWindow1;
-    private javax.swing.JPanel PnlWindow2;
-    private javax.swing.JPanel PnlWindow3;
-    private javax.swing.JPanel PnlWindow4;
-    private javax.swing.JPanel PnlWindow5;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnSearch;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -302,7 +474,9 @@ public class PnlOrdersTable extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblPictureWarning;
     private javax.swing.JLabel lblTableTitle;
+    private javax.swing.JLabel lblTextWarning;
     private javax.swing.JPanel pnlTable;
     private javax.swing.JRadioButton rbtnAllOrders;
     private javax.swing.JRadioButton rbtnByID;

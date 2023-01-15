@@ -1,5 +1,6 @@
 package ec.edu.espe.ehamanagement.view;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,6 +14,68 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
      */
     public PnlAddNewOrder() {
         initComponents();
+    }
+    public void validateDates()
+    {
+        if(txtDeliveryPlace.getText().isEmpty())
+        {
+            lblTextWrningPlace.setText("this area is requerid");
+            pictureWarningPlace();
+        }
+        else
+        {
+            pictureWhitePlace();
+            lblTextWrningPlace.setText("");
+        }
+        
+        if(txtADescription.getText().isEmpty())
+        {
+            pictureWarningDescription();
+            lblDescription.setText("this area is requerid");
+        }
+        else
+        {
+            pictureWhiteDescription();
+            lblDescription.setText("");
+        }
+        if(  txtADescription.getText().isEmpty()
+            || txtDeliveryPlace.getText().isEmpty()|| txtClientName.getText().isEmpty())
+        {
+            btnSave.setEnabled(false);
+        }
+        else
+        {
+            btnSave.setEnabled(true);
+        }
+    }
+     
+
+    public void pictureWarningDescription() {
+        lblPictureWrningDes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
+        lblPictureWrningDes.setText("");
+    }
+
+    public void pictureWhiteDescription() {
+        lblPictureWrningDes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
+        lblPictureWrningDes.setText("");
+    }
+     public void pictureWarningClient() {
+        lblpictureWarningClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
+        lblpictureWarningClient.setText("");
+    }
+
+    public void pictureWhiteClient() {
+        lblpictureWarningClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
+        lblpictureWarningClient.setText("");
+    }
+    public void pictureWarningPlace() {
+        lblPictureWarningPalce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
+        lblPictureWarningPalce.setText("");
+    }
+
+    public void pictureWhitePlace() {
+        lblPictureWarningPalce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
+        lblPictureWarningPalce.setText("");
     }
 
     /**
@@ -28,7 +91,7 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        TxtClientName = new javax.swing.JTextField();
+        txtClientName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtDeliveryPlace = new javax.swing.JTextField();
@@ -44,6 +107,12 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JSeparator();
+        lblpictureWarningClient = new javax.swing.JLabel();
+        lblTextClient = new javax.swing.JLabel();
+        lblPictureWarningPalce = new javax.swing.JLabel();
+        lblTextWrningPlace = new javax.swing.JLabel();
+        lblPictureWrningDes = new javax.swing.JLabel();
+        lblDescription = new javax.swing.JLabel();
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -57,9 +126,13 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Client Name");
 
-        TxtClientName.setBackground(new java.awt.Color(255, 255, 255));
-        TxtClientName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        TxtClientName.setBorder(null);
+        txtClientName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtClientName.setBorder(null);
+        txtClientName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtClientNameKeyTyped(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Delivery Place");
@@ -67,21 +140,22 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Delivery Date");
 
-        txtDeliveryPlace.setBackground(new java.awt.Color(255, 255, 255));
         txtDeliveryPlace.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtDeliveryPlace.setBorder(null);
+        txtDeliveryPlace.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDeliveryPlaceKeyReleased(evt);
+            }
+        });
 
-        CbxMonthDelivery.setBackground(new java.awt.Color(255, 255, 255));
         CbxMonthDelivery.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         CbxMonthDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "Dicember" }));
         CbxMonthDelivery.setBorder(null);
 
-        CbxDayDelivery.setBackground(new java.awt.Color(255, 255, 255));
         CbxDayDelivery.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         CbxDayDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
         CbxDayDelivery.setBorder(null);
 
-        CbxYearDelivery.setBackground(new java.awt.Color(255, 255, 255));
         CbxYearDelivery.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         CbxYearDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
         CbxYearDelivery.setBorder(null);
@@ -89,9 +163,12 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setText("Description:");
 
-        txtADescription.setBackground(new java.awt.Color(255, 255, 255));
-        txtADescription.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         txtADescription.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(80, 22, 2), 2, true));
+        txtADescription.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtADescriptionKeyReleased(evt);
+            }
+        });
 
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -143,6 +220,19 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
 
         jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
 
+        lblpictureWarningClient.setText("jLabel6");
+
+        lblTextClient.setText("jLabel7");
+
+        lblPictureWarningPalce.setText("2");
+
+        lblTextWrningPlace.setForeground(new java.awt.Color(255, 0, 0));
+        lblTextWrningPlace.setText("1");
+
+        lblPictureWrningDes.setText("jLabel6");
+
+        lblDescription.setText("1");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -154,7 +244,7 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
                         .addComponent(jLabel4)
                         .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(txtDeliveryPlace)
-                        .addComponent(TxtClientName)
+                        .addComponent(txtClientName)
                         .addComponent(jLabel1)
                         .addComponent(jLabel3)
                         .addComponent(jSeparator3)
@@ -169,7 +259,21 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
                             .addGap(77, 77, 77)
                             .addComponent(jLabel2))
                         .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel5))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblPictureWrningDes)
+                        .addGap(39, 39, 39)
+                        .addComponent(lblDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(lblpictureWarningClient)
+                        .addGap(30, 30, 30)
+                        .addComponent(lblTextClient, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblPictureWarningPalce)
+                        .addGap(22, 22, 22)
+                        .addComponent(lblTextWrningPlace, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -184,16 +288,24 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addGap(3, 3, 3)
-                .addComponent(TxtClientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtClientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblpictureWarningClient)
+                    .addComponent(lblTextClient))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDeliveryPlace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPictureWarningPalce)
+                    .addComponent(lblTextWrningPlace))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addGap(9, 9, 9)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -203,7 +315,10 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
-                .addComponent(jLabel5)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lblPictureWrningDes)
+                    .addComponent(lblDescription))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtADescription, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -231,12 +346,45 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
         JOptionPane.showConfirmDialog(this,"Are you sure you want to save this order?", "Save Order", JOptionPane.QUESTION_MESSAGE);
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void txtClientNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClientNameKeyTyped
+        char c = evt.getKeyChar();
+          if (!Character.isLetter(c) && (c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_SPACE)) {
+               // getToolkit().beep();
+               // evt.consume();
+               evt.consume();
+                pictureWarningClient();
+                lblTextClient.setText(c + " is not accepted here!");
+
+            } else {
+                lblTextClient.setText("");
+                pictureWhiteClient();
+            }
+
+        
+        validateDates();
+    }//GEN-LAST:event_txtClientNameKeyTyped
+
+    private void txtDeliveryPlaceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDeliveryPlaceKeyReleased
+    if (txtClientName.getText().isEmpty()) {
+            lblTextClient.setText("this area is required");
+            pictureWarningClient();
+        } 
+        validateDates();
+    }//GEN-LAST:event_txtDeliveryPlaceKeyReleased
+
+    private void txtADescriptionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtADescriptionKeyReleased
+        if (txtClientName.getText().isEmpty()) {
+            lblTextClient.setText("this area is required");
+            pictureWarningClient();
+        } 
+        validateDates();
+    }//GEN-LAST:event_txtADescriptionKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CbxDayDelivery;
     private javax.swing.JComboBox<String> CbxMonthDelivery;
     private javax.swing.JComboBox<String> CbxYearDelivery;
-    private javax.swing.JTextField TxtClientName;
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -251,7 +399,14 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JLabel lblDescription;
+    private javax.swing.JLabel lblPictureWarningPalce;
+    private javax.swing.JLabel lblPictureWrningDes;
+    private javax.swing.JLabel lblTextClient;
+    private javax.swing.JLabel lblTextWrningPlace;
+    private javax.swing.JLabel lblpictureWarningClient;
     private javax.swing.JTextField txtADescription;
+    private javax.swing.JTextField txtClientName;
     private javax.swing.JTextField txtDeliveryPlace;
     // End of variables declaration//GEN-END:variables
 }
