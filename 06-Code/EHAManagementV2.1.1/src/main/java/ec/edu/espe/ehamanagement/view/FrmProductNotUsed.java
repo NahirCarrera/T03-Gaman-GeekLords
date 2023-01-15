@@ -1,4 +1,8 @@
-package ec.edu.espe.ehamanagement.view;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package ec.edu.espe.EHAManagement.view;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.mongodb.client.MongoCollection;
@@ -14,22 +18,15 @@ import utils.CostCalculator;
  *
  * @author Nahir Carrera, Gaman GeekLords, DCC0-ESPE
  */
-public class FrmUpdateProduct extends javax.swing.JFrame {
+public class FrmProductNotUsed extends javax.swing.JFrame {
     DefaultTableModel model;
-    int idToUpdate;
-    MongoCollection productsCollection;
-    MongoCollection materialsCollection;
     /**
      * Creates new form frmProduct
      */
-    public FrmUpdateProduct() {
+    public FrmProductNotUsed() 
+    {
         initComponents();
-        String uri = "mongodb+srv://oop:oop@cluster0.og4urrq.mongodb.net/?retryWrites=true&w=majority";
-        String dataBase = "ManagementSoftware";
-        String pCollection = "Products";
-        String mCollection = "Materials";
-        productsCollection = MongoDbManager.connectToCollection(uri, dataBase, pCollection);
-        materialsCollection = MongoDbManager.connectToCollection(uri, dataBase, mCollection);
+      
         
         model =  new DefaultTableModel();
         model.addColumn("ID");
@@ -70,8 +67,9 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblMaterials = new javax.swing.JTable();
         pnlButtons = new javax.swing.JPanel();
-        btnUpdate = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        btnClean = new javax.swing.JButton();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -87,7 +85,6 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable2);
 
         pnlInput.setBackground(new java.awt.Color(255, 255, 255));
-        pnlInput.setForeground(new java.awt.Color(0, 0, 0));
         pnlInput.setToolTipText("");
 
         lblProduct.setBackground(new java.awt.Color(246, 211, 227));
@@ -161,7 +158,6 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
         });
 
         txtName.setBackground(new java.awt.Color(246, 211, 227));
-        txtName.setForeground(new java.awt.Color(0, 0, 0));
 
         btnDeleteMaterial.setBackground(new java.awt.Color(143, 163, 212));
         btnDeleteMaterial.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
@@ -297,12 +293,12 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
 
         pnlButtons.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnUpdate.setBackground(new java.awt.Color(246, 211, 227));
-        btnUpdate.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setBackground(new java.awt.Color(246, 211, 227));
+        btnSave.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
@@ -310,9 +306,14 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
         btnCancel.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         btnCancel.setForeground(new java.awt.Color(244, 152, 194));
         btnCancel.setText("Cancel");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+
+        btnClean.setBackground(new java.awt.Color(246, 211, 227));
+        btnClean.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnClean.setForeground(new java.awt.Color(244, 152, 194));
+        btnClean.setText("Clean");
+        btnClean.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
+                btnCleanActionPerformed(evt);
             }
         });
 
@@ -321,19 +322,22 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
         pnlButtonsLayout.setHorizontalGroup(
             pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlButtonsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(61, 61, 61)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(154, 154, 154))
+                .addGap(72, 72, 72)
+                .addComponent(btnClean, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
         );
         pnlButtonsLayout.setVerticalGroup(
             pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlButtonsLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(14, 14, 14)
                 .addGroup(pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClean, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
 
@@ -356,13 +360,13 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         String name = txtName.getText();
         if(validateTxt(name) && !name.equals("") ){
             Product productToAdd;  
             productToAdd = collectInformation();
-            Inventory.updateProduct(productToAdd);
+            Inventory.insertProduct(productToAdd);
             CostCalculator.calculateTotalProductProductionCost(productToAdd);
             JOptionPane.showMessageDialog(this,"Product added successfully :)", "Saved", JOptionPane.PLAIN_MESSAGE);
             cleanFields();
@@ -370,7 +374,7 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Empty name field, you must enter at least the name of the product to continue", "Warning", JOptionPane.ERROR_MESSAGE);
         }
         
-    }//GEN-LAST:event_btnUpdateActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnAddMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMaterialActionPerformed
         // TODO add your handling code here:
@@ -394,9 +398,9 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDeleteMaterialActionPerformed
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        new FrmUpdateProduct().setVisible(false);
-    }//GEN-LAST:event_btnCancelActionPerformed
+    private void btnCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleanActionPerformed
+        cleanFields();
+    }//GEN-LAST:event_btnCleanActionPerformed
     
     private void cleanFields(){
         txtName.setText("");
@@ -407,12 +411,8 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
         cleanTableInfo();
         
     }
-    
-    public void setIdToUpdate(int id){
-        idToUpdate = id;
-    } 
-    private Product collectInformation(){
-        int id = idToUpdate;
+    public Product collectInformation(){
+        int id = Inventory.assignIdToProduct();
         String name = txtName.getText();
         float productionCost = 0.0F;
         String description = txtADescription.getText();
@@ -422,13 +422,12 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
         ArrayList <Float> materialsQuantities = getTableInfo("quantity", 2);
         Product productToAdd;
         productToAdd = new Product(id, name, productionCost, description,materialsIds, materialsQuantities, workingTime, quantity);
-        float cost = CostCalculator.calculateTotalProductProductionCost(productToAdd);
-        productToAdd.setProductionCost(cost);
         return productToAdd;
     }
     
     private int findMaterialId(String material){
-        int id  = Integer.parseInt(MongoDbManager.findValue(materialsCollection,"name", material, "id"));
+        //int id = Integer.parseInt(MongoDbManager.findValue(materialsCollection,"name", material, "id"));
+        int id = 0;
         return id;
     }
     
@@ -497,7 +496,7 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmUpdateProduct().setVisible(true);
+                new FrmProductNotUsed().setVisible(true);
             }
         });
     }
@@ -505,8 +504,9 @@ public class FrmUpdateProduct extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddMaterial;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnClean;
     private javax.swing.JButton btnDeleteMaterial;
-    private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cmbMaterials;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

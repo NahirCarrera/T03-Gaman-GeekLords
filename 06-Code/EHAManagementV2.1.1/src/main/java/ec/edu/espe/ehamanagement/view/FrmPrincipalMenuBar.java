@@ -38,8 +38,8 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
         PnlWindow.repaint();
     }
     private void initAgendaMenuOption(){
-        PnlAgendaMenuOption pnlAgendaMenuOption = new PnlAgendaMenuOption();
-        pnlAgendaMenuOption.setSize(1200,650);
+        PnlAgenda pnlAgendaMenuOption = new PnlAgenda();
+        pnlAgendaMenuOption.setSize(980,629);
         pnlAgendaMenuOption.setLocation(0,0);
         PnlWindow.removeAll();
         PnlWindow.add(pnlAgendaMenuOption, pnlAgendaMenuOption);
@@ -63,17 +63,19 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         PnlWindow.setBackground(new java.awt.Color(255, 255, 255));
-        PnlWindow.setPreferredSize(new java.awt.Dimension(929, 500));
+        PnlWindow.setMaximumSize(new java.awt.Dimension(980, 629));
+        PnlWindow.setMinimumSize(new java.awt.Dimension(980, 629));
+        PnlWindow.setPreferredSize(new java.awt.Dimension(980, 629));
 
         javax.swing.GroupLayout PnlWindowLayout = new javax.swing.GroupLayout(PnlWindow);
         PnlWindow.setLayout(PnlWindowLayout);
         PnlWindowLayout.setHorizontalGroup(
             PnlWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1173, Short.MAX_VALUE)
+            .addGap(0, 980, Short.MAX_VALUE)
         );
         PnlWindowLayout.setVerticalGroup(
             PnlWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 624, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jMenuBar1.setBackground(new java.awt.Color(0, 0, 153));
@@ -131,13 +133,11 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(PnlWindow, javax.swing.GroupLayout.PREFERRED_SIZE, 1173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(PnlWindow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PnlWindow, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
+            .addComponent(PnlWindow, javax.swing.GroupLayout.PREFERRED_SIZE, 527, Short.MAX_VALUE)
         );
 
         pack();

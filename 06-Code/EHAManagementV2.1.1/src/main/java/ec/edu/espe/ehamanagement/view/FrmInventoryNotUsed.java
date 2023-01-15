@@ -7,7 +7,7 @@ package ec.edu.espe.ehamanagement.view;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.mongodb.client.MongoCollection;
-import ec.edu.espe.EHAManagement.view.FrmProduct;
+import ec.edu.espe.EHAManagement.view.FrmProductNotUsed;
 import ec.edu.espe.ehamanagement.controller.Inventory;
 import ec.edu.espe.ehamanagement.model.Product;
 import ec.edu.espe.mongodbmanager.MongoDbManager;
@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Nahir Carrera, Gaman GeekLords, DCC0-ESPE
  */
-public class FrmInventory extends javax.swing.JFrame {
+public class FrmInventoryNotUsed extends javax.swing.JFrame {
     DefaultTableModel model;
     MongoCollection productsCollection;
     MongoCollection materialsCollection;
@@ -27,7 +27,7 @@ public class FrmInventory extends javax.swing.JFrame {
     /**
      * Creates new form Inventory
      */
-    public FrmInventory() {
+    public FrmInventoryNotUsed() {
         initComponents();
         model =  new DefaultTableModel();
         model.addColumn("ID");
@@ -195,7 +195,7 @@ public class FrmInventory extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        FrmUpdateProduct frmUpdateProduct = new FrmUpdateProduct();
+        FrmUpdateProductNotUsed frmUpdateProduct = new FrmUpdateProductNotUsed();
         int productId = Integer.parseInt(txtId.getText());
         int desicion;
         desicion = JOptionPane.showConfirmDialog(this, "Are you sure?", "Update product",JOptionPane.YES_NO_CANCEL_OPTION);
@@ -265,7 +265,7 @@ public class FrmInventory extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmInventory().setVisible(true);
+                new FrmInventoryNotUsed().setVisible(true);
             }
         });
     }

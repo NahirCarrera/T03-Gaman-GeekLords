@@ -11,12 +11,12 @@ import java.awt.Color;
  *
  * @author Jairo Bonilla, Gaman GeekLords, DCCO-ESPE
  */
-public class PnlUser extends javax.swing.JPanel {
+public class PnlUserInformation extends javax.swing.JPanel {
 
     /**
      * Creates new form PnlUser
      */
-    public PnlUser() {
+    public PnlUserInformation() {
         initComponents();
         
     }
@@ -259,7 +259,7 @@ public class PnlUser extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JPasswordField pflPassword;
+    public javax.swing.JPasswordField pflPassword;
     public javax.swing.JTextField txtCurrentSalary;
     public javax.swing.JTextField txtEmail;
     public javax.swing.JTextField txtUserName;

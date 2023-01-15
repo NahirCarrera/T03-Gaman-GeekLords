@@ -33,7 +33,7 @@ public class FrmProfile extends javax.swing.JFrame {
     {
         MongoCollection userCollection;
         userCollection = Registration.createConnectionToCollection();
-        PnlUser pnlUser = new PnlUser();
+        PnlUserInformation pnlUser = new PnlUserInformation();
         pnlUser.setSize(486,646);
         
         pnlUser.setLocation(0,0);
@@ -51,7 +51,7 @@ public class FrmProfile extends javax.swing.JFrame {
     }
     private void InitContentUpdate()
     {
-        PnlUpdate pnlUpdate = new PnlUpdate();
+        PnlUpdateUser pnlUpdate = new PnlUpdateUser();
         pnlUpdate.setSize(522,627);
         pnlUpdate.setLocation(0,0);
         PnlContent.add(pnlUpdate, BorderLayout.CENTER);
@@ -214,7 +214,7 @@ public class FrmProfile extends javax.swing.JFrame {
         // InitContentUpdate();
         MongoCollection userCollection;
         userCollection = Registration.createConnectionToCollection();
-        PnlUpdate pnlUpdate = new PnlUpdate();
+        PnlUpdateUser pnlUpdate = new PnlUpdateUser();
         pnlUpdate.setSize(499,548);
         pnlUpdate.setLocation(0,0);
         PnlContent.removeAll();
