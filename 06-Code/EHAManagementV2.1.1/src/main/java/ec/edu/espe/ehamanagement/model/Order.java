@@ -1,6 +1,5 @@
 package ec.edu.espe.ehamanagement.model;
 
-import java.util.ArrayList;
 
 /**
  *
@@ -21,6 +20,11 @@ public class Order {
         this.deliveryPlace = deliveryPlace;
         this.description = description;
         this.isDelivered = isDelivered;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" + "id=" + id + ", clientName=" + clientName + ", deliveryDate=" + deliveryDate + ", deliveryPlace=" + deliveryPlace + ", description=" + description + ", isDelivered=" + isDelivered + '}';
     }
 
     /**

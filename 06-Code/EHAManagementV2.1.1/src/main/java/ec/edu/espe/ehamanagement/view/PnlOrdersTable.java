@@ -1,6 +1,10 @@
 package ec.edu.espe.ehamanagement.view;
 
+import com.mongodb.client.MongoCollection;
+import ec.edu.espe.ehamanagement.controller.Agenda;
+import ec.edu.espe.ehamanagement.model.Order;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -9,21 +13,24 @@ import javax.swing.table.DefaultTableModel;
  * @author NicolayChillo Gaman GeekLords at DCOO-ESPE
  */
 public class PnlOrdersTable extends javax.swing.JPanel {
-
+    private final MongoCollection ordersCollection;
     DefaultTableModel model;
-
+    private ArrayList <Order> readedOrders ;
     /**
      * Creates new form PnlTableAllOrders
+     * @param collection
      */
-    public PnlOrdersTable() {
+    public PnlOrdersTable(MongoCollection collection) {
         initComponents();
-
+        ordersCollection = collection;
+        readedOrders = Agenda.read(ordersCollection);
         model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Client Name");
         model.addColumn("Delivery Date");
         model.addColumn("Delivered");
         this.tblAllOrders.setModel(model);
+        
         refreshInfo();
         txtSearch.setEnabled(true);
         btnSearch.setEnabled(false);
@@ -55,8 +62,9 @@ public class PnlOrdersTable extends javax.swing.JPanel {
         }
     }
 
-    private void initPnlOrderInformation() {
-        PnlOrderInformation pnlOrderInformation = new PnlOrderInformation();
+    private void initPnlOrderInformation(int id) {
+        PnlOrderInformation.setIdToUpdate(id);
+        PnlOrderInformation pnlOrderInformation = new PnlOrderInformation(ordersCollection);
         pnlOrderInformation.setSize(714, 523);
         pnlOrderInformation.setLocation(0, 0);
         pnlTable.removeAll();
@@ -65,30 +73,53 @@ public class PnlOrdersTable extends javax.swing.JPanel {
         pnlTable.repaint();
     }
 
+    private ArrayList <Order> filterOrders(ArrayList <Order> readedOrders, String type){
+        ArrayList <Order> pendingOrders = new ArrayList();
+        ArrayList <Order> completedOrders = new ArrayList();
+        for(Order order: readedOrders){
+            if(order.getIsDelivered()){
+                completedOrders.add(order);
+            }else{
+                pendingOrders.add(order);
+            }
+        }
+        if (type.equals("pending")){
+            return pendingOrders;
+        }else if(type.equals("completed")){
+            return completedOrders;
+        }else{
+            return null;
+        } 
+    }
+    private void createRow(ArrayList <Order> orders){
+        for(Order order: orders){
+                String[] information = new String[4];
+                information[0]= String.valueOf(order.getId());
+                information[1] = order.getClientName();
+                information [2] = order.getDeliveryDate();
+                information [3] = String.valueOf(order.getIsDelivered());
+                model.addRow(information);
+            }
+    }
     private void refreshInfo() {
-        String[] information1 = new String[4];
-        information1[0] = "1";
-        information1[1] = "Client 1 Name";
-        information1[2] = "12/02/23";
-        information1[3] = "No";
-        String[] information2 = new String[4];
-        information2[0] = "2";
-        information2[1] = "Client 2 Name";
-        information2[2] = "13/03/23";
-        information2[3] = "Yes";
-        if (rbtnAllOrders.isSelected()) {
-            cleanTable();
-            lblTableTitle.setText("All Orders");
-            model.addRow(information1);
-            model.addRow(information2);
-        } else if (rbtnDeliveredOrders.isSelected()) {
-            lblTableTitle.setText("Delivered Orders");
-            cleanTable();
-            model.addRow(information2);
-        } else if (rbtnPendingOrders.isSelected()) {
-            lblTableTitle.setText("Pending Orders");
-            cleanTable();
-            model.addRow(information1);
+        ArrayList <Order> pendingOrders =  filterOrders(readedOrders, "pending");
+        ArrayList <Order> completedOrders = filterOrders(readedOrders, "completed");
+        if(!readedOrders.isEmpty()){
+            if (rbtnAllOrders.isSelected()) {
+                cleanTable();
+                lblTableTitle.setText("All Orders");
+                createRow(readedOrders);
+            } else if (rbtnDeliveredOrders.isSelected()) {
+                lblTableTitle.setText("Delivered Orders");
+                cleanTable();
+                createRow(completedOrders);
+            } else if (rbtnPendingOrders.isSelected()) {
+                lblTableTitle.setText("Pending Orders");
+                cleanTable();
+                createRow(pendingOrders);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "There´s no orders in your agenda", "Agenda is empty", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -138,7 +169,9 @@ public class PnlOrdersTable extends javax.swing.JPanel {
         pnlTable.setBackground(new java.awt.Color(255, 255, 255));
         pnlTable.setPreferredSize(new java.awt.Dimension(900, 500));
 
-        tblAllOrders.setBackground(new java.awt.Color(255, 215, 95));
+        tblAllOrders.setBackground(new java.awt.Color(255, 225, 150));
+        tblAllOrders.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        tblAllOrders.setForeground(new java.awt.Color(126, 53, 2));
         tblAllOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -150,6 +183,8 @@ public class PnlOrdersTable extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblAllOrders.setRowSelectionAllowed(false);
+        tblAllOrders.setSelectionBackground(new java.awt.Color(255, 229, 31));
         jScrollPane2.setViewportView(tblAllOrders);
 
         lblTableTitle.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
@@ -313,20 +348,18 @@ public class PnlOrdersTable extends javax.swing.JPanel {
                         .addGap(17, 17, Short.MAX_VALUE)
                         .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnlTableLayout.createSequentialGroup()
-                                .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(pnlTableLayout.createSequentialGroup()
-                                        .addComponent(rbtnByID)
-                                        .addGap(17, 17, 17)
-                                        .addComponent(rbtnByName))
-                                    .addGroup(pnlTableLayout.createSequentialGroup()
-                                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(15, 15, 15)))
+                                .addComponent(rbtnByID)
+                                .addGap(17, 17, 17)
+                                .addComponent(rbtnByName)
                                 .addGap(0, 36, Short.MAX_VALUE))
                             .addGroup(pnlTableLayout.createSequentialGroup()
-                                .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblPictureWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblTextWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 20, Short.MAX_VALUE)
+                                .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblPictureWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblTextWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(40, 40, 40))))
@@ -354,10 +387,17 @@ public class PnlOrdersTable extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        if (rbtnByID.isSelected() && txtSearch.getText().equals("1")) {
-            initPnlOrderInformation();
-        } else if (rbtnByName.isSelected() && txtSearch.getText().equals("order 1")) {
-            initPnlOrderInformation();
+        String search = txtSearch.getText();
+        if (rbtnByID.isSelected() && Agenda.findDocument("id", Integer.valueOf(search))) {
+            int id;
+            id = Integer.valueOf(search);
+            System.out.println("ID to search: "+ id);
+            initPnlOrderInformation(id);
+            
+        } else if (rbtnByName.isSelected() && Agenda.findDocument("clientName", search)) {
+            int id;
+            id = Integer.valueOf(Agenda.findValue(ordersCollection, "clientName",search,"id"));
+            initPnlOrderInformation(id);
         } else {
             JOptionPane.showMessageDialog(this, "Order not found", "Search failed", JOptionPane.ERROR_MESSAGE);
         }

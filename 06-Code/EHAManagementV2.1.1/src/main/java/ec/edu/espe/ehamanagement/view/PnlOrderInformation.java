@@ -1,5 +1,8 @@
 package ec.edu.espe.ehamanagement.view;
 
+import com.mongodb.client.MongoCollection;
+import ec.edu.espe.ehamanagement.controller.Agenda;
+import ec.edu.espe.ehamanagement.model.Order;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -9,16 +12,30 @@ import javax.swing.JOptionPane;
  * @author NicolayChillo Gaman GeekLords at DCOO-ESPE
  */
 public class PnlOrderInformation extends javax.swing.JPanel {
+    static int idToUpdate;
+    private final MongoCollection ordersCollection;
 
     /**
      * Creates new form PnlOrderInformation
+     * @param collection
      */
-    public PnlOrderInformation() {
+    public PnlOrderInformation(MongoCollection collection) {
         initComponents();
         btnSave.setEnabled(false);
         txtADescription.setLineWrap(true);
         txtADescription.setWrapStyleWord(true);
-        
+        ordersCollection = collection;
+        writeFields();
+    }
+        /**
+     * @return the idToUpdate
+     */
+    public int getIdToUpdate() {
+        return idToUpdate;
+    }
+
+    public static void setIdToUpdate(int id) {
+        idToUpdate = id;
     }
     
     private void validateFields(){
@@ -57,7 +74,7 @@ public class PnlOrderInformation extends javax.swing.JPanel {
             btnSave.setEnabled(true);
         }
     }
-    private void writeFields(){
+    private void writeDefaultFields(){
         if(txtClientName.getText().isEmpty()){
                 txtClientName.setText("client's  name");
                 txtClientName.setForeground(Color.gray);
@@ -102,19 +119,68 @@ public class PnlOrderInformation extends javax.swing.JPanel {
         lblPictureWarningPlace.setText("");
     }
     
-    private void UpdateOrder(boolean active){
+    private void writeFields(){
+        String clientName = Agenda.findValue(ordersCollection,"id", getIdToUpdate(), "clientName");
+        String deliveryPlace = Agenda.findValue(ordersCollection,"id", getIdToUpdate(), "deliveryPlace");
+        String deliveryDate = Agenda.findValue(ordersCollection, "id", getIdToUpdate(), "deliveryDate");
+        String[] Date = deliveryDate.split("/");
+        String deliveryMonth = Date[0];
+        String deliveryDay = Date[1];
+        String deliveryYear = Date[2];
+        boolean isDelivered = Boolean.valueOf(Agenda.findValue(ordersCollection, "id", getIdToUpdate(), "isDelivered"));
+        String description = Agenda.findValue(ordersCollection, "id", getIdToUpdate(), "description");
+        
+        txtClientName.setText(clientName);
+        txtDeliveryPlace.setText(deliveryPlace);
+        cbxDeliveryMonth.setSelectedItem(deliveryMonth);
+        cbxDeliveryDay.setSelectedItem(deliveryDay);
+        cbxDeliveryYear.setSelectedItem(deliveryYear);
+        if(isDelivered){
+            txtDelivered.setForeground(Color.green);
+            txtDelivered.setText("Yes");
+            chbxDelivered.setSelected(true);
+        }else if(!isDelivered){
+            txtDelivered.setForeground(Color.red);
+            txtDelivered.setText("No");
+            chbxDelivered.setSelected(false);
+        }
+        txtADescription.setText(description);
+    }
+    
+    private void openFields(boolean active){
         txtClientName.setEnabled(active);
-        cbxYearDelivery.setEnabled(active);
-        cbxMonthDelivery.setEnabled(active);
-        cbxDayDelivery.setEnabled(active);
+        cbxDeliveryYear.setEnabled(active);
+        cbxDeliveryMonth.setEnabled(active);
+        cbxDeliveryDay.setEnabled(active);
         txtDeliveryPlace.setEnabled(active);
         chbxDelivered.setEnabled(active);
         txtADescription.setEnabled(active);
-        btnUpdate.setEnabled(!active);
-        btnDelete.setEnabled(!active);
-        
+        btnUpdate.setEnabled(!active); 
     }
     
+    private Order createOrderToUpdate(){
+        Order orderToUpdate;
+        String clientName = txtClientName.getText();
+        String deliveryPlace = txtDeliveryPlace.getText();
+        String deliveryDate = cbxDeliveryMonth.getSelectedItem() + "/"+ cbxDeliveryDay.getSelectedItem() + "/" + cbxDeliveryYear.getSelectedItem();
+        boolean delivered;
+        if (chbxDelivered.isSelected()){
+            delivered = true;
+        }else{
+            delivered= false;
+        }
+        String description = txtADescription.getText();
+        orderToUpdate =  new Order(idToUpdate, clientName, deliveryPlace, deliveryDate, description, delivered);
+        return orderToUpdate;
+    }
+    private boolean updateOrder(){
+        Order orderToUpdate = createOrderToUpdate();
+        return Agenda.updateOrder(ordersCollection,orderToUpdate);
+    }
+    
+    private boolean deleteOrder(){
+        return Agenda.deleteOrder(ordersCollection,idToUpdate);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -143,14 +209,15 @@ public class PnlOrderInformation extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
-        cbxMonthDelivery = new javax.swing.JComboBox<>();
-        cbxDayDelivery = new javax.swing.JComboBox<>();
-        cbxYearDelivery = new javax.swing.JComboBox<>();
+        cbxDeliveryMonth = new javax.swing.JComboBox<>();
+        cbxDeliveryDay = new javax.swing.JComboBox<>();
+        cbxDeliveryYear = new javax.swing.JComboBox<>();
         lblpictureWarningClient = new javax.swing.JLabel();
         lblTextWarningClient = new javax.swing.JLabel();
         lblPictureWarningPlace = new javax.swing.JLabel();
         lblTextWarningPlace = new javax.swing.JLabel();
         lblPictureWrningDes = new javax.swing.JLabel();
+        txtDelivered = new javax.swing.JLabel();
 
         PnlOrderInformation.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -224,9 +291,14 @@ public class PnlOrderInformation extends javax.swing.JPanel {
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
 
         chbxDelivered.setBackground(new java.awt.Color(255, 255, 255));
-        chbxDelivered.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        chbxDelivered.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         chbxDelivered.setText("Delivered");
         chbxDelivered.setEnabled(false);
+        chbxDelivered.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                chbxDeliveredMousePressed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(126, 53, 2));
 
@@ -255,7 +327,7 @@ public class PnlOrderInformation extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(85, 85, 85)
+                .addGap(63, 63, 63)
                 .addComponent(btnUpdate)
                 .addGap(67, 67, 67)
                 .addComponent(btnDelete)
@@ -279,11 +351,11 @@ public class PnlOrderInformation extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 347, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 85, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         btnSave.setBackground(new java.awt.Color(252, 154, 11));
@@ -297,24 +369,27 @@ public class PnlOrderInformation extends javax.swing.JPanel {
             }
         });
 
-        cbxMonthDelivery.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbxMonthDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "Dicember" }));
-        cbxMonthDelivery.setBorder(null);
-        cbxMonthDelivery.setEnabled(false);
+        cbxDeliveryMonth.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbxDeliveryMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "Dicember" }));
+        cbxDeliveryMonth.setBorder(null);
+        cbxDeliveryMonth.setEnabled(false);
 
-        cbxDayDelivery.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbxDayDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-        cbxDayDelivery.setBorder(null);
-        cbxDayDelivery.setEnabled(false);
+        cbxDeliveryDay.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbxDeliveryDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        cbxDeliveryDay.setBorder(null);
+        cbxDeliveryDay.setEnabled(false);
 
-        cbxYearDelivery.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbxYearDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
-        cbxYearDelivery.setBorder(null);
-        cbxYearDelivery.setEnabled(false);
+        cbxDeliveryYear.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbxDeliveryYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+        cbxDeliveryYear.setBorder(null);
+        cbxDeliveryYear.setEnabled(false);
 
         lblTextWarningClient.setForeground(new java.awt.Color(255, 0, 0));
 
         lblTextWarningPlace.setForeground(new java.awt.Color(255, 0, 0));
+
+        txtDelivered.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtDelivered.setText("Yes");
 
         javax.swing.GroupLayout PnlOrderInformationLayout = new javax.swing.GroupLayout(PnlOrderInformation);
         PnlOrderInformation.setLayout(PnlOrderInformationLayout);
@@ -323,52 +398,60 @@ public class PnlOrderInformation extends javax.swing.JPanel {
             .addGroup(PnlOrderInformationLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
-                        .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSave))
-                        .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                            .addComponent(cbxMonthDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                            .addComponent(cbxDayDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(26, 26, 26)
-                            .addComponent(cbxYearDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jSeparator3)
-                        .addComponent(txtDeliveryPlace)
-                        .addComponent(jSeparator4)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator2)
-                        .addComponent(jLabel5)
-                        .addComponent(chbxDelivered)
-                        .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(lblPictureWrningDes, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(txtClientName))
                     .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                        .addComponent(lblpictureWarningClient, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTextWarningClient, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                        .addComponent(lblPictureWarningPlace, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTextWarningPlace, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnSave))
+                                .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                                    .addComponent(cbxDeliveryMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                                    .addComponent(cbxDeliveryDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(61, 61, 61)
+                                    .addComponent(cbxDeliveryYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jSeparator3)
+                                .addComponent(txtDeliveryPlace)
+                                .addComponent(jSeparator4)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jSeparator2)
+                                .addComponent(jLabel5)
+                                .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                                    .addComponent(chbxDelivered)
+                                    .addGap(17, 17, 17)
+                                    .addComponent(txtDelivered))
+                                .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lblPictureWrningDes, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtClientName))
+                            .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                                .addComponent(lblpictureWarningClient, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTextWarningClient, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                                .addComponent(lblPictureWarningPlace, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTextWarningPlace, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 3, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addGap(18, 18, 18)
                 .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlOrderInformationLayout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
-                        .addContainerGap())))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(12, 12, 12)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         PnlOrderInformationLayout.setVerticalGroup(
             PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
                         .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(btnSave))
@@ -384,9 +467,9 @@ public class PnlOrderInformation extends javax.swing.JPanel {
                         .addComponent(jLabel1)
                         .addGap(4, 4, 4)
                         .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbxMonthDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxDayDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxYearDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbxDeliveryMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxDeliveryDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxDeliveryYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
@@ -400,20 +483,22 @@ public class PnlOrderInformation extends javax.swing.JPanel {
                             .addComponent(lblTextWarningPlace, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
                             .addComponent(lblPictureWarningPlace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chbxDelivered)
+                        .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chbxDelivered)
+                            .addComponent(txtDelivered))
                         .addGap(1, 1, 1)
                         .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4)
                             .addComponent(lblPictureWrningDes, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlOrderInformationLayout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)))
+                .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -429,21 +514,41 @@ public class PnlOrderInformation extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        UpdateOrder(true);
+        openFields(true);
         validateFields();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        JOptionPane.showConfirmDialog(this,"Are you sure you want to update this order?", "Update Order", JOptionPane.YES_NO_OPTION);
+        int decision = JOptionPane.showConfirmDialog(this,"Are you sure you want to update this order?", "Update Order", JOptionPane.YES_NO_OPTION);
+        switch(decision){
+            case 0 -> {
+                if(updateOrder()){
+                    JOptionPane.showMessageDialog(this, "Yor changes have been successfully saved!", "Updated successfully", JOptionPane.INFORMATION_MESSAGE);
+                } else{
+                   JOptionPane.showMessageDialog(this, "Something went wrong. Failed to save you changes in this order", "Updated failed", JOptionPane.ERROR_MESSAGE); 
+                }        
+            }
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        JOptionPane.showConfirmDialog(this,"Are you sure you want to delete this order?", "Delete Order", JOptionPane.YES_NO_OPTION);
+        int decision = JOptionPane.showConfirmDialog(this,"Are you sure you want to delete this order?", "Delete Order", JOptionPane.YES_NO_OPTION);
+        switch (decision){
+            case 0 -> {
+            if(deleteOrder()){
+                openFields(false);
+                btnUpdate.setEnabled(false);
+                btnSave.setEnabled(false);
+                btnDelete.setEnabled(false);
+                JOptionPane.showMessageDialog(this, "Order deleted successfully!", "Deleted successfully", JOptionPane.INFORMATION_MESSAGE);
+            }
+            }
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void txtClientNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtClientNameMousePressed
         if(!btnUpdate.isEnabled()){
-            writeFields();
+            writeDefaultFields();
             if(txtClientName.getText().equals("client's  name"))
             {
                 txtClientName.setText("");
@@ -457,7 +562,7 @@ public class PnlOrderInformation extends javax.swing.JPanel {
 
     private void txtDeliveryPlaceMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDeliveryPlaceMousePressed
         if(!btnUpdate.isEnabled()){
-            writeFields();
+            writeDefaultFields();
             if(txtDeliveryPlace.getText().equals("216 Newbury Street"))
             {
                 txtDeliveryPlace.setText("");
@@ -469,7 +574,7 @@ public class PnlOrderInformation extends javax.swing.JPanel {
 
     private void txtADescriptionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtADescriptionMousePressed
         if(!btnUpdate.isEnabled()){
-            writeFields();
+            writeDefaultFields();
             if(txtADescription.getText().equals("Product's description"))
             {
                 txtADescription.setText("");
@@ -514,15 +619,27 @@ public class PnlOrderInformation extends javax.swing.JPanel {
             } 
     }//GEN-LAST:event_txtClientNameKeyTyped
 
+    private void chbxDeliveredMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chbxDeliveredMousePressed
+        if(!btnUpdate.isEnabled()){
+            if(!chbxDelivered.isSelected()){
+                txtDelivered.setForeground(Color.green);
+                txtDelivered.setText("Yes");
+            }else{
+                txtDelivered.setForeground(Color.red);
+                txtDelivered.setText("No");
+            }
+        }
+    }//GEN-LAST:event_chbxDeliveredMousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PnlOrderInformation;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JComboBox<String> cbxDayDelivery;
-    private javax.swing.JComboBox<String> cbxMonthDelivery;
-    private javax.swing.JComboBox<String> cbxYearDelivery;
+    private javax.swing.JComboBox<String> cbxDeliveryDay;
+    private javax.swing.JComboBox<String> cbxDeliveryMonth;
+    private javax.swing.JComboBox<String> cbxDeliveryYear;
     private javax.swing.JCheckBox chbxDelivered;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -542,6 +659,9 @@ public class PnlOrderInformation extends javax.swing.JPanel {
     private javax.swing.JLabel lblpictureWarningClient;
     public javax.swing.JTextArea txtADescription;
     public javax.swing.JTextField txtClientName;
+    private javax.swing.JLabel txtDelivered;
     private javax.swing.JTextField txtDeliveryPlace;
     // End of variables declaration//GEN-END:variables
+
+
 }

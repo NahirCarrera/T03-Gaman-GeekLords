@@ -1,26 +1,24 @@
 package ec.edu.espe.ehamanagement.view;
 
-import javax.swing.JOptionPane;
+import com.mongodb.client.MongoCollection;
+import ec.edu.espe.ehamanagement.controller.Agenda;
 
 /**
  *
  * @author NicolayChillo Gaman GeekLords at DCOO-ESPE
  */
 public class PnlAgenda extends javax.swing.JPanel {
-
+    private final MongoCollection ordersCollection;
     /**
      * Creates new form PnlAgendaMenuOption
      */
     public PnlAgenda() {
         initComponents();
-
-        
-        initPnlNewOrder();
-        initPnlOrdersTable();
-          
+        ordersCollection = Agenda.createConnectionToCollection();
+        initPnlOrdersTable(ordersCollection);
     }
-    private void initPnlOrdersTable(){
-        PnlOrdersTable pnlTableAllOrders = new PnlOrdersTable();
+    private void initPnlOrdersTable(MongoCollection ordersCollection){
+        PnlOrdersTable pnlTableAllOrders = new PnlOrdersTable(ordersCollection);
         pnlTableAllOrders.setSize(714,523);
         pnlTableAllOrders.setLocation(0, 0);
         pnlWindow.removeAll();
@@ -28,8 +26,6 @@ public class PnlAgenda extends javax.swing.JPanel {
         pnlWindow.revalidate();
         pnlWindow.repaint();
     }
-
-
 
     private void initPnlNewOrder(){
         PnlAddNewOrder pnlNewOrder = new PnlAddNewOrder();
@@ -41,7 +37,7 @@ public class PnlAgenda extends javax.swing.JPanel {
         pnlWindow.repaint();
     }
     public void initOrderInformation(){
-        PnlOrderInformation pnlOrderInformation = new PnlOrderInformation();
+        PnlOrderInformation pnlOrderInformation = new PnlOrderInformation(ordersCollection);
         pnlOrderInformation.setSize(714,523);
         pnlOrderInformation.setLocation(0,0);
         pnlWindow.removeAll();
@@ -210,7 +206,7 @@ public class PnlAgenda extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
-        initPnlOrdersTable();
+        initPnlOrdersTable(ordersCollection);
         
     }//GEN-LAST:event_BtnBackActionPerformed
 

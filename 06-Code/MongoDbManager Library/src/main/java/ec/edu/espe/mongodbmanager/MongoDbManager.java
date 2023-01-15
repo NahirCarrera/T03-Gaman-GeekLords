@@ -46,8 +46,8 @@ public class MongoDbManager {
         }
     }
     public static ArrayList <String> readAll(MongoCollection collection, String key){
-        ArrayList readedValues = new ArrayList();
-        Object document;
+        ArrayList <String> readedValues = new ArrayList();
+        String document;
         Bson filter = Filters.and(Filters.gt("id", 0));
         Document projectionDocument = new Document("_id", 0).append(key, 1);
         try(MongoCursor<Document> cursor = collection.find(filter).projection(projectionDocument).iterator()) {
@@ -113,7 +113,7 @@ public class MongoDbManager {
      return foundValue;   
     }
     
-    public static boolean findDocument(MongoCollection collection,String key,  Object value){
+    public static boolean findDocument(MongoCollection collection, String key,  Object value){
         Document projectionDocument = new Document("_id", 0);
         Bson filter = Filters.and(Filters.all(key, value));
         MongoCursor<Document> cursor = collection.find(filter).projection(projectionDocument).iterator();

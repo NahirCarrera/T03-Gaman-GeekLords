@@ -1,5 +1,6 @@
 package ec.edu.espe.ehamanagement.view;
 
+import com.mongodb.client.MongoCollection;
 import ec.edu.espe.ehamanagement.controller.Agenda;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -10,16 +11,16 @@ import ec.edu.espe.ehamanagement.model.Order;
  * @author NicolayChillo Gaman GeekLords at DCOO-ESPE
  */
 public class PnlAddNewOrder extends javax.swing.JPanel {
-
+    private MongoCollection ordersCollection;
     /**
      * Creates new form PnlNewOrder
      */
     public PnlAddNewOrder() {
+        ordersCollection = Agenda.createConnectionToCollection();
         initComponents();
         btnSave.setEnabled(false);
         txtADescription.setLineWrap(true);
         txtADescription.setWrapStyleWord(true);
-        validateFields();
         
     }
     private void validateFields(){
@@ -110,7 +111,19 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
         lblPictureWarningPlace.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
         lblPictureWarningPlace.setText("");
     }
-
+    private Order collectInformation(){
+        String clientName = txtClientName.getText();
+        String deliveryPlace = txtDeliveryPlace.getText();
+        String deliveryDate = cbxMonthDelivery.getSelectedItem() + "/" + cbxDayDelivery.getSelectedItem() + "/" + cbxYearDelivery.getSelectedItem();
+        String description = txtADescription.getText();
+        boolean isDelivered = false;
+        Order newOrder =  new Order(0, clientName,  deliveryPlace, deliveryDate, description, isDelivered);
+        return newOrder;
+    }
+    private boolean insertOrder(){
+        Order newOrder = collectInformation();
+        return Agenda.insertOrder(ordersCollection, newOrder);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -368,9 +381,8 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
                 .addGap(9, 9, 9)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblPictureWarningDes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(lblTextWarningDes, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblTextWarningDes, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -396,18 +408,17 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         int decision = JOptionPane.showConfirmDialog(this,"Are you sure you want to save this order?", "Save Order", JOptionPane.YES_NO_OPTION);
-        if (decision == 0){
-            String clientName = txtClientName.getText();
-            String deliveryPlace = txtDeliveryPlace.getText();
-            String deliveryDate = cbxMonthDelivery.getSelectedItem() + "/" + cbxDayDelivery.getSelectedItem() + "/" + cbxYearDelivery.getSelectedItem();
-            String description = txtADescription.getText();
-            boolean isDelivered = false;
-            Order newOrder =  new Order(0, clientName,  deliveryPlace, deliveryDate, description, isDelivered);
-            if(Agenda.insertOrder(newOrder)){
-                JOptionPane.showMessageDialog(this,"Your order  has been successfully saved!", "Saved successfully", JOptionPane.INFORMATION_MESSAGE);
-                cleanFields();
-                writeFields();
-            }   
+        switch(decision){
+            case 0 -> {
+                if(insertOrder()){
+                    JOptionPane.showMessageDialog(this,"Your order  has been successfully saved!", "Saved successfully", JOptionPane.INFORMATION_MESSAGE);
+                    btnSave.setEnabled(false);
+                    cleanFields();
+                    writeFields();
+                }else{
+                    JOptionPane.showMessageDialog(this,"Something went wrong. Failed to save this order", "Saved failed", JOptionPane.ERROR_MESSAGE);
+            }  
+            }
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 

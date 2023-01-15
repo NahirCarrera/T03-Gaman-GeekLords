@@ -17,7 +17,6 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
     public FrmPrincipalMenuBar() 
     {
         initComponents();
-        initAgendaMenuOption();
         InitContent();
     }
     

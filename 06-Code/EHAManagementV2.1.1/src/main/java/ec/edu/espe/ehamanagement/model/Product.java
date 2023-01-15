@@ -6,6 +6,7 @@ import java.util.ArrayList;
  *
  * @author Nahir Carrera, Gaman GeekLords, DCC0-ESPE
  */
+
 public class Product {
     private int id;
     private String name;
