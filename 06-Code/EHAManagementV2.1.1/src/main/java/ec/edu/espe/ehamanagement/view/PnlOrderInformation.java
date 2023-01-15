@@ -16,18 +16,27 @@ public class PnlOrderInformation extends javax.swing.JPanel {
     public PnlOrderInformation() {
         initComponents();
         btnSave.setEnabled(false);
+        txtADescription.setLineWrap(true);
+        txtADescription.setWrapStyleWord(true);
+        
     }
-    public void validateDates()
-    {
+    
+    private void validateFields(){
+        if(txtClientName.getText().equals("client's  name"))
+        {
+            lblTextWarningClient.setText("this area is required");
+            pictureWarningClient();
+        }else{
+            pictureWhiteClient();
+            lblTextWarningClient.setText("");
+        }
         if(txtDeliveryPlace.getText().equals("216 Newbury Street"))
         {
-            lblTextWrningPlace.setText("this area is requerid");
+            lblTextWarningPlace.setText("this area is required");
             pictureWarningPlace();
-        }
-        else
-        {
+        }else{
             pictureWhitePlace();
-            lblTextWrningPlace.setText("");
+            lblTextWarningPlace.setText("");
         }
         
         if(txtADescription.getText().equals("Product's description"))
@@ -48,34 +57,49 @@ public class PnlOrderInformation extends javax.swing.JPanel {
             btnSave.setEnabled(true);
         }
     }
-     
+    private void writeFields(){
+        if(txtClientName.getText().isEmpty()){
+                txtClientName.setText("client's  name");
+                txtClientName.setForeground(Color.gray);
+            }
+        if(txtDeliveryPlace.getText().isEmpty()){
+                txtDeliveryPlace.setText("216 Newbury Street");
+                txtDeliveryPlace.setForeground(Color.gray);
+               
+            }
+        if(txtADescription.getText().isEmpty()){
+                txtADescription.setText("Product's description");
+                txtADescription.setForeground(Color.gray);
+                
+            }
+    }
 
-    public void pictureWarningDescription() {
+    private void pictureWarningDescription() {
         lblPictureWrningDes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
         lblPictureWrningDes.setText("");
     }
 
-    public void pictureWhiteDescription() {
+    private void pictureWhiteDescription() {
         lblPictureWrningDes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
         lblPictureWrningDes.setText("");
     }
-     public void pictureWarningClient() {
+    private void pictureWarningClient() {
         lblpictureWarningClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
         lblpictureWarningClient.setText("");
     }
 
-    public void pictureWhiteClient() {
+    private void pictureWhiteClient() {
         lblpictureWarningClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
         lblpictureWarningClient.setText("");
     }
-    public void pictureWarningPlace() {
-        lblPictureWarningPalce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
-        lblPictureWarningPalce.setText("");
+    private void pictureWarningPlace() {
+        lblPictureWarningPlace.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
+        lblPictureWarningPlace.setText("");
     }
 
-    public void pictureWhitePlace() {
-        lblPictureWarningPalce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
-        lblPictureWarningPalce.setText("");
+    private void pictureWhitePlace() {
+        lblPictureWarningPlace.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
+        lblPictureWarningPlace.setText("");
     }
     
     private void UpdateOrder(boolean active){
@@ -123,9 +147,9 @@ public class PnlOrderInformation extends javax.swing.JPanel {
         cbxDayDelivery = new javax.swing.JComboBox<>();
         cbxYearDelivery = new javax.swing.JComboBox<>();
         lblpictureWarningClient = new javax.swing.JLabel();
-        lblTextClient = new javax.swing.JLabel();
-        lblPictureWarningPalce = new javax.swing.JLabel();
-        lblTextWrningPlace = new javax.swing.JLabel();
+        lblTextWarningClient = new javax.swing.JLabel();
+        lblPictureWarningPlace = new javax.swing.JLabel();
+        lblTextWarningPlace = new javax.swing.JLabel();
         lblPictureWrningDes = new javax.swing.JLabel();
 
         PnlOrderInformation.setBackground(new java.awt.Color(255, 255, 255));
@@ -288,16 +312,9 @@ public class PnlOrderInformation extends javax.swing.JPanel {
         cbxYearDelivery.setBorder(null);
         cbxYearDelivery.setEnabled(false);
 
-        lblpictureWarningClient.setText("jLabel6");
+        lblTextWarningClient.setForeground(new java.awt.Color(255, 0, 0));
 
-        lblTextClient.setText("jLabel7");
-
-        lblPictureWarningPalce.setText("2");
-
-        lblTextWrningPlace.setForeground(new java.awt.Color(255, 0, 0));
-        lblTextWrningPlace.setText("1");
-
-        lblPictureWrningDes.setText("jLabel6");
+        lblTextWarningPlace.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout PnlOrderInformationLayout = new javax.swing.GroupLayout(PnlOrderInformation);
         PnlOrderInformation.setLayout(PnlOrderInformationLayout);
@@ -306,46 +323,39 @@ public class PnlOrderInformation extends javax.swing.JPanel {
             .addGroup(PnlOrderInformationLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                        .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSave))
+                        .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                            .addComponent(cbxMonthDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                            .addComponent(cbxDayDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(26, 26, 26)
+                            .addComponent(cbxYearDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jSeparator3)
+                        .addComponent(txtDeliveryPlace)
+                        .addComponent(jSeparator4)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator2)
+                        .addComponent(jLabel5)
+                        .addComponent(chbxDelivered)
+                        .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lblPictureWrningDes, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtClientName))
                     .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                        .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
-                                .addComponent(jLabel5)
-                                .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnSave)
-                                    .addGap(14, 14, 14))
-                                .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                                    .addComponent(txtClientName)
-                                    .addGap(80, 80, 80))
-                                .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(37, 37, 37))
-                                .addComponent(chbxDelivered)
-                                .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                                    .addComponent(cbxMonthDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                                    .addComponent(cbxDayDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(26, 26, 26)
-                                    .addComponent(cbxYearDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jSeparator3)
-                                .addComponent(txtDeliveryPlace)
-                                .addComponent(jSeparator4)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jSeparator2))
-                            .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                                .addComponent(lblpictureWarningClient)
-                                .addGap(30, 30, 30)
-                                .addComponent(lblTextClient, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                                .addComponent(lblPictureWarningPalce)
-                                .addGap(22, 22, 22)
-                                .addComponent(lblTextWrningPlace, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlOrderInformationLayout.createSequentialGroup()
-                        .addComponent(lblPictureWrningDes)
-                        .addGap(31, 31, 31)))
+                        .addComponent(lblpictureWarningClient, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTextWarningClient, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                        .addComponent(lblPictureWarningPlace, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTextWarningPlace, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -356,22 +366,20 @@ public class PnlOrderInformation extends javax.swing.JPanel {
         PnlOrderInformationLayout.setVerticalGroup(
             PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PnlOrderInformationLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
                 .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                        .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(PnlOrderInformationLayout.createSequentialGroup()
-                                .addComponent(btnSave)
-                                .addGap(41, 41, 41)))
+                        .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(btnSave))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtClientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblpictureWarningClient)
-                            .addComponent(lblTextClient))
+                        .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblpictureWarningClient, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTextWarningClient, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(5, 5, 5)
                         .addComponent(jLabel1)
                         .addGap(4, 4, 4)
@@ -388,26 +396,24 @@ public class PnlOrderInformation extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)
-                        .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPictureWarningPalce)
-                            .addComponent(lblTextWrningPlace))
-                        .addGap(1, 1, 1)
+                        .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblTextWarningPlace, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                            .addComponent(lblPictureWarningPlace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chbxDelivered)
                         .addGap(1, 1, 1)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(lblPictureWrningDes, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(PnlOrderInformationLayout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PnlOrderInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlOrderInformationLayout.createSequentialGroup()
-                        .addComponent(lblPictureWrningDes)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -424,6 +430,7 @@ public class PnlOrderInformation extends javax.swing.JPanel {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         UpdateOrder(true);
+        validateFields();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -435,59 +442,40 @@ public class PnlOrderInformation extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void txtClientNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtClientNameMousePressed
-        if(txtClientName.getText().equals("client's  name"))
-        {
-            txtClientName.setText("");
-            txtClientName.setForeground(Color.black);
-        }
-        if(txtDeliveryPlace.getText().isEmpty())
-        {
-            txtDeliveryPlace.setText("216 Newbury Street");
-            txtDeliveryPlace.setForeground(Color.gray);
-        }
-        if(txtADescription.getText().isEmpty())
-        {
-            txtADescription.setText("Product's description");
-            txtADescription.setForeground(Color.gray);
+        if(!btnUpdate.isEnabled()){
+            writeFields();
+            if(txtClientName.getText().equals("client's  name"))
+            {
+                txtClientName.setText("");
+                txtClientName.setForeground(Color.black);
+            }
+            validateFields();
+
         }
         
     }//GEN-LAST:event_txtClientNameMousePressed
 
     private void txtDeliveryPlaceMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDeliveryPlaceMousePressed
-        if(txtDeliveryPlace.getText().equals("216 Newbury Street"))
-        {
-            txtDeliveryPlace.setText("");
-            txtDeliveryPlace.setForeground(Color.black);
-        }
-        if(txtClientName.getText().isEmpty())
-        {
-            txtClientName.setText("client's  name");
-            txtClientName.setForeground(Color.gray);
-        }
-        
-        if(txtADescription.getText().isEmpty())
-        {
-            txtADescription.setText("Product's description");
-            txtADescription.setForeground(Color.gray);
+        if(!btnUpdate.isEnabled()){
+            writeFields();
+            if(txtDeliveryPlace.getText().equals("216 Newbury Street"))
+            {
+                txtDeliveryPlace.setText("");
+                txtDeliveryPlace.setForeground(Color.black);
+            }
+            validateFields();
         }
     }//GEN-LAST:event_txtDeliveryPlaceMousePressed
 
     private void txtADescriptionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtADescriptionMousePressed
-       if(txtADescription.getText().equals("Product's description"))
-        {
-            txtADescription.setText("");
-            txtADescription.setForeground(Color.black);
-        }  
-        if(txtDeliveryPlace.getText().isEmpty())
-        {
-            txtDeliveryPlace.setText("216 Newbury Street");
-            txtDeliveryPlace.setForeground(Color.gray);
-        }
-        
-        if(txtClientName.getText().isEmpty())
-        {
-            txtClientName.setText("client's  name");
-            txtClientName.setForeground(Color.gray);
+        if(!btnUpdate.isEnabled()){
+            writeFields();
+            if(txtADescription.getText().equals("Product's description"))
+            {
+                txtADescription.setText("");
+                txtADescription.setForeground(Color.black);
+            }  
+            validateFields();
         }
         
         
@@ -499,42 +487,31 @@ public class PnlOrderInformation extends javax.swing.JPanel {
 
     private void txtDeliveryPlaceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDeliveryPlaceKeyReleased
          if (txtClientName.getText().equals("client's  name")) {
-            lblTextClient.setText("this area is required");
+            lblTextWarningClient.setText("this area is required");
             pictureWarningClient();
         } 
-        validateDates();
+        validateFields();
     }//GEN-LAST:event_txtDeliveryPlaceKeyReleased
 
     private void txtADescriptionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtADescriptionKeyReleased
          if (txtClientName.getText().equals("client's  name")) {
-            lblTextClient.setText("this area is required");
+            lblTextWarningClient.setText("this area is required");
             pictureWarningClient();
         } 
-        validateDates();
+        validateFields();
     }//GEN-LAST:event_txtADescriptionKeyReleased
 
     private void txtClientNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClientNameKeyTyped
-        char c = evt.getKeyChar();
-        if (txtClientName.getText().equals("client's  name")) {
-            lblTextClient.setText("this area is required");
-            pictureWarningClient();
-        } 
-        else
-        {
-            if (!Character.isLetter(c) && (c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_SPACE)) {
-               // getToolkit().beep();
-               // evt.consume();
-               evt.consume();
+        char character = evt.getKeyChar();
+            if (!Character.isLetter(character) && (character != KeyEvent.VK_BACK_SPACE && character != KeyEvent.VK_SPACE)) {
+                evt.consume();
                 pictureWarningClient();
-                lblTextClient.setText(c + " is not accepted here!");
+                lblTextWarningClient.setText(character + " is not accepted here!");
 
             } else {
-                lblTextClient.setText("");
+                lblTextWarningClient.setText("");
                 pictureWhiteClient();
-            }
-
-        }
-        validateDates();
+            } 
     }//GEN-LAST:event_txtClientNameKeyTyped
 
 
@@ -558,10 +535,10 @@ public class PnlOrderInformation extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JLabel lblPictureWarningPalce;
+    private javax.swing.JLabel lblPictureWarningPlace;
     private javax.swing.JLabel lblPictureWrningDes;
-    private javax.swing.JLabel lblTextClient;
-    private javax.swing.JLabel lblTextWrningPlace;
+    private javax.swing.JLabel lblTextWarningClient;
+    private javax.swing.JLabel lblTextWarningPlace;
     private javax.swing.JLabel lblpictureWarningClient;
     public javax.swing.JTextArea txtADescription;
     public javax.swing.JTextField txtClientName;

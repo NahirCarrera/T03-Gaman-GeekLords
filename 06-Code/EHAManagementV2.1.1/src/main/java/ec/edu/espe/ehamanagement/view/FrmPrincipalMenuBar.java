@@ -17,8 +17,8 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
     public FrmPrincipalMenuBar() 
     {
         initComponents();
-        InitContent();
         initAgendaMenuOption();
+        InitContent();
     }
     
 
@@ -31,7 +31,7 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
     {
         PnlAbout pnlAbout = new PnlAbout();
         pnlAbout.setSize(932,525);
-        pnlAbout.setLocation(0,0);
+        pnlAbout.setLocation(20,0);
         PnlWindow.removeAll();
         PnlWindow.add(pnlAbout, BorderLayout.CENTER);
         PnlWindow.revalidate();

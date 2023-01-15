@@ -28,9 +28,17 @@ public class PnlUpdateUser extends javax.swing.JPanel {
         userCollection = Registration.createConnectionToCollection();
     }
 
-    public void validateFields()
-    {
-
+    private void validateFields(){
+        if (txtUserName.getText().equals("UserName"))
+        {
+            lbWarningUser.setText("this area is required");
+            pictureWarningUser();
+        }
+        else 
+        {
+            lbWarningUser.setText("");
+            pictureWhitePassword();
+        }
         if (txtEmail.getText().equals("name@gmail.com"))
         {
             lbWarningEmail.setText("this area is required");
@@ -75,59 +83,80 @@ public class PnlUpdateUser extends javax.swing.JPanel {
             || txtEmail.getText().equals("name@gmail.com") || txtUserName.getText().equals("UserName") || txtUserName.getText().isEmpty() || pflOldPassword.getText().isEmpty() || txtEmail.getText().isEmpty()
              || txtCurrentSalary.getText().isEmpty() || pflPassword.getText().equals("***************")|| pflPassword.getText().isEmpty()) {
          btnSave.setEnabled(false);
-        } else {
-            btnSave.setEnabled(true);
         }
 
     }
+    private void writeFields(){
+        if (txtUserName.getText().isEmpty()) {
+            txtUserName.setText("UserName");
+            txtUserName.setForeground(Color.gray);
+        }
+        if (txtEmail.getText().isEmpty()) {
+            txtEmail.setText("name@gmail.com");
+            txtEmail.setForeground(Color.gray);
+        }
+        if (txtCurrentSalary.getText().isEmpty()) {
+            txtCurrentSalary.setText("$00.00");
+            txtCurrentSalary.setForeground(Color.gray);
 
-    public void pictureSeenGreenUser() {
+        }
+        if (String.valueOf(pflOldPassword.getPassword()).isEmpty()) {
+            pflOldPassword.setText("***************");
+            pflOldPassword.setForeground(Color.gray);
+        }
+        if(String.valueOf(pflPassword.getPassword()).isEmpty())
+        {
+            pflPassword.setText("***************");
+            pflPassword.setForeground(Color.gray);
+        }
+    }
+    private void pictureSeenGreenUser() {
         lblSeenGreenP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/seenGreen.png"))); // NOI18N
         lblSeenGreenP.setText("");
-        lbWriteGreen.setText("Enter your new password");
+        lbWriteGreen.setText("Enter new password");
     }
-    public void pictureWiteNewPassword()
+    private void pictureWiteNewPassword()
     {
         lblSeenGreenP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png")));
         lbWriteGreen.setText("");
     }
 
-    public void pictureWarningUser() {
+    private void pictureWarningUser() {
         lbValidateUserPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
         lbValidateUserPicture.setText("");
     }
 
-    public void pictureWhiteUser() {
+    private void pictureWhiteUser() {
         lbValidateUserPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/picture1.png"))); // NOI18N
         lbValidateUserPicture.setText("");
     }
 
-    public void pictureWarningPassword() {
+    private void pictureWarningPassword() {
         lbValidatePassPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
         lbValidatePassPicture.setText("");
     }
 
-    public void pictureWhitePassword() {
+    private void pictureWhitePassword() {
         lbValidatePassPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/picture1.png"))); // NOI18N
         lbValidatePassPicture.setText("");
     }
 
-    public void pictureWarningEmail() {
+    private void pictureWarningEmail() {
         lbValidateEmailPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
         lbValidateEmailPicture.setText("");
     }
 
-    public void pictureWhiteEmail() {
+    private void pictureWhiteEmail() {
         lbValidateEmailPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/picture1.png"))); // NOI18N
         lbValidateEmailPicture.setText("");
     }
 
-    public void pictureWarningSalary() {
+    private void pictureWarningSalary() {
         lbValidateCurrentSPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
         lbValidateCurrentSPicture.setText("");
     }
 
-    public void pictureWhiteSalary() {
+    private void pictureWhiteSalary() {
         lbValidateCurrentSPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/picture1.png"))); // NOI18N
         lbValidateCurrentSPicture.setText("");
     }
@@ -190,7 +219,7 @@ public class PnlUpdateUser extends javax.swing.JPanel {
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setText("Password");
+        jLabel4.setText("New Password");
 
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtEmail.setForeground(new java.awt.Color(153, 153, 153));
@@ -230,16 +259,19 @@ public class PnlUpdateUser extends javax.swing.JPanel {
             }
         });
 
-        lbWarningCurrentS.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        lbWarningCurrentS.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         lbWarningCurrentS.setForeground(new java.awt.Color(204, 0, 0));
+        lbWarningCurrentS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        lbWarningPass.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        lbWarningPass.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         lbWarningPass.setForeground(new java.awt.Color(204, 0, 0));
+        lbWarningPass.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        lbWarningEmail.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        lbWarningEmail.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         lbWarningEmail.setForeground(new java.awt.Color(204, 0, 0));
+        lbWarningEmail.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        lbWarningUser.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        lbWarningUser.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         lbWarningUser.setForeground(new java.awt.Color(204, 0, 0));
 
         pflOldPassword.setForeground(new java.awt.Color(153, 153, 153));
@@ -291,7 +323,7 @@ public class PnlUpdateUser extends javax.swing.JPanel {
         });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel5.setText("confirm old password");
+        jLabel5.setText("Current password");
 
         jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -321,6 +353,7 @@ public class PnlUpdateUser extends javax.swing.JPanel {
         btnConfirmPassword.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnConfirmPassword.setForeground(new java.awt.Color(255, 255, 255));
         btnConfirmPassword.setText("confirm");
+        btnConfirmPassword.setToolTipText("You have to confirm your old password to save changes, also to change you current password");
         btnConfirmPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnConfirmPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -328,8 +361,9 @@ public class PnlUpdateUser extends javax.swing.JPanel {
             }
         });
 
-        lbWriteGreen.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        lbWriteGreen.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         lbWriteGreen.setForeground(new java.awt.Color(51, 204, 0));
+        lbWriteGreen.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("$");
@@ -362,7 +396,7 @@ public class PnlUpdateUser extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCurrentSalary))
                     .addComponent(pflOldPassword))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(lbValidateEmailPicture, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbValidateCurrentSPicture, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -370,15 +404,14 @@ public class PnlUpdateUser extends javax.swing.JPanel {
                     .addComponent(lbValidateUserPicture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblSeenGreenP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lbWarningCurrentS, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                    .addComponent(lbWarningEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                    .addComponent(lbWarningPass, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                    .addComponent(lbWarningUser, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                    .addComponent(lbWriteGreen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lbWarningCurrentS, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                        .addComponent(lbWarningEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                        .addComponent(lbWarningPass, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                        .addComponent(lbWarningUser, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                        .addComponent(lbWriteGreen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -453,126 +486,48 @@ public class PnlUpdateUser extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCurrentSalaryActionPerformed
 
     private void txtEmailMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEmailMousePressed
-        
+        writeFields();
         if (txtEmail.getText().equals("name@gmail.com")) {
             txtEmail.setText("");
             txtEmail.setForeground(Color.black);
 
         }
-        if (txtUserName.getText().isEmpty()) {
-            txtUserName.setText("UserName");
-            txtUserName.setForeground(Color.gray);
-
-        }
-
-        if (String.valueOf(pflOldPassword.getPassword()).isEmpty()) {
-            pflOldPassword.setText("***************");
-            pflOldPassword.setForeground(Color.gray);
-
-        }
-        if(String.valueOf(pflPassword.getPassword()).isEmpty())
-        {
-            pflPassword.setText("***************");
-            pflPassword.setForeground(Color.gray);
-        }
-        if (txtCurrentSalary.getText().isEmpty()) {
-            txtCurrentSalary.setText("$00.00");
-            txtCurrentSalary.setForeground(Color.gray);
-        }
-        
-       
+        validateFields();
     }//GEN-LAST:event_txtEmailMousePressed
 
     private void txtCurrentSalaryMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCurrentSalaryMousePressed
-        
+        writeFields();
         if (txtCurrentSalary.getText().equals("$00.00")) {
             txtCurrentSalary.setText("");
             txtCurrentSalary.setForeground(Color.black);
         }
-        if (txtUserName.getText().isEmpty()) {
-            txtUserName.setText("UserName");
-            txtUserName.setForeground(Color.gray);
-
-        }
-        if (String.valueOf(pflOldPassword.getPassword()).isEmpty()) {
-            pflOldPassword.setText("***************");
-            pflOldPassword.setForeground(Color.gray);
-
-        }
-        if (txtEmail.getText().isEmpty()) {
-            txtEmail.setText("name@gmail.com");
-            txtEmail.setForeground(Color.gray);
-            
-        }
-        if(String.valueOf(pflPassword.getPassword()).isEmpty())
-        {
-            pflPassword.setText("***************");
-            pflPassword.setForeground(Color.gray);
-        }
+        validateFields();
     }//GEN-LAST:event_txtCurrentSalaryMousePressed
 
     private void pflOldPasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pflOldPasswordMousePressed
+        writeFields();
         if (String.valueOf(pflOldPassword.getPassword()).equals("***************")) {
             pflOldPassword.setText("");
             pflOldPassword.setForeground(Color.black);
 
         }
-        if(String.valueOf(pflPassword.getPassword()).isEmpty())
-        {
-            pflPassword.setText("***************");
-            pflPassword.setForeground(Color.gray);
-        }
-        if (txtUserName.getText().isEmpty()) {
-            txtUserName.setText("UserName");
-            txtUserName.setForeground(Color.gray);
-        }
-        if (txtEmail.getText().isEmpty()) {
-            txtEmail.setText("name@gmail.com");
-            txtEmail.setForeground(Color.gray);
-        }
-        if (txtCurrentSalary.getText().isEmpty()) {
-            txtCurrentSalary.setText("$00.00");
-            txtCurrentSalary.setForeground(Color.gray);
-
-        }
+        validateFields();
     }//GEN-LAST:event_pflOldPasswordMousePressed
 
     private void txtUserNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUserNameMousePressed
+        writeFields();
         if (txtUserName.getText().equals("UserName")) {
             txtUserName.setText("");
 
             txtUserName.setForeground(Color.black);
 
         }
-
-        if (txtCurrentSalary.getText().isEmpty()) {
-            txtCurrentSalary.setText("$00.00");
-            txtCurrentSalary.setForeground(Color.gray);
-
-        }
-        if (String.valueOf(pflOldPassword.getPassword()).isEmpty()) {
-            pflOldPassword.setText("***************");
-            pflOldPassword.setForeground(Color.gray);
-
-        }
-        if(String.valueOf(pflPassword.getPassword()).isEmpty())
-        {
-            pflPassword.setText("***************");
-            pflPassword.setForeground(Color.gray);
-        }
-        if (txtEmail.getText().isEmpty()) {
-            txtEmail.setText("name@gmail.com");
-            txtEmail.setForeground(Color.gray);
-        }
+        validateFields();
         
     }//GEN-LAST:event_txtUserNameMousePressed
 
     private void txtUserNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserNameKeyTyped
         char c = evt.getKeyChar();
-        if (txtUserName.getText().equals("UserName")) {
-            lbWarningUser.setText("this area is required");
-            pictureWarningUser();
-        } else {
             if (!Character.isLetter(c) && (c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_SPACE)) {
                 getToolkit().beep();
                 evt.consume();
@@ -583,9 +538,6 @@ public class PnlUpdateUser extends javax.swing.JPanel {
                 lbWarningUser.setText("");
                 pictureWhiteUser();
             }
-
-        }
-        
     }//GEN-LAST:event_txtUserNameKeyTyped
 
     private void txtUserNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserNameKeyReleased
@@ -624,13 +576,6 @@ public class PnlUpdateUser extends javax.swing.JPanel {
         } else {
             lbWarningUser.setText("");
             pictureWhiteUser();
-        }
-        if (txtCurrentSalary.getText().equals("$00.00")) {
-            lbWarningCurrentS.setText("this area is required");
-            pictureWarningSalary();
-        } else {
-            lbWarningCurrentS.setText("");
-            pictureWhiteSalary();
         }
         validateFields();
     }//GEN-LAST:event_pflOldPasswordKeyReleased
@@ -727,7 +672,8 @@ public class PnlUpdateUser extends javax.swing.JPanel {
         String password = pflOldPassword.getText();
          if ( password.equals(correctPassword))
          {
-             pictureSeenGreenUser();
+            btnSave.setEnabled(true);
+            pictureSeenGreenUser();
             pflPassword.setEnabled(true);
             pflOldPassword.setEnabled(false);
             btnConfirmPassword.setEnabled(false);

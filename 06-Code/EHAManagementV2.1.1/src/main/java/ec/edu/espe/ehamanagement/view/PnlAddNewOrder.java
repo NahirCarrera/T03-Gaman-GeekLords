@@ -1,8 +1,10 @@
 package ec.edu.espe.ehamanagement.view;
 
+import ec.edu.espe.ehamanagement.controller.Agenda;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
-
+import ec.edu.espe.ehamanagement.model.Order;
 /**
  *
  * @author NicolayChillo Gaman GeekLords at DCOO-ESPE
@@ -14,31 +16,40 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
      */
     public PnlAddNewOrder() {
         initComponents();
+        btnSave.setEnabled(false);
+        txtADescription.setLineWrap(true);
+        txtADescription.setWrapStyleWord(true);
+        validateFields();
+        
     }
-    public void validateDates()
-    {
-        if(txtDeliveryPlace.getText().isEmpty())
+    private void validateFields(){
+        if(txtClientName.getText().equals("client's  name"))
         {
-            lblTextWrningPlace.setText("this area is requerid");
-            pictureWarningPlace();
+            lblTextWarningClient.setText("this area is required");
+            pictureWarningClient();
+        }else{
+            pictureWhiteClient();
+            lblTextWarningClient.setText("");
         }
-        else
+        if(txtDeliveryPlace.getText().equals("216 Newbury Street"))
         {
+            lblTextWarningPlace.setText("this area is required");
+            pictureWarningPlace();
+        }else{
             pictureWhitePlace();
-            lblTextWrningPlace.setText("");
+            lblTextWarningPlace.setText("");
         }
         
-        if(txtADescription.getText().isEmpty())
+        if(txtADescription.getText().equals("Product's description"))
         {
+            lblTextWarningDes.setText("this area is required");
             pictureWarningDescription();
-            lblDescription.setText("this area is requerid");
-        }
-        else
-        {
+        }else{
             pictureWhiteDescription();
-            lblDescription.setText("");
+            lblTextWarningDes.setText("");
         }
-        if(  txtADescription.getText().isEmpty()
+        
+        if(txtDeliveryPlace.getText().equals("216 Newbury Street")|| txtADescription.getText().equals("Product's description")|| txtADescription.getText().isEmpty()||txtClientName.getText().equals("client's  name")
             || txtDeliveryPlace.getText().isEmpty()|| txtClientName.getText().isEmpty())
         {
             btnSave.setEnabled(false);
@@ -48,34 +59,56 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
             btnSave.setEnabled(true);
         }
     }
-     
-
-    public void pictureWarningDescription() {
-        lblPictureWrningDes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
-        lblPictureWrningDes.setText("");
+    
+    private void writeFields(){
+        if(txtClientName.getText().isEmpty()){
+                txtClientName.setText("client's  name");
+                txtClientName.setForeground(Color.gray);
+            }
+        if(txtDeliveryPlace.getText().isEmpty()){
+                txtDeliveryPlace.setText("216 Newbury Street");
+                txtDeliveryPlace.setForeground(Color.gray);
+               
+            }
+        if(txtADescription.getText().isEmpty()){
+                txtADescription.setText("Product's description");
+                txtADescription.setForeground(Color.gray);
+                
+            }
+    }
+    
+    private void cleanFields(){
+        txtClientName.setText("");
+        txtDeliveryPlace.setText("");
+        txtADescription.setText("");
+    }
+    
+    private void pictureWarningDescription() {
+        lblPictureWarningDes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
+        lblPictureWarningDes.setText("");
     }
 
-    public void pictureWhiteDescription() {
-        lblPictureWrningDes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
-        lblPictureWrningDes.setText("");
+    private void pictureWhiteDescription() {
+        lblPictureWarningDes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
+        lblPictureWarningDes.setText("");
     }
-     public void pictureWarningClient() {
-        lblpictureWarningClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
-        lblpictureWarningClient.setText("");
-    }
-
-    public void pictureWhiteClient() {
-        lblpictureWarningClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
-        lblpictureWarningClient.setText("");
-    }
-    public void pictureWarningPlace() {
-        lblPictureWarningPalce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
-        lblPictureWarningPalce.setText("");
+    private void pictureWarningClient() {
+        lblPictureWarningClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
+        lblPictureWarningClient.setText("");
     }
 
-    public void pictureWhitePlace() {
-        lblPictureWarningPalce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
-        lblPictureWarningPalce.setText("");
+    private void pictureWhiteClient() {
+        lblPictureWarningClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
+        lblPictureWarningClient.setText("");
+    }
+    private void pictureWarningPlace() {
+        lblPictureWarningPlace.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
+        lblPictureWarningPlace.setText("");
+    }
+
+    private void pictureWhitePlace() {
+        lblPictureWarningPlace.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
+        lblPictureWarningPlace.setText("");
     }
 
     /**
@@ -95,11 +128,10 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtDeliveryPlace = new javax.swing.JTextField();
-        CbxMonthDelivery = new javax.swing.JComboBox<>();
-        CbxDayDelivery = new javax.swing.JComboBox<>();
-        CbxYearDelivery = new javax.swing.JComboBox<>();
+        cbxMonthDelivery = new javax.swing.JComboBox<>();
+        cbxDayDelivery = new javax.swing.JComboBox<>();
+        cbxYearDelivery = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        txtADescription = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
@@ -107,12 +139,14 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JSeparator();
-        lblpictureWarningClient = new javax.swing.JLabel();
-        lblTextClient = new javax.swing.JLabel();
-        lblPictureWarningPalce = new javax.swing.JLabel();
-        lblTextWrningPlace = new javax.swing.JLabel();
-        lblPictureWrningDes = new javax.swing.JLabel();
-        lblDescription = new javax.swing.JLabel();
+        lblPictureWarningClient = new javax.swing.JLabel();
+        lblTextWarningClient = new javax.swing.JLabel();
+        lblPictureWarningPlace = new javax.swing.JLabel();
+        lblTextWarningPlace = new javax.swing.JLabel();
+        lblPictureWarningDes = new javax.swing.JLabel();
+        lblTextWarningDes = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtADescription = new javax.swing.JTextArea();
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -127,7 +161,13 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
         jLabel1.setText("Client Name");
 
         txtClientName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtClientName.setText("client's  name");
         txtClientName.setBorder(null);
+        txtClientName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtClientNameMousePressed(evt);
+            }
+        });
         txtClientName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtClientNameKeyTyped(evt);
@@ -141,34 +181,38 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
         jLabel4.setText("Delivery Date");
 
         txtDeliveryPlace.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtDeliveryPlace.setText("216 Newbury Street");
         txtDeliveryPlace.setBorder(null);
+        txtDeliveryPlace.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtDeliveryPlaceMousePressed(evt);
+            }
+        });
         txtDeliveryPlace.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtDeliveryPlaceKeyReleased(evt);
             }
         });
 
-        CbxMonthDelivery.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        CbxMonthDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "Dicember" }));
-        CbxMonthDelivery.setBorder(null);
+        cbxMonthDelivery.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbxMonthDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "Dicember" }));
+        cbxMonthDelivery.setBorder(null);
+        cbxMonthDelivery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxMonthDeliveryActionPerformed(evt);
+            }
+        });
 
-        CbxDayDelivery.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        CbxDayDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-        CbxDayDelivery.setBorder(null);
+        cbxDayDelivery.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbxDayDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        cbxDayDelivery.setBorder(null);
 
-        CbxYearDelivery.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        CbxYearDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
-        CbxYearDelivery.setBorder(null);
+        cbxYearDelivery.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbxYearDelivery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+        cbxYearDelivery.setBorder(null);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setText("Description:");
-
-        txtADescription.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(80, 22, 2), 2, true));
-        txtADescription.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtADescriptionKeyReleased(evt);
-            }
-        });
 
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -220,18 +264,23 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
 
         jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
 
-        lblpictureWarningClient.setText("jLabel6");
+        lblTextWarningPlace.setForeground(new java.awt.Color(255, 0, 0));
 
-        lblTextClient.setText("jLabel7");
+        lblTextWarningDes.setForeground(new java.awt.Color(255, 0, 0));
 
-        lblPictureWarningPalce.setText("2");
-
-        lblTextWrningPlace.setForeground(new java.awt.Color(255, 0, 0));
-        lblTextWrningPlace.setText("1");
-
-        lblPictureWrningDes.setText("jLabel6");
-
-        lblDescription.setText("1");
+        txtADescription.setBackground(new java.awt.Color(255, 255, 255));
+        txtADescription.setColumns(20);
+        txtADescription.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtADescription.setRows(5);
+        txtADescription.setTabSize(1);
+        txtADescription.setText("Product's description");
+        txtADescription.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(126, 53, 2), 2, true));
+        txtADescription.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtADescriptionMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(txtADescription);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -240,41 +289,43 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel4)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtDeliveryPlace)
-                        .addComponent(txtClientName)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel3)
-                        .addComponent(jSeparator3)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(CbxMonthDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(43, 43, 43)
-                            .addComponent(CbxDayDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(CbxYearDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(txtADescription, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(77, 77, 77)
-                            .addComponent(jLabel2))
-                        .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblPictureWrningDes)
-                        .addGap(39, 39, 39)
-                        .addComponent(lblDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(lblpictureWarningClient)
-                        .addGap(30, 30, 30)
-                        .addComponent(lblTextClient, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblPictureWarningPalce)
-                        .addGap(22, 22, 22)
-                        .addComponent(lblTextWrningPlace, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel4)
+                                .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtDeliveryPlace)
+                                .addComponent(txtClientName)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel3)
+                                .addComponent(jSeparator3)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(cbxMonthDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(43, 43, 43)
+                                    .addComponent(cbxDayDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cbxYearDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(77, 77, 77)
+                                    .addComponent(jLabel2))
+                                .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblPictureWarningDes, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblTextWarningDes, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lblPictureWarningClient, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblTextWarningClient, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lblPictureWarningPlace, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(16, 16, 16)
+                                .addComponent(lblTextWarningPlace, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 6, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -290,43 +341,44 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
                 .addGap(3, 3, 3)
                 .addComponent(txtClientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblpictureWarningClient)
-                    .addComponent(lblTextClient))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblTextWarningClient, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                    .addComponent(lblPictureWarningClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDeliveryPlace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPictureWarningPalce)
-                    .addComponent(lblTextWrningPlace))
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblPictureWarningPlace, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                    .addComponent(lblTextWarningPlace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addGap(9, 9, 9)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CbxMonthDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CbxDayDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CbxYearDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxMonthDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxDayDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxYearDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(lblPictureWrningDes)
-                    .addComponent(lblDescription))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblPictureWarningDes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(lblTextWarningDes, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtADescription, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -338,54 +390,94 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        JOptionPane.showConfirmDialog(this,"Are you sure you want to save this order?", "Save Order", JOptionPane.QUESTION_MESSAGE);
+        int decision = JOptionPane.showConfirmDialog(this,"Are you sure you want to save this order?", "Save Order", JOptionPane.YES_NO_OPTION);
+        if (decision == 0){
+            String clientName = txtClientName.getText();
+            String deliveryPlace = txtDeliveryPlace.getText();
+            String deliveryDate = cbxMonthDelivery.getSelectedItem() + "/" + cbxDayDelivery.getSelectedItem() + "/" + cbxYearDelivery.getSelectedItem();
+            String description = txtADescription.getText();
+            boolean isDelivered = false;
+            Order newOrder =  new Order(0, clientName,  deliveryPlace, deliveryDate, description, isDelivered);
+            if(Agenda.insertOrder(newOrder)){
+                JOptionPane.showMessageDialog(this,"Your order  has been successfully saved!", "Saved successfully", JOptionPane.INFORMATION_MESSAGE);
+                cleanFields();
+                writeFields();
+            }   
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtClientNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClientNameKeyTyped
-        char c = evt.getKeyChar();
-          if (!Character.isLetter(c) && (c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_SPACE)) {
-               // getToolkit().beep();
-               // evt.consume();
+        char character = evt.getKeyChar();
+          if (!Character.isLetter(character) && (character != KeyEvent.VK_BACK_SPACE && character != KeyEvent.VK_SPACE)) {
                evt.consume();
                 pictureWarningClient();
-                lblTextClient.setText(c + " is not accepted here!");
+                lblTextWarningClient.setText(character + " is not accepted here!");
 
             } else {
-                lblTextClient.setText("");
+                lblTextWarningClient.setText("");
                 pictureWhiteClient();
             }
-
-        
-        validateDates();
     }//GEN-LAST:event_txtClientNameKeyTyped
 
     private void txtDeliveryPlaceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDeliveryPlaceKeyReleased
     if (txtClientName.getText().isEmpty()) {
-            lblTextClient.setText("this area is required");
+            lblTextWarningClient.setText("this area is required");
             pictureWarningClient();
         } 
-        validateDates();
+        validateFields();
     }//GEN-LAST:event_txtDeliveryPlaceKeyReleased
 
-    private void txtADescriptionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtADescriptionKeyReleased
-        if (txtClientName.getText().isEmpty()) {
-            lblTextClient.setText("this area is required");
-            pictureWarningClient();
-        } 
-        validateDates();
-    }//GEN-LAST:event_txtADescriptionKeyReleased
+    private void txtClientNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtClientNameMousePressed
+        writeFields();
+        if(txtClientName.getText().equals("client's  name"))
+        {
+            txtClientName.setText("");
+            txtClientName.setForeground(Color.black);
+
+        }
+        
+        validateFields();
+    }//GEN-LAST:event_txtClientNameMousePressed
+
+    private void txtDeliveryPlaceMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDeliveryPlaceMousePressed
+        writeFields();
+        if(txtDeliveryPlace.getText().equals("216 Newbury Street"))
+        {
+            txtDeliveryPlace.setText("");
+            txtDeliveryPlace.setForeground(Color.black);
+
+        }
+        
+        validateFields();
+    }//GEN-LAST:event_txtDeliveryPlaceMousePressed
+
+    private void txtADescriptionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtADescriptionMousePressed
+        writeFields();
+        if(txtADescription.getText().equals("Product's description"))
+        {
+            txtADescription.setText("");
+            txtADescription.setForeground(Color.black);
+
+        }  
+        
+        validateFields();
+    }//GEN-LAST:event_txtADescriptionMousePressed
+
+    private void cbxMonthDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMonthDeliveryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxMonthDeliveryActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CbxDayDelivery;
-    private javax.swing.JComboBox<String> CbxMonthDelivery;
-    private javax.swing.JComboBox<String> CbxYearDelivery;
     private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox<String> cbxDayDelivery;
+    private javax.swing.JComboBox<String> cbxMonthDelivery;
+    private javax.swing.JComboBox<String> cbxYearDelivery;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -395,17 +487,18 @@ public class PnlAddNewOrder extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JLabel lblDescription;
-    private javax.swing.JLabel lblPictureWarningPalce;
-    private javax.swing.JLabel lblPictureWrningDes;
-    private javax.swing.JLabel lblTextClient;
-    private javax.swing.JLabel lblTextWrningPlace;
-    private javax.swing.JLabel lblpictureWarningClient;
-    private javax.swing.JTextField txtADescription;
+    private javax.swing.JLabel lblPictureWarningClient;
+    private javax.swing.JLabel lblPictureWarningDes;
+    private javax.swing.JLabel lblPictureWarningPlace;
+    private javax.swing.JLabel lblTextWarningClient;
+    private javax.swing.JLabel lblTextWarningDes;
+    private javax.swing.JLabel lblTextWarningPlace;
+    private javax.swing.JTextArea txtADescription;
     private javax.swing.JTextField txtClientName;
     private javax.swing.JTextField txtDeliveryPlace;
     // End of variables declaration//GEN-END:variables

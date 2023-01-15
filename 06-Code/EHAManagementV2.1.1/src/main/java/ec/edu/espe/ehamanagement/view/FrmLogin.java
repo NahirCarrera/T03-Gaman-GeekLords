@@ -346,29 +346,21 @@ public class FrmLogin extends javax.swing.JFrame {
         } else {
             lbWarningUser.setText("");
         }
-        validateDates();
+        //validateFields();
     }//GEN-LAST:event_pflPasswordKeyReleased
 
     private void pflPasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pflPasswordMousePressed
+        writeFields();
         if (String.valueOf(pflPassword.getPassword()).equals("***************")) {
             pflPassword.setText("");
             pflPassword.setForeground(Color.black);
 
         }
-        if (txtUserName.getText().isEmpty()) {
-            txtUserName.setText("Enter your username ");
-            txtUserName.setForeground(Color.gray);
-        }
+        validateFields();
     }//GEN-LAST:event_pflPasswordMousePressed
 
     private void txtUserNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserNameKeyTyped
         char c = evt.getKeyChar();
-        if (txtUserName.getText().equals("Enter your username ")) 
-        {
-            lbWarningUser.setText("this area is required");
-            pictureWarningUser();
-        } else 
-        {
             if (!Character.isLetter(c) && (c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_SPACE)) {
                 //getToolkit().beep();
                 evt.consume();
@@ -379,12 +371,10 @@ public class FrmLogin extends javax.swing.JFrame {
                 lbWarningUser.setText("");
                 pictureWhiteUser();
             }
-
-        }
     }//GEN-LAST:event_txtUserNameKeyTyped
 
     private void txtUserNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserNameKeyReleased
-        validateDates();
+        //validateFields();
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserNameKeyReleased
 
@@ -393,20 +383,23 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUserNameActionPerformed
 
     private void txtUserNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUserNameMousePressed
+        writeFields();
         if (txtUserName.getText().equals("Enter your username ")) {
             txtUserName.setText("");
 
             txtUserName.setForeground(Color.black);
 
         }
-
-        if (String.valueOf(pflPassword.getPassword()).isEmpty()) {
-            pflPassword.setText("***************");
-            pflPassword.setForeground(Color.gray);
-
-        }
+        validateFields();
     }//GEN-LAST:event_txtUserNameMousePressed
-    public void validateDates() {
+    public void validateFields() {
+        if (txtUserName.getText().equals("Enter your username ")) {
+            lbWarningUser.setText("this area is required");
+            pictureWarningUser();
+        } else {
+            lbWarningUser.setText("");
+            pictureWhiteUser();
+        }
         if (pflPassword.getText().equals("***************")) {
             lbWarningPassword.setText("this area is required");
             pictureWarningPassword();
@@ -421,7 +414,18 @@ public class FrmLogin extends javax.swing.JFrame {
             btnLogin.setEnabled(true);
         }
     }
-
+    private void writeFields(){
+        if (txtUserName.getText().isEmpty()) {
+            txtUserName.setText("Enter your username ");
+            txtUserName.setForeground(Color.gray);
+        }
+        if (String.valueOf(pflPassword.getPassword()).isEmpty()) {
+            pflPassword.setText("***************");
+            pflPassword.setForeground(Color.gray);
+        }
+    }
+    
+    
     public void pictureWarningUser() {
         lbPictureUserWarning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
         lbPictureUserWarning.setText("");

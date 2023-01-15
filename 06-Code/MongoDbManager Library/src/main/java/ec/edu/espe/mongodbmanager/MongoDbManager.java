@@ -45,7 +45,7 @@ public class MongoDbManager {
             return false;
         }
     }
-    public static ArrayList readAll(MongoCollection collection, String key){
+    public static ArrayList <String> readAll(MongoCollection collection, String key){
         ArrayList readedValues = new ArrayList();
         Object document;
         Bson filter = Filters.and(Filters.gt("id", 0));

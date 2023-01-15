@@ -14,7 +14,7 @@ public class Order {
     private String description;
     private boolean isDelivered;
 
-    public Order(int id, String clientName, String deliveryDate, String deliveryPlace, String description, boolean isDelivered) {
+    public Order(int id, String clientName, String deliveryPlace,String deliveryDate,  String description, boolean isDelivered) {
         this.id = id;
         this.clientName = clientName;
         this.deliveryDate = deliveryDate;
@@ -107,25 +107,5 @@ public class Order {
         this.isDelivered = isDelivered;
     }
     
-    public static ArrayList getAttributesNames(){
-        ArrayList keys = new ArrayList(5);
-        keys.add("id");
-        keys.add("clientName");
-        keys.add("description");
-        keys.add("deliveryDate");
-        keys.add("deliveryPlace");
-        keys.add("isDelivered");
 
-        return keys;   
-    }
-    public static ArrayList getAttributes(Order order){
-        ArrayList values = new ArrayList(5);
-        values.add(order.getId());
-        values.add(order.getClientName());
-        values.add(order.getDescription());
-        values.add(order.getDeliveryDate());
-        values.add(order.getDeliveryPlace());
-        values.add(order.getIsDelivered());
-        return values;
-    }
 }
