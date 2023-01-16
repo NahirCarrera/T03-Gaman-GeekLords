@@ -39,6 +39,9 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="MnInventoryMouseClicked"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="MnAgenda">
           <Properties>

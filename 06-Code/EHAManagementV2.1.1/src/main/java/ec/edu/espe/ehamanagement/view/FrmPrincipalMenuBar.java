@@ -19,6 +19,18 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
         initComponents();
         InitContent();
     }
+    public void initContendAgenda()
+    {
+        PnlInventory pnlAgendaTable = new PnlInventory();
+        pnlAgendaTable.setSize(996, 623);
+        pnlAgendaTable.setLocation(0,0);
+        
+        PnlWindow.removeAll();
+        PnlWindow.add(pnlAgendaTable, BorderLayout.CENTER);
+        PnlWindow.revalidate();
+        PnlWindow.repaint();
+             
+    }
     
 
     /**
@@ -104,6 +116,11 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
 
         MnInventory.setText("Inventory");
         MnInventory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MnInventory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MnInventoryMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(MnInventory);
 
         MnAgenda.setText("Agenda");
@@ -160,6 +177,10 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
     private void MnAgendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MnAgendaMouseClicked
         initAgendaMenuOption();
     }//GEN-LAST:event_MnAgendaMouseClicked
+
+    private void MnInventoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MnInventoryMouseClicked
+    initContendAgenda();
+    }//GEN-LAST:event_MnInventoryMouseClicked
 
     /**
      * @param args the command line arguments
