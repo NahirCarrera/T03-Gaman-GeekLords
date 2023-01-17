@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package ec.edu.espe.ehamanagement.view;
 
 import com.mongodb.client.MongoCollection;
@@ -13,7 +9,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Jairo Bonilla, Gaman GeekLords, DCCO-ESPE
+ * @author Jairo Bonilla & Nahir Carrera, Gaman GeekLords, DCCO-ESPE
  */
 public class PnlUpdateUser extends javax.swing.JPanel {
 
@@ -26,6 +22,14 @@ public class PnlUpdateUser extends javax.swing.JPanel {
         btnSave.setEnabled(false);
         pflPassword.setEnabled(false);
         userCollection = Registration.createConnectionToCollection();
+        String userName = (String) Registration.getValueFromUser(userCollection, 1, "userName");
+        String email = (String) Registration.getValueFromUser(userCollection, 1, "email");
+        String currentSalary = String.valueOf(Registration.getValueFromUser(userCollection, 1, "currentSalary"));
+        String password = (String) Registration.getValueFromUser(userCollection, 1, "password");
+        txtUserName.setText(userName);
+        txtEmail.setText(email);
+        txtCurrentSalary.setText(currentSalary);
+        pflPassword.setText(password);
     }
 
     private void validateFields(){
@@ -115,7 +119,7 @@ public class PnlUpdateUser extends javax.swing.JPanel {
         lblSeenGreenP.setText("");
         lbWriteGreen.setText("Enter new password");
     }
-    private void pictureWiteNewPassword()
+    private void pictureWhiteNewPassword()
     {
         lblSeenGreenP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png")));
         lbWriteGreen.setText("");
@@ -668,7 +672,7 @@ public class PnlUpdateUser extends javax.swing.JPanel {
     }//GEN-LAST:event_pflPasswordKeyReleased
 
     private void btnConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmPasswordActionPerformed
-        String correctPassword = Registration.findValue(userCollection, 1, "password");
+        String correctPassword = (String) Registration.getValueFromUser(userCollection, 1, "password");
         String password = pflOldPassword.getText();
          if ( password.equals(correctPassword))
          {

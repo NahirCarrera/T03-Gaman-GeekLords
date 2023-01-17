@@ -15,22 +15,22 @@ public class CostCalculator {
         String dataBase = "ManagementSoftware";
         String collection = "Materials";
         MongoCollection materialsCollection =  MongoDbManager.connectToCollection(uri, dataBase, collection);
-        float totalCost = Float.parseFloat(MongoDbManager.findValue(materialsCollection,"id", id, "cost"));
-        int quantity = Integer.parseInt(MongoDbManager.findValue(materialsCollection,"id", id, "quantity"));
+        float totalCost = Float.parseFloat(String.valueOf(MongoDbManager.getDocumentValue(materialsCollection,"id", id, "cost")));
+        int quantity = Integer.parseInt(String.valueOf(MongoDbManager.getDocumentValue(materialsCollection,"id", id, "quantity")));
         float unitQuantity = Math.round(totalCost/quantity);
-        MongoDbManager.update(materialsCollection, id, "unitCost", unitQuantity);
+        MongoDbManager.updateDocument(materialsCollection,"id", id, "unitCost", unitQuantity);
         return unitQuantity;
     }
     
     private static float computeMaterialsCostPerProduct(Product product){
-        ArrayList<Integer> materialsListPerProduct = product.getMaterialsIds();
-        ArrayList<Float> materialsQuantitiesPerProduct = product.getMaterialsQuantities();
+        ArrayList materialsListPerProduct = DictionaryConversor.convertToArrayList(product.getMaterials(), "values");
+        ArrayList materialsQuantitiesPerProduct = DictionaryConversor.convertToArrayList(product.getMaterials(), "keys");
         float totalMaterialsCostPerProduct = 0;
         if(!materialsListPerProduct.isEmpty()){
             for(int i = 0; i< materialsListPerProduct.size(); i++){
-                int materialId = materialsListPerProduct.get(i);
+                int materialId = Integer.parseInt(String.valueOf(materialsListPerProduct.get(i)));
                 float materialUnitCost = computeMaterialUnitCost(materialId);
-                float materialQuantity =  materialsQuantitiesPerProduct.get(i);
+                float materialQuantity =  Float.parseFloat(String.valueOf(materialsQuantitiesPerProduct.get(i)));
                 float materialTotalCost = materialUnitCost * materialQuantity;
                 totalMaterialsCostPerProduct += materialTotalCost;
                 }

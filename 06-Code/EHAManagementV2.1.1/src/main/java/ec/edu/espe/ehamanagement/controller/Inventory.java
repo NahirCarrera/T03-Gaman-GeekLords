@@ -5,6 +5,9 @@ import ec.edu.espe.ehamanagement.model.Product;
 import ec.edu.espe.mongodbmanager.MongoDbManager;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import utils.DictionaryConversor;
 
 /**
  *
@@ -31,23 +34,26 @@ public class Inventory {
         values.add(product.getName());
         values.add(product.getProductionCost());
         values.add(product.getDescription());
-        values.add(product.getMaterialsIds());
-        values.add(product.getMaterialsQuantities());
+        ArrayList materialsIds = DictionaryConversor.convertToArrayList(product.getMaterials(), "values");
+        ArrayList materialsQuantities = DictionaryConversor.convertToArrayList(product.getMaterials(), "keys");
+        values.add(materialsIds);
+        values.add(materialsQuantities);
         values.add(product.getWorkingTime());
         values.add(product.getQuantity());
         return values;
     }
-    public static boolean insertProduct(Product product){
-        MongoCollection productsCollection = createConnectionToCollection();
+    
+
+    public static boolean insertProduct( MongoCollection productsCollection ,Product product){
         ArrayList keys = getKeysToInsert();
         ArrayList values = getValuesToInsert(product);
-        MongoDbManager.insert(productsCollection, keys, values);
+        HashMap productToInsert = DictionaryConversor.convertToDictionary(keys, values);
+        MongoDbManager.insertDocument(productsCollection, productToInsert);
         return true;
     }
     
-    public static int assignIdToProduct(){
-        MongoCollection productsCollection = createConnectionToCollection();
-        ArrayList products = MongoDbManager.readAll(productsCollection, "id");
+    public static int assignIdToProduct(MongoCollection productsCollection){
+        ArrayList products = MongoDbManager.getFieldValues(productsCollection, "id");
         if(!products.isEmpty()){
             int lastId = (int) Collections.max(products);
             int newId = lastId + 1;
@@ -57,34 +63,54 @@ public class Inventory {
         }
     }
     
-    public static boolean deleteProduct( int id){
-        MongoCollection productsCollection = createConnectionToCollection();
-        return MongoDbManager.delete(productsCollection, id);
+    public static boolean deleteProduct(MongoCollection productsCollection, int id){
+        return MongoDbManager.deleteDocument(productsCollection, "id", id);
     }
-    public static String findValue(int id, String key){
-        MongoCollection productsCollection = createConnectionToCollection();
-        String foundValue;
-        foundValue = MongoDbManager.findValue(productsCollection, "id",id, key);
+    
+    public static Object getValueFromProduct(MongoCollection productsCollection,int id, String field){
+        Object foundValue;
+        foundValue = MongoDbManager.getDocumentValue(productsCollection, "id",id, field);
         return foundValue;
     }
-    public static ArrayList readAll(String key){
-        MongoCollection productsCollection = createConnectionToCollection();
+    
+    public static ArrayList readAll(MongoCollection productsCollection, String field){
         ArrayList productsIds;
-        productsIds = MongoDbManager.readAll(productsCollection, key);
+        productsIds = MongoDbManager.getFieldValues(productsCollection, field);
         return productsIds;
     }
     
     public static boolean updateProduct(Product product){
         int id = product.getId();
         MongoCollection productsCollection = createConnectionToCollection();
-        MongoDbManager.update(productsCollection, id, "name", product.getName());
-        MongoDbManager.update(productsCollection, id, "description", product.getDescription());
-        MongoDbManager.update(productsCollection, id, "quantity", product.getQuantity());
-        MongoDbManager.update(productsCollection, id, "workingTime", product.getWorkingTime());
-        MongoDbManager.update(productsCollection, id, "materialsIds", product.getMaterialsIds());
-        MongoDbManager.update(productsCollection, id, "materialsQuantities", product.getMaterialsQuantities());
+        MongoDbManager.updateDocument(productsCollection, "id",id, "name", product.getName());
+        MongoDbManager.updateDocument(productsCollection, "id",id, "description", product.getDescription());
+        MongoDbManager.updateDocument(productsCollection, "id",id, "quantity", product.getQuantity());
+        MongoDbManager.updateDocument(productsCollection,"id", id, "workingTime", product.getWorkingTime());
+        MongoDbManager.updateDocument(productsCollection,"id",id, "materialsIds", product.getMaterials().values());
+        MongoDbManager.updateDocument(productsCollection,"id",id, "materialsQuantities", product.getMaterials().keySet());
         return true;
     }
+        public static ArrayList <Product> readInventory( MongoCollection productsCollection){
+        ArrayList <Object> ids = readAll(productsCollection, "id");
+        Product readedProduct;
+        ArrayList <Product> readedProducts = new ArrayList();
+        for (Object readedId: ids){
+            int id = Integer.parseInt(String.valueOf(readedId));
+            String name = String.valueOf(getValueFromProduct( productsCollection, id, "name"));
+            Float productionCost = Float.valueOf(String.valueOf(getValueFromProduct(productsCollection,id, "cost")));
+            String description = String.valueOf(getValueFromProduct(productsCollection,id, "description"));
+            ArrayList materialsIds = (ArrayList<Object>)(getValueFromProduct(productsCollection,id, "materialsIds"));
+            ArrayList materialsQuantities = (ArrayList<Object>)(getValueFromProduct(productsCollection,id, "materialsQuantities"));
+            HashMap materials = DictionaryConversor.convertToDictionary(materialsIds, materialsQuantities);
+            int workingTime = Integer.parseInt(String.valueOf(getValueFromProduct( productsCollection, id, "workingTime")));
+            int quantity = Integer.parseInt(String.valueOf(getValueFromProduct( productsCollection, id, "quantity")));
+            readedProduct = new Product(id,  name, productionCost, description, materials, workingTime, quantity);
+            readedProducts.add(readedProduct);
+        }
+        return readedProducts;
+    }
+        
+        
     public static MongoCollection createConnectionToCollection(){
         String uri = "mongodb+srv://oop:oop@cluster0.og4urrq.mongodb.net/?retryWrites=true&w=majority";
         String dataBase = "ManagementSoftware";

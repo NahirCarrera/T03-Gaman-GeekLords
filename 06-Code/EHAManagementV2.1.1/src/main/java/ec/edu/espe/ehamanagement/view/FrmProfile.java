@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.ehamanagement.view;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
@@ -41,9 +37,9 @@ public class FrmProfile extends javax.swing.JFrame {
         PnlContent.add(pnlUser, BorderLayout.CENTER);
         PnlContent.revalidate();
         PnlContent.repaint();
-        String userName = Registration.findValue(userCollection, 1,"userName");
-        String email = Registration.findValue(userCollection, 1,"email");
-        String currentSalary = Registration.findValue(userCollection, 1,"currentSalary");
+        String userName = (String) Registration.getValueFromUser(userCollection, 1,"userName");
+        String email = (String) Registration.getValueFromUser(userCollection, 1,"email");
+        String currentSalary = String.valueOf(Registration.getValueFromUser(userCollection, 1,"currentSalary"));
         pnlUser.txtUserName.setText(userName);
         pnlUser.txtEmail.setText(email);
         pnlUser.txtCurrentSalary.setText(currentSalary);
@@ -58,7 +54,9 @@ public class FrmProfile extends javax.swing.JFrame {
         PnlContent.revalidate();
         PnlContent.repaint();
     }
-
+    private void writeFields(){
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -221,14 +219,7 @@ public class FrmProfile extends javax.swing.JFrame {
         PnlContent.add(pnlUpdate, BorderLayout.CENTER);
         PnlContent.revalidate();
         PnlContent.repaint();
-        String userName = Registration.findValue(userCollection, 1, "userName");
-        String email = Registration.findValue(userCollection, 1, "email");
-        String currentSalary = String.valueOf(Registration.findValue(userCollection, 1, "currentSalary"));
-        String password = Registration.findValue(userCollection, 1, "password");
-        pnlUpdate.txtUserName.setText(userName);
-        pnlUpdate.txtEmail.setText(email);
-        pnlUpdate.txtCurrentSalary.setText(currentSalary);
-        pnlUpdate.pflPassword.setText(password);
+        
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed

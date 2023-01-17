@@ -120,15 +120,15 @@ public class PnlOrderInformation extends javax.swing.JPanel {
     }
     
     private void writeFields(){
-        String clientName = Agenda.findValue(ordersCollection,"id", getIdToUpdate(), "clientName");
-        String deliveryPlace = Agenda.findValue(ordersCollection,"id", getIdToUpdate(), "deliveryPlace");
-        String deliveryDate = Agenda.findValue(ordersCollection, "id", getIdToUpdate(), "deliveryDate");
+        String clientName = (String) Agenda.getValueFromOrder(ordersCollection,"id", getIdToUpdate(), "clientName");
+        String deliveryPlace = (String) Agenda.getValueFromOrder(ordersCollection,"id", getIdToUpdate(), "deliveryPlace");
+        String deliveryDate = (String) Agenda.getValueFromOrder(ordersCollection, "id", getIdToUpdate(), "deliveryDate");
         String[] Date = deliveryDate.split("/");
         String deliveryMonth = Date[0];
         String deliveryDay = Date[1];
         String deliveryYear = Date[2];
-        boolean isDelivered = Boolean.valueOf(Agenda.findValue(ordersCollection, "id", getIdToUpdate(), "isDelivered"));
-        String description = Agenda.findValue(ordersCollection, "id", getIdToUpdate(), "description");
+        boolean isDelivered = Boolean.parseBoolean(String.valueOf(Agenda.getValueFromOrder(ordersCollection, "id", getIdToUpdate(), "isDelivered")));
+        String description = (String) Agenda.getValueFromOrder(ordersCollection, "id", getIdToUpdate(), "description");
         
         txtClientName.setText(clientName);
         txtDeliveryPlace.setText(deliveryPlace);

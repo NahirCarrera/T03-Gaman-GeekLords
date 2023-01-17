@@ -2,7 +2,6 @@ C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EH
 C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\ec\edu\espe\ehamanagement\model\Order.java
 C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\utils\CostCalculator.java
 C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\ec\edu\espe\ehamanagement\controller\Inventory.java
-C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\ec\edu\espe\ehamanagement\view\FrmUpdateProductNotUsed.java
 C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\ec\edu\espe\ehamanagement\view\PnlAddNewOrder.java
 C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\ec\edu\espe\ehamanagement\view\FrmProfile.java
 C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\ec\edu\espe\ehamanagement\view\PnlAgenda.java
@@ -11,11 +10,10 @@ C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EH
 C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\ec\edu\espe\ehamanagement\view\FrmPrincipalMenuBar.java
 C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\ec\edu\espe\ehamanagement\view\PnlOrdersTable.java
 C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\ec\edu\espe\ehamanagement\model\Material.java
-C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\ec\edu\espe\ehamanagement\view\FrmProductNotUsed.java
+C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\utils\DictionaryConversor.java
 C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\ec\edu\espe\ehamanagement\model\User.java
 C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\ec\edu\espe\ehamanagement\controller\Registration.java
 C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\ec\edu\espe\ehamanagement\model\Product.java
-C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\ec\edu\espe\ehamanagement\view\FrmInventoryNotUsed.java
 C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\ec\edu\espe\ehamanagement\view\FrmLogin.java
 C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\ec\edu\espe\ehamanagement\view\PnlUserInformation.java
 C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV2.1.1\src\main\java\ec\edu\espe\ehamanagement\controller\Agenda.java

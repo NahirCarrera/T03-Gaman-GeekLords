@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.ehamanagement.view;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
@@ -13,7 +9,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Jairo Bonilla, Gaman GeekLords, DCCO-ESPE
+ * @author Jairo Bonilla & Nahir Carrera, Gaman GeekLords, DCCO-ESPE
  */
 public class FrmLogin extends javax.swing.JFrame {
        MongoCollection userCollection;
@@ -327,8 +323,8 @@ public class FrmLogin extends javax.swing.JFrame {
         String userName = txtUserName.getText();
         String password = pflPassword.getText();
 
-        String correctUserName = Registration.findValue(userCollection, 1, "userName");
-        String correctPassword = Registration.findValue(userCollection, 1, "password");
+        String correctUserName = (String) Registration.getValueFromUser(userCollection, 1, "userName");
+        String correctPassword = (String) Registration.getValueFromUser(userCollection, 1, "password");
 
         if (userName.equals(correctUserName) && password.equals(correctPassword)){
             this.setVisible(false);

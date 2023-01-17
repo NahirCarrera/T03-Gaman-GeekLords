@@ -1,6 +1,8 @@
 package ec.edu.espe.ehamanagement.model;
 
-import java.util.ArrayList;
+
+import java.util.HashMap;
+
 
 /**
  *
@@ -8,22 +10,20 @@ import java.util.ArrayList;
  */
 
 public class Product {
-    private int id;
-    private String name;
-    private float productionCost;
-    private String description;
-    private ArrayList materialsIds;
-    private ArrayList materialsQuantities;
-    private int workingTime;
-    private int quantity;
+    public int id;
+    public String name;
+    public float productionCost;
+    public String description;
+    public HashMap <Integer, Float> materials;
+    public int workingTime;
+    public int quantity;
 
-    public Product(int id, String name, float productionCost, String description, ArrayList materialsIds, ArrayList materialsQuantities, int workingTime, int quantity) {
+    public Product(int id, String name, float productionCost, String description, HashMap materials, int workingTime, int quantity) {
         this.id = id;
         this.name = name;
         this.productionCost = productionCost;
         this.description = description;
-        this.materialsIds = materialsIds;
-        this.materialsQuantities = materialsQuantities;
+        this.materials = materials;
         this.workingTime = workingTime;
         this.quantity = quantity;
     }
@@ -56,6 +56,19 @@ public class Product {
         this.name = name;
     }
 
+    /**
+     * @return the productionCost
+     */
+    public float getProductionCost() {
+        return productionCost;
+    }
+
+    /**
+     * @param productionCost the productionCost to set
+     */
+    public void setProductionCost(float productionCost) {
+        this.productionCost = productionCost;
+    }
 
     /**
      * @return the description
@@ -72,31 +85,17 @@ public class Product {
     }
 
     /**
-     * @return the materialsIds
+     * @return the materials
      */
-    public ArrayList getMaterialsIds() {
-        return materialsIds;
+    public HashMap getMaterials() {
+        return materials;
     }
 
     /**
-     * @param materialsIds the materialsIds to set
+     * @param materials the materials to set
      */
-    public void setMaterialsIds(ArrayList materialsIds) {
-        this.materialsIds = materialsIds;
-    }
-
-    /**
-     * @return the materialsQuantities
-     */
-    public ArrayList getMaterialsQuantities() {
-        return materialsQuantities;
-    }
-
-    /**
-     * @param materialsQuantities the materialsQuantities to set
-     */
-    public void setMaterialsQuantities(ArrayList materialsQuantities) {
-        this.materialsQuantities = materialsQuantities;
+    public void setMaterials(HashMap materials) {
+        this.materials = materials;
     }
 
     /**
@@ -127,19 +126,8 @@ public class Product {
         this.quantity = quantity;
     }
 
-    /**
-     * @return the productionCost
-     */
-    public float getProductionCost() {
-        return productionCost;
-    }
 
-    /**
-     * @param productionCost the productionCost to set
-     */
-    public void setProductionCost(float productionCost) {
-        this.productionCost = productionCost;
-    }
-     
+
+
 
 }

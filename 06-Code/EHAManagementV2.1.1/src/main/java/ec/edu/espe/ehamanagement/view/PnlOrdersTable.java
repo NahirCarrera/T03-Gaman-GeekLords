@@ -23,7 +23,7 @@ public class PnlOrdersTable extends javax.swing.JPanel {
     public PnlOrdersTable(MongoCollection collection) {
         initComponents();
         ordersCollection = collection;
-        readedOrders = Agenda.read(ordersCollection);
+        readedOrders = Agenda.readAgenda(ordersCollection);
         model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Client Name");
@@ -142,7 +142,6 @@ public class PnlOrdersTable extends javax.swing.JPanel {
         rbtnAllOrders = new javax.swing.JRadioButton();
         rbtnPendingOrders = new javax.swing.JRadioButton();
         rbtnDeliveredOrders = new javax.swing.JRadioButton();
-        btnRefresh = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         rbtnByID = new javax.swing.JRadioButton();
         rbtnByName = new javax.swing.JRadioButton();
@@ -195,24 +194,47 @@ public class PnlOrdersTable extends javax.swing.JPanel {
         rbtnAllOrders.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         rbtnAllOrders.setSelected(true);
         rbtnAllOrders.setText("All Orders");
+        rbtnAllOrders.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rbtnAllOrdersMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                rbtnAllOrdersMousePressed(evt);
+            }
+        });
+        rbtnAllOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnAllOrdersActionPerformed(evt);
+            }
+        });
 
         rbtnPendingOrders.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rbtnPendingOrders);
         rbtnPendingOrders.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         rbtnPendingOrders.setText("Pending Orders");
+        rbtnPendingOrders.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                rbtnPendingOrdersMousePressed(evt);
+            }
+        });
+        rbtnPendingOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnPendingOrdersActionPerformed(evt);
+            }
+        });
 
         rbtnDeliveredOrders.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rbtnDeliveredOrders);
         rbtnDeliveredOrders.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         rbtnDeliveredOrders.setText("Delivered Orders");
-
-        btnRefresh.setBackground(new java.awt.Color(252, 154, 11));
-        btnRefresh.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
-        btnRefresh.setText("Refresh");
-        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+        rbtnDeliveredOrders.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                rbtnDeliveredOrdersMousePressed(evt);
+            }
+        });
+        rbtnDeliveredOrders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefreshActionPerformed(evt);
+                rbtnDeliveredOrdersActionPerformed(evt);
             }
         });
 
@@ -300,18 +322,6 @@ public class PnlOrdersTable extends javax.swing.JPanel {
                 .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlTableLayout.createSequentialGroup()
-                        .addComponent(rbtnAllOrders)
-                        .addGap(28, 28, 28)
-                        .addComponent(rbtnPendingOrders)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbtnDeliveredOrders)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
-                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlTableLayout.createSequentialGroup()
-                        .addGap(284, 284, 284)
-                        .addComponent(lblTableTitle)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(pnlTableLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
@@ -327,7 +337,19 @@ public class PnlOrdersTable extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTextWarning, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlTableLayout.createSequentialGroup()
+                        .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlTableLayout.createSequentialGroup()
+                                .addComponent(rbtnAllOrders)
+                                .addGap(28, 28, 28)
+                                .addComponent(rbtnPendingOrders)
+                                .addGap(18, 18, 18)
+                                .addComponent(rbtnDeliveredOrders))
+                            .addGroup(pnlTableLayout.createSequentialGroup()
+                                .addGap(284, 284, 284)
+                                .addComponent(lblTableTitle)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlTableLayout.setVerticalGroup(
@@ -339,21 +361,20 @@ public class PnlOrdersTable extends javax.swing.JPanel {
                 .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbtnAllOrders)
                     .addComponent(rbtnPendingOrders)
-                    .addComponent(rbtnDeliveredOrders)
-                    .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rbtnDeliveredOrders))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlTableLayout.createSequentialGroup()
-                        .addGap(17, 17, Short.MAX_VALUE)
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnlTableLayout.createSequentialGroup()
                                 .addComponent(rbtnByID)
                                 .addGap(17, 17, 17)
                                 .addComponent(rbtnByName)
-                                .addGap(0, 36, Short.MAX_VALUE))
+                                .addGap(0, 37, Short.MAX_VALUE))
                             .addGroup(pnlTableLayout.createSequentialGroup()
-                                .addGap(0, 20, Short.MAX_VALUE)
+                                .addGap(0, 21, Short.MAX_VALUE)
                                 .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -381,22 +402,17 @@ public class PnlOrdersTable extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        refreshInfo();
-
-    }//GEN-LAST:event_btnRefreshActionPerformed
-
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String search = txtSearch.getText();
-        if (rbtnByID.isSelected() && Agenda.findDocument("id", Integer.valueOf(search))) {
+        if (rbtnByID.isSelected() && Agenda.existsOrder("id", Integer.valueOf(search))) {
             int id;
             id = Integer.valueOf(search);
             System.out.println("ID to search: "+ id);
             initPnlOrderInformation(id);
             
-        } else if (rbtnByName.isSelected() && Agenda.findDocument("clientName", search)) {
+        } else if (rbtnByName.isSelected() && Agenda.existsOrder("clientName", search)) {
             int id;
-            id = Integer.valueOf(Agenda.findValue(ordersCollection, "clientName",search,"id"));
+            id = Integer.parseInt(String.valueOf(Agenda.getValueFromOrder(ordersCollection, "clientName",search,"id")));
             initPnlOrderInformation(id);
         } else {
             JOptionPane.showMessageDialog(this, "Order not found", "Search failed", JOptionPane.ERROR_MESSAGE);
@@ -487,10 +503,37 @@ public class PnlOrdersTable extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_rbtnByNameMouseClicked
 
+    private void rbtnAllOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtnAllOrdersMouseClicked
+
+    }//GEN-LAST:event_rbtnAllOrdersMouseClicked
+
+    private void rbtnPendingOrdersMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtnPendingOrdersMousePressed
+
+    }//GEN-LAST:event_rbtnPendingOrdersMousePressed
+
+    private void rbtnDeliveredOrdersMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtnDeliveredOrdersMousePressed
+
+    }//GEN-LAST:event_rbtnDeliveredOrdersMousePressed
+
+    private void rbtnAllOrdersMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtnAllOrdersMousePressed
+
+    }//GEN-LAST:event_rbtnAllOrdersMousePressed
+
+    private void rbtnAllOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAllOrdersActionPerformed
+       refreshInfo();
+    }//GEN-LAST:event_rbtnAllOrdersActionPerformed
+
+    private void rbtnPendingOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnPendingOrdersActionPerformed
+        refreshInfo();
+    }//GEN-LAST:event_rbtnPendingOrdersActionPerformed
+
+    private void rbtnDeliveredOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnDeliveredOrdersActionPerformed
+        refreshInfo();
+    }//GEN-LAST:event_rbtnDeliveredOrdersActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PnlWindow;
-    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnSearch;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;

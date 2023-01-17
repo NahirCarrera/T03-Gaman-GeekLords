@@ -10,54 +10,27 @@ import java.util.ArrayList;
  * @author Nahir Carrera, Gaman GeekLords, DCC0-ESPE
  */
 public class Registration {
-    private static ArrayList getKeysToInsert(){
-        ArrayList keys = new ArrayList(5);
-        keys.add("id");
-        keys.add("userName");
-        keys.add("email");
-        keys.add("password");
-        keys.add("currentSalary");
-        return keys;   
-    }
-    private static ArrayList getValuesToInsert(User user){
-        ArrayList values = new ArrayList(5);
-        values.add(user.getId());
-        values.add(user.getUserName());
-        values.add(user.getEmail());
-        values.add(user.getPassword());
-        values.add(user.getCurrentSalary());
-        return values;
-    }
-    
-    public static boolean insertUser(User user){
-        MongoCollection userCollection = createConnectionToCollection();
-        ArrayList keys = getKeysToInsert();
-        ArrayList values = getValuesToInsert(user);
-        MongoDbManager.insert(userCollection, keys, values);
-        return true;
-    }
-    
-  
-    public static boolean deleteUser( int id){
-        MongoCollection userCollection = createConnectionToCollection();
-        return MongoDbManager.delete(userCollection, id);
-    }
-    public static String findValue(MongoCollection userCollection, int id, String key){
-        String foundValue;
-        foundValue = MongoDbManager.findValue(userCollection, "id",id, key);
-        return foundValue;
-    }
-    
     
     public static boolean updateUser(User user){
         MongoCollection userCollection = createConnectionToCollection();
-        MongoDbManager.update(userCollection, 1, "userName", user.getUserName());
-        MongoDbManager.update(userCollection, 1, "email", user.getEmail());
-        MongoDbManager.update(userCollection, 1, "password", user.getPassword());
-        MongoDbManager.update(userCollection, 1, "currentSalary", user.getCurrentSalary());
+        MongoDbManager.updateDocument(userCollection, "id",1, "userName", user.getUserName());
+        MongoDbManager.updateDocument(userCollection,"id", 1, "email", user.getEmail());
+        MongoDbManager.updateDocument(userCollection, "id",1, "password", user.getPassword());
+        MongoDbManager.updateDocument(userCollection, "id",1, "currentSalary", user.getCurrentSalary());
         return true;
     }
     
+    public static boolean deleteUser( int id){
+        MongoCollection userCollection = createConnectionToCollection();
+        return MongoDbManager.deleteDocument(userCollection, "id", id);
+    }
+    
+    public static Object getValueFromUser(MongoCollection userCollection, int id, String key){
+        Object foundValue;
+        foundValue = MongoDbManager.getDocumentValue(userCollection, "id",id, key);
+        return foundValue;
+    }
+
     public static MongoCollection createConnectionToCollection(){
         String uri = "mongodb+srv://oop:oop@cluster0.og4urrq.mongodb.net/?retryWrites=true&w=majority";
         String dataBase = "ManagementSoftware";
