@@ -11,12 +11,12 @@ import javax.swing.JOptionPane;
  *
  * @author Jairo Bonilla, Gaman GeekLords, DCCO-ESPE
  */
-public class PnlAddProductInventor extends javax.swing.JPanel {
+public class PnlInventoryAddNewProduct extends javax.swing.JPanel {
 
     /**
      * Creates new form PnlAddProductInventor
      */
-    public PnlAddProductInventor() {
+    public PnlInventoryAddNewProduct() {
         initComponents();
         validateDates();
         

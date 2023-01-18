@@ -12,15 +12,15 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author NicolayChillo Gaman GeekLords at DCOO-ESPE
  */
-public class PnlOrdersTable extends javax.swing.JPanel {
+public class PnlAgendaTable extends javax.swing.JPanel {
     private final MongoCollection ordersCollection;
-    DefaultTableModel model;
-    private ArrayList <Order> readedOrders ;
+    private DefaultTableModel model;
+    private  ArrayList <Order> readedOrders ;
     /**
      * Creates new form PnlTableAllOrders
      * @param collection
      */
-    public PnlOrdersTable(MongoCollection collection) {
+    public PnlAgendaTable(MongoCollection collection) {
         initComponents();
         ordersCollection = collection;
         readedOrders = Agenda.readAgenda(ordersCollection);
@@ -31,7 +31,7 @@ public class PnlOrdersTable extends javax.swing.JPanel {
         model.addColumn("Delivered");
         this.tblAllOrders.setModel(model);
         
-        refreshInfo();
+        refreshTable();
         txtSearch.setEnabled(true);
         btnSearch.setEnabled(false);
     }
@@ -62,17 +62,40 @@ public class PnlOrdersTable extends javax.swing.JPanel {
         }
     }
 
-    private void initPnlOrderInformation(int id) {
-        PnlOrderInformation.setIdToUpdate(id);
-        PnlOrderInformation pnlOrderInformation = new PnlOrderInformation(ordersCollection);
-        pnlOrderInformation.setSize(714, 523);
-        pnlOrderInformation.setLocation(0, 0);
+    private void initPnlAgendaUpdateAndDeleteOrder(int id) {
+        PnlAgendaUpdateAndDeleteOrder.setIdToUpdate(id);
+        PnlAgendaUpdateAndDeleteOrder pnlAgendaUpdateAndDeleteOrder = new PnlAgendaUpdateAndDeleteOrder(ordersCollection);
+        pnlAgendaUpdateAndDeleteOrder.setSize(714, 523);
+        pnlAgendaUpdateAndDeleteOrder.setLocation(0, 0);
         pnlTable.removeAll();
-        pnlTable.add(pnlOrderInformation, pnlOrderInformation);
+        pnlTable.add(pnlAgendaUpdateAndDeleteOrder, pnlAgendaUpdateAndDeleteOrder);
         pnlTable.revalidate();
         pnlTable.repaint();
     }
 
+
+
+    private void refreshTable() {
+        ArrayList <Order> pendingOrders =  filterOrders(readedOrders, "pending");
+        ArrayList <Order> completedOrders = filterOrders(readedOrders, "completed");
+        if(!readedOrders.isEmpty()){
+            if (rbtnAllOrders.isSelected()) {
+                cleanTable();
+                lblTableTitle.setText("All Orders");
+                createRow(readedOrders);
+            } else if (rbtnDeliveredOrders.isSelected()) {
+                lblTableTitle.setText("Delivered Orders");
+                cleanTable();
+                createRow(completedOrders);
+            } else if (rbtnPendingOrders.isSelected()) {
+                lblTableTitle.setText("Pending Orders");
+                cleanTable();
+                createRow(pendingOrders);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "There´s no orders in your agenda", "Empty Agenda", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
     private ArrayList <Order> filterOrders(ArrayList <Order> readedOrders, String type){
         ArrayList <Order> pendingOrders = new ArrayList();
         ArrayList <Order> completedOrders = new ArrayList();
@@ -91,6 +114,7 @@ public class PnlOrdersTable extends javax.swing.JPanel {
             return null;
         } 
     }
+    
     private void createRow(ArrayList <Order> orders){
         for(Order order: orders){
                 String[] information = new String[4];
@@ -101,28 +125,6 @@ public class PnlOrdersTable extends javax.swing.JPanel {
                 model.addRow(information);
             }
     }
-    private void refreshInfo() {
-        ArrayList <Order> pendingOrders =  filterOrders(readedOrders, "pending");
-        ArrayList <Order> completedOrders = filterOrders(readedOrders, "completed");
-        if(!readedOrders.isEmpty()){
-            if (rbtnAllOrders.isSelected()) {
-                cleanTable();
-                lblTableTitle.setText("All Orders");
-                createRow(readedOrders);
-            } else if (rbtnDeliveredOrders.isSelected()) {
-                lblTableTitle.setText("Delivered Orders");
-                cleanTable();
-                createRow(completedOrders);
-            } else if (rbtnPendingOrders.isSelected()) {
-                lblTableTitle.setText("Pending Orders");
-                cleanTable();
-                createRow(pendingOrders);
-            }
-        }else{
-            JOptionPane.showMessageDialog(this, "There´s no orders in your agenda", "Agenda is empty", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -187,6 +189,7 @@ public class PnlOrdersTable extends javax.swing.JPanel {
         jScrollPane2.setViewportView(tblAllOrders);
 
         lblTableTitle.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        lblTableTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTableTitle.setText("All Orders");
 
         rbtnAllOrders.setBackground(new java.awt.Color(255, 255, 255));
@@ -339,17 +342,15 @@ public class PnlOrdersTable extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlTableLayout.createSequentialGroup()
-                        .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlTableLayout.createSequentialGroup()
-                                .addComponent(rbtnAllOrders)
-                                .addGap(28, 28, 28)
-                                .addComponent(rbtnPendingOrders)
-                                .addGap(18, 18, 18)
-                                .addComponent(rbtnDeliveredOrders))
-                            .addGroup(pnlTableLayout.createSequentialGroup()
-                                .addGap(284, 284, 284)
-                                .addComponent(lblTableTitle)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(rbtnAllOrders)
+                        .addGap(28, 28, 28)
+                        .addComponent(rbtnPendingOrders)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbtnDeliveredOrders)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlTableLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblTableTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlTableLayout.setVerticalGroup(
@@ -357,12 +358,12 @@ public class PnlOrdersTable extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTableLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(lblTableTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbtnAllOrders)
                     .addComponent(rbtnPendingOrders)
                     .addComponent(rbtnDeliveredOrders))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlTableLayout.createSequentialGroup()
@@ -408,12 +409,12 @@ public class PnlOrdersTable extends javax.swing.JPanel {
             int id;
             id = Integer.valueOf(search);
             System.out.println("ID to search: "+ id);
-            initPnlOrderInformation(id);
+            initPnlAgendaUpdateAndDeleteOrder(id);
             
         } else if (rbtnByName.isSelected() && Agenda.existsOrder("clientName", search)) {
             int id;
             id = Integer.parseInt(String.valueOf(Agenda.getValueFromOrder(ordersCollection, "clientName",search,"id")));
-            initPnlOrderInformation(id);
+            initPnlAgendaUpdateAndDeleteOrder(id);
         } else {
             JOptionPane.showMessageDialog(this, "Order not found", "Search failed", JOptionPane.ERROR_MESSAGE);
         }
@@ -520,15 +521,15 @@ public class PnlOrdersTable extends javax.swing.JPanel {
     }//GEN-LAST:event_rbtnAllOrdersMousePressed
 
     private void rbtnAllOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAllOrdersActionPerformed
-       refreshInfo();
+       refreshTable();
     }//GEN-LAST:event_rbtnAllOrdersActionPerformed
 
     private void rbtnPendingOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnPendingOrdersActionPerformed
-        refreshInfo();
+        refreshTable();
     }//GEN-LAST:event_rbtnPendingOrdersActionPerformed
 
     private void rbtnDeliveredOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnDeliveredOrdersActionPerformed
-        refreshInfo();
+        refreshTable();
     }//GEN-LAST:event_rbtnDeliveredOrdersActionPerformed
 
 

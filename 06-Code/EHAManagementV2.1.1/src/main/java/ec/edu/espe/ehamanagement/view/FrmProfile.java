@@ -2,7 +2,7 @@ package ec.edu.espe.ehamanagement.view;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.mongodb.client.MongoCollection;
-import ec.edu.espe.ehamanagement.controller.Registration;
+import ec.edu.espe.ehamanagement.controller.Profile;
 
 
 
@@ -14,11 +14,14 @@ import javax.swing.JOptionPane;
  * @author Jairo Bonilla, Gaman GeekLords, DCCO-ESPE
  */
 public class FrmProfile extends javax.swing.JFrame {
+    private static MongoCollection userCollection;
     
     /**
      * Creates new form FrmProfile
+     * @param collection
      */
-    public FrmProfile() {
+    public FrmProfile(MongoCollection collection) {
+        userCollection = collection;
         initComponents();
         InitContent();
         
@@ -27,9 +30,7 @@ public class FrmProfile extends javax.swing.JFrame {
     
     private void InitContent()
     {
-        MongoCollection userCollection;
-        userCollection = Registration.createConnectionToCollection();
-        PnlUserInformation pnlUser = new PnlUserInformation();
+        PnlProfileUserInformation pnlUser = new PnlProfileUserInformation();
         pnlUser.setSize(486,646);
         
         pnlUser.setLocation(0,0);
@@ -37,25 +38,23 @@ public class FrmProfile extends javax.swing.JFrame {
         PnlContent.add(pnlUser, BorderLayout.CENTER);
         PnlContent.revalidate();
         PnlContent.repaint();
-        String userName = (String) Registration.getValueFromUser(userCollection, 1,"userName");
-        String email = (String) Registration.getValueFromUser(userCollection, 1,"email");
-        String currentSalary = String.valueOf(Registration.getValueFromUser(userCollection, 1,"currentSalary"));
+        String userName = (String) Profile.getValueFromUser(userCollection, 1,"userName");
+        String email = (String) Profile.getValueFromUser(userCollection, 1,"email");
+        String currentSalary = String.valueOf(Profile.getValueFromUser(userCollection, 1,"currentSalary"));
         pnlUser.txtUserName.setText(userName);
         pnlUser.txtEmail.setText(email);
         pnlUser.txtCurrentSalary.setText(currentSalary);
         
     }
-    private void InitContentUpdate()
+    private void initPnlProfileUpdateUser()
     {
-        PnlUpdateUser pnlUpdate = new PnlUpdateUser();
-        pnlUpdate.setSize(522,627);
+        PnlProfileUpdateUser pnlUpdate = new PnlProfileUpdateUser();
+        pnlUpdate.setSize(499,548);
         pnlUpdate.setLocation(0,0);
+        PnlContent.removeAll();
         PnlContent.add(pnlUpdate, BorderLayout.CENTER);
         PnlContent.revalidate();
         PnlContent.repaint();
-    }
-    private void writeFields(){
-        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -209,16 +208,7 @@ public class FrmProfile extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // InitContentUpdate();
-        MongoCollection userCollection;
-        userCollection = Registration.createConnectionToCollection();
-        PnlUpdateUser pnlUpdate = new PnlUpdateUser();
-        pnlUpdate.setSize(499,548);
-        pnlUpdate.setLocation(0,0);
-        PnlContent.removeAll();
-        PnlContent.add(pnlUpdate, BorderLayout.CENTER);
-        PnlContent.revalidate();
-        PnlContent.repaint();
+        initPnlProfileUpdateUser();
         
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -249,7 +239,7 @@ public class FrmProfile extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmProfile().setVisible(true);
+                new FrmProfile(userCollection).setVisible(true);
             }
             
         });

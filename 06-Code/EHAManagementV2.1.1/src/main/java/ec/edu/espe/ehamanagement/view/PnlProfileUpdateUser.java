@@ -1,7 +1,7 @@
 package ec.edu.espe.ehamanagement.view;
 
 import com.mongodb.client.MongoCollection;
-import ec.edu.espe.ehamanagement.controller.Registration;
+import ec.edu.espe.ehamanagement.controller.Profile;
 import ec.edu.espe.ehamanagement.model.User;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -11,21 +11,21 @@ import javax.swing.JOptionPane;
  *
  * @author Jairo Bonilla & Nahir Carrera, Gaman GeekLords, DCCO-ESPE
  */
-public class PnlUpdateUser extends javax.swing.JPanel {
+public class PnlProfileUpdateUser extends javax.swing.JPanel {
 
      MongoCollection userCollection;
     /**
      * Creates new form PnlUpdate
      */
-    public PnlUpdateUser() {
+    public PnlProfileUpdateUser() {
         initComponents();
         btnSave.setEnabled(false);
         pflPassword.setEnabled(false);
-        userCollection = Registration.createConnectionToCollection();
-        String userName = (String) Registration.getValueFromUser(userCollection, 1, "userName");
-        String email = (String) Registration.getValueFromUser(userCollection, 1, "email");
-        String currentSalary = String.valueOf(Registration.getValueFromUser(userCollection, 1, "currentSalary"));
-        String password = (String) Registration.getValueFromUser(userCollection, 1, "password");
+        userCollection = Profile.createConnectionToCollection();
+        String userName = (String) Profile.getValueFromUser(userCollection, 1, "userName");
+        String email = (String) Profile.getValueFromUser(userCollection, 1, "email");
+        String currentSalary = String.valueOf(Profile.getValueFromUser(userCollection, 1, "currentSalary"));
+        String password = (String) Profile.getValueFromUser(userCollection, 1, "password");
         txtUserName.setText(userName);
         txtEmail.setText(email);
         txtCurrentSalary.setText(currentSalary);
@@ -623,7 +623,7 @@ public class PnlUpdateUser extends javax.swing.JPanel {
          float currentSalary = Float.parseFloat(txtCurrentSalary.getText());
          String password = pflPassword.getText();
          User user = new User(1, userName, email, password, currentSalary);
-         if(Registration.updateUser(user)){
+         if(Profile.updateUser(user)){
              JOptionPane.showMessageDialog(this,"Your changes  have been successfully saved!", "Updated successfully", JOptionPane.INFORMATION_MESSAGE);
          }else{
              JOptionPane.showMessageDialog(this,"An error occured updating your changes", "Updated failed", JOptionPane.ERROR_MESSAGE);
@@ -672,7 +672,7 @@ public class PnlUpdateUser extends javax.swing.JPanel {
     }//GEN-LAST:event_pflPasswordKeyReleased
 
     private void btnConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmPasswordActionPerformed
-        String correctPassword = (String) Registration.getValueFromUser(userCollection, 1, "password");
+        String correctPassword = (String) Profile.getValueFromUser(userCollection, 1, "password");
         String password = pflOldPassword.getText();
          if ( password.equals(correctPassword))
          {

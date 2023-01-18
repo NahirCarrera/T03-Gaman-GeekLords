@@ -10,12 +10,12 @@ import ec.edu.espe.ehamanagement.model.Order;
  *
  * @author NicolayChillo Gaman GeekLords at DCOO-ESPE
  */
-public class PnlAddNewOrder extends javax.swing.JPanel {
+public class PnlAgendaAddNewOrder extends javax.swing.JPanel {
     private MongoCollection ordersCollection;
     /**
      * Creates new form PnlNewOrder
      */
-    public PnlAddNewOrder() {
+    public PnlAgendaAddNewOrder() {
         ordersCollection = Agenda.createConnectionToCollection();
         initComponents();
         btnSave.setEnabled(false);

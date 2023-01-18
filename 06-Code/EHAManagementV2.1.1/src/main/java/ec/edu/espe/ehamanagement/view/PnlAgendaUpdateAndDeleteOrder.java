@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  *
  * @author NicolayChillo Gaman GeekLords at DCOO-ESPE
  */
-public class PnlOrderInformation extends javax.swing.JPanel {
+public class PnlAgendaUpdateAndDeleteOrder extends javax.swing.JPanel {
     static int idToUpdate;
     private final MongoCollection ordersCollection;
 
@@ -19,7 +19,7 @@ public class PnlOrderInformation extends javax.swing.JPanel {
      * Creates new form PnlOrderInformation
      * @param collection
      */
-    public PnlOrderInformation(MongoCollection collection) {
+    public PnlAgendaUpdateAndDeleteOrder(MongoCollection collection) {
         initComponents();
         btnSave.setEnabled(false);
         txtADescription.setLineWrap(true);

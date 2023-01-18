@@ -11,12 +11,12 @@ import java.awt.Color;
  *
  * @author Jairo Bonilla, Gaman GeekLords, DCCO-ESPE
  */
-public class PnlUserInformation extends javax.swing.JPanel {
+public class PnlProfileUserInformation extends javax.swing.JPanel {
 
     /**
      * Creates new form PnlUser
      */
-    public PnlUserInformation() {
+    public PnlProfileUserInformation() {
         initComponents();
         
     }

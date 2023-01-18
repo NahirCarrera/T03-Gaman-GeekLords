@@ -1,7 +1,6 @@
 package ec.edu.espe.ehamanagement.view;
 
 import com.mongodb.client.MongoCollection;
-import ec.edu.espe.ehamanagement.controller.Agenda;
 
 /**
  *
@@ -11,24 +10,25 @@ public class PnlAgenda extends javax.swing.JPanel {
     private final MongoCollection ordersCollection;
     /**
      * Creates new form PnlAgendaMenuOption
+     * @param collection
      */
-    public PnlAgenda() {
+    public PnlAgenda(MongoCollection collection) {
         initComponents();
-        ordersCollection = Agenda.createConnectionToCollection();
-        initPnlOrdersTable(ordersCollection);
+        ordersCollection = collection;
+        initPnlAgendaTable();
     }
-    private void initPnlOrdersTable(MongoCollection ordersCollection){
-        PnlOrdersTable pnlTableAllOrders = new PnlOrdersTable(ordersCollection);
-        pnlTableAllOrders.setSize(714,523);
-        pnlTableAllOrders.setLocation(0, 0);
+    private void initPnlAgendaTable(){
+        PnlAgendaTable pnlAgendaTable = new PnlAgendaTable(ordersCollection);
+        pnlAgendaTable.setSize(714,523);
+        pnlAgendaTable.setLocation(0, 0);
         pnlWindow.removeAll();
-        pnlWindow.add(pnlTableAllOrders,pnlTableAllOrders);
+        pnlWindow.add(pnlAgendaTable,pnlAgendaTable);
         pnlWindow.revalidate();
         pnlWindow.repaint();
     }
 
     private void initPnlNewOrder(){
-        PnlAddNewOrder pnlNewOrder = new PnlAddNewOrder();
+        PnlAgendaAddNewOrder pnlNewOrder = new PnlAgendaAddNewOrder();
         pnlNewOrder.setSize(714,523);
         pnlNewOrder.setLocation(0, 0);
         pnlWindow.removeAll();
@@ -37,7 +37,7 @@ public class PnlAgenda extends javax.swing.JPanel {
         pnlWindow.repaint();
     }
     public void initOrderInformation(){
-        PnlOrderInformation pnlOrderInformation = new PnlOrderInformation(ordersCollection);
+        PnlAgendaUpdateAndDeleteOrder pnlOrderInformation = new PnlAgendaUpdateAndDeleteOrder(ordersCollection);
         pnlOrderInformation.setSize(714,523);
         pnlOrderInformation.setLocation(0,0);
         pnlWindow.removeAll();
@@ -206,7 +206,7 @@ public class PnlAgenda extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
-        initPnlOrdersTable(ordersCollection);
+        initPnlAgendaTable();
         
     }//GEN-LAST:event_BtnBackActionPerformed
 

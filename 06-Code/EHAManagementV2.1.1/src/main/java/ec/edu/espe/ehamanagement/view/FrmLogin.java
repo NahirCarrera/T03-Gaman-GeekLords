@@ -2,7 +2,7 @@ package ec.edu.espe.ehamanagement.view;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.mongodb.client.MongoCollection;
-import ec.edu.espe.ehamanagement.controller.Registration;
+import ec.edu.espe.ehamanagement.controller.Profile;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -20,7 +20,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
         initComponents();
         btnLogin.setEnabled(false);
-        userCollection = Registration.createConnectionToCollection(); 
+        userCollection = Profile.createConnectionToCollection(); 
     }
 
     /**
@@ -323,8 +323,8 @@ public class FrmLogin extends javax.swing.JFrame {
         String userName = txtUserName.getText();
         String password = pflPassword.getText();
 
-        String correctUserName = (String) Registration.getValueFromUser(userCollection, 1, "userName");
-        String correctPassword = (String) Registration.getValueFromUser(userCollection, 1, "password");
+        String correctUserName = (String) Profile.getValueFromUser(userCollection, 1, "userName");
+        String correctPassword = (String) Profile.getValueFromUser(userCollection, 1, "password");
 
         if (userName.equals(correctUserName) && password.equals(correctPassword)){
             this.setVisible(false);

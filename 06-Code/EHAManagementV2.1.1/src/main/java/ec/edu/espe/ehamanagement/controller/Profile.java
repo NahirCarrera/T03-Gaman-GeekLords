@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  * @author Nahir Carrera, Gaman GeekLords, DCC0-ESPE
  */
-public class Registration {
+public class Profile {
     
     public static boolean updateUser(User user){
         MongoCollection userCollection = createConnectionToCollection();

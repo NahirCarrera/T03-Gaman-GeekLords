@@ -1,36 +1,32 @@
 package ec.edu.espe.ehamanagement.view;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
+import com.mongodb.client.MongoCollection;
+import ec.edu.espe.ehamanagement.controller.Agenda;
+import ec.edu.espe.ehamanagement.controller.Inventory;
+import ec.edu.espe.ehamanagement.controller.Profile;
 import ec.edu.espe.ehamanagement.view.panels.PnlAbout;
 import java.awt.BorderLayout;
-import javax.swing.text.AbstractDocument;
 
 /**
  *
  * @author Jairo Bonilla, Gaman GeekLords, DCCO-ESPE
  */
 public class FrmPrincipalMenuBar extends javax.swing.JFrame {
-
+    private MongoCollection productsCollection;
+    private MongoCollection userCollection;
+    private MongoCollection ordersCollection;
     /**
      * Creates new form FrmAbout2
      */
-    public FrmPrincipalMenuBar() 
-    {
+    public FrmPrincipalMenuBar(){
+        productsCollection = Inventory.createConnectionToCollection();
+        userCollection = Profile.createConnectionToCollection();
+        ordersCollection = Agenda.createConnectionToCollection();
         initComponents();
         InitContent();
     }
-    public void initContendAgenda()
-    {
-        PnlInventory pnlAgendaTable = new PnlInventory();
-        pnlAgendaTable.setSize(996, 623);
-        pnlAgendaTable.setLocation(0,0);
-        
-        PnlWindow.removeAll();
-        PnlWindow.add(pnlAgendaTable, BorderLayout.CENTER);
-        PnlWindow.revalidate();
-        PnlWindow.repaint();
-             
-    }
+
     
 
     /**
@@ -48,15 +44,32 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
         PnlWindow.revalidate();
         PnlWindow.repaint();
     }
-    private void initAgendaMenuOption(){
-        PnlAgenda pnlAgendaMenuOption = new PnlAgenda();
-        pnlAgendaMenuOption.setSize(980,629);
-        pnlAgendaMenuOption.setLocation(0,0);
+    private void initFrmProfile(){
+        this.setVisible(false);
+        FrmProfile frmProfile = new FrmProfile(userCollection);
+        frmProfile.setVisible(true);
+    }
+    private void initPnlAgenda(){
+        PnlAgenda pnlAgenda = new PnlAgenda(ordersCollection);
+        pnlAgenda.setSize(980,629);
+        pnlAgenda.setLocation(0,0);
         PnlWindow.removeAll();
-        PnlWindow.add(pnlAgendaMenuOption, pnlAgendaMenuOption);
+        PnlWindow.add(pnlAgenda, pnlAgenda);
         PnlWindow.revalidate();
         PnlWindow.repaint();    
     }
+   
+    private void initPnlInventory(){
+        PnlInventory pnlInventory = new PnlInventory(productsCollection);
+        pnlInventory.setSize(996, 623);
+        pnlInventory.setLocation(0,0);
+        
+        PnlWindow.removeAll();
+        PnlWindow.add(pnlInventory, BorderLayout.CENTER);
+        PnlWindow.revalidate();
+        PnlWindow.repaint();    
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -169,17 +182,15 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
     }//GEN-LAST:event_MnEHAMouseClicked
 
     private void MnProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MnProfileMouseClicked
-        this.setVisible(false);
-        FrmProfile frmProfile = new FrmProfile();
-        frmProfile.setVisible(true);
+        initFrmProfile();
     }//GEN-LAST:event_MnProfileMouseClicked
 
     private void MnAgendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MnAgendaMouseClicked
-        initAgendaMenuOption();
+        initPnlAgenda();
     }//GEN-LAST:event_MnAgendaMouseClicked
 
     private void MnInventoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MnInventoryMouseClicked
-    initContendAgenda();
+        initPnlInventory();
     }//GEN-LAST:event_MnInventoryMouseClicked
 
     /**
