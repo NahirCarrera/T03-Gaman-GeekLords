@@ -22,6 +22,10 @@ public class PnlNewMaterial extends javax.swing.JPanel {
        
         
     }
+    public void funtion()
+    {
+        
+    }
     public void validateDates() {
         if (txtMaterialName.getText().isEmpty()|| txtMaterialName.getText().equals("Material Name")) {
             lblTextWarning.setText("Campo obligatorio");
