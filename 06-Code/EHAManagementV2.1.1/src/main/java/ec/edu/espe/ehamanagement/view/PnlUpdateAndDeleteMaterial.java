@@ -77,6 +77,7 @@ public class PnlUpdateAndDeleteMaterial extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtxGeneralCost = new javax.swing.JTextField();
@@ -90,7 +91,6 @@ public class PnlUpdateAndDeleteMaterial extends javax.swing.JPanel {
         lblTextGeneralCost = new javax.swing.JLabel();
         lblPictureUnitCost = new javax.swing.JLabel();
         lblTextUnitCost = new javax.swing.JLabel();
-        btnSave = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -100,12 +100,15 @@ public class PnlUpdateAndDeleteMaterial extends javax.swing.JPanel {
         lbProductName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbProductName.setText("Materials Name");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Quantity");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("$");
 
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+
+        txtMaterialName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtMaterialName.setText("Name");
         txtMaterialName.setBorder(null);
         txtMaterialName.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -161,28 +164,42 @@ public class PnlUpdateAndDeleteMaterial extends javax.swing.JPanel {
             }
         });
 
+        btnSave.setBackground(new java.awt.Color(112, 172, 61));
+        btnSave.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(255, 255, 255));
+        btnSave.setText("Save");
+        btnSave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSaveMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(67, 67, 67)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addComponent(btnUpdate)
                 .addGap(35, 35, 35)
                 .addComponent(btnDelete)
-                .addGap(156, 156, 156))
+                .addGap(49, 49, 49)
+                .addComponent(btnSave)
+                .addGap(80, 80, 80))
         );
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("General Cost");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -229,29 +246,11 @@ public class PnlUpdateAndDeleteMaterial extends javax.swing.JPanel {
 
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
 
-        lblPictureWarning.setText("jLabel5");
-
-        lblTxtWarning.setText("jLabel7");
-
-        lblPicturGeneralCost.setText("jLabel5");
+        lblTxtWarning.setForeground(new java.awt.Color(204, 0, 0));
 
         lblTextGeneralCost.setForeground(new java.awt.Color(255, 0, 0));
-        lblTextGeneralCost.setText("jLabel7");
-
-        lblPictureUnitCost.setText("jLabel5");
 
         lblTextUnitCost.setForeground(new java.awt.Color(255, 0, 0));
-        lblTextUnitCost.setText("jLabel7");
-
-        btnSave.setBackground(new java.awt.Color(112, 172, 61));
-        btnSave.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        btnSave.setForeground(new java.awt.Color(255, 255, 255));
-        btnSave.setText("Save");
-        btnSave.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSaveMouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnlContentLayout = new javax.swing.GroupLayout(pnlContent);
         pnlContent.setLayout(pnlContentLayout);
@@ -260,121 +259,121 @@ public class PnlUpdateAndDeleteMaterial extends javax.swing.JPanel {
             .addGroup(pnlContentLayout.createSequentialGroup()
                 .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlContentLayout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9)
+                        .addComponent(lbProductName))
                     .addGroup(pnlContentLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(pnlContentLayout.createSequentialGroup()
-                                .addGap(60, 60, 60)
-                                .addComponent(txtUnitCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlContentLayout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(pnlContentLayout.createSequentialGroup()
-                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(13, 13, 13)
+                        .addComponent(txtMaterialName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17)
+                        .addComponent(lblPictureWarning)
+                        .addGap(23, 23, 23)
+                        .addComponent(lblTxtWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlContentLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlContentLayout.createSequentialGroup()
-                                .addComponent(txtMaterialName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(lblPictureWarning)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblTxtWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel2))
                     .addGroup(pnlContentLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(13, 13, 13)
                         .addComponent(spnQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(56, 56, 56)
                         .addComponent(jLabel4))
                     .addGroup(pnlContentLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblPictureUnitCost)
-                            .addGroup(pnlContentLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(25, 25, 25)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(20, 20, 20)
-                                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlContentLayout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(txtxGeneralCost, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(13, 13, 13)
                         .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlContentLayout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(lblPicturGeneralCost)
-                                .addGap(23, 23, 23)
-                                .addComponent(lblTextGeneralCost, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlContentLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(lblTextUnitCost, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(6, 6, 6)
+                                .addComponent(txtxGeneralCost, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1))))
+                .addGap(302, 320, Short.MAX_VALUE))
             .addGroup(pnlContentLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbProductName)
-                    .addComponent(jLabel2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlContentLayout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel3))
+                    .addGroup(pnlContentLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(txtUnitCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
+                        .addComponent(lblPictureUnitCost))
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlContentLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(11, 11, 11)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(20, 20, 20)
+                            .addComponent(lblPicturGeneralCost))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlContentLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(30, 30, 30)
+                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTextGeneralCost, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTextUnitCost, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnlContentLayout.setVerticalGroup(
             pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlContentLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(lbProductName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(19, 19, 19)
+                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtMaterialName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPictureWarning)
                     .addComponent(lblTxtWarning))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jLabel2)
-                .addGap(9, 9, 9)
-                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(spnQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                .addGap(14, 14, 14)
+                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(spnQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(28, 28, 28)
+                .addComponent(jLabel1)
                 .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlContentLayout.createSequentialGroup()
-                        .addComponent(txtxGeneralCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlContentLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel6)
-                            .addComponent(lblPicturGeneralCost)
-                            .addComponent(lblTextGeneralCost))))
-                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlContentLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                            .addGroup(pnlContentLayout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(txtxGeneralCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlContentLayout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(lblPicturGeneralCost))))
+                        .addGap(10, 10, 10)
                         .addComponent(jLabel3)
-                        .addGap(46, 46, 46)
-                        .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtUnitCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPictureUnitCost)
-                            .addComponent(lblTextUnitCost))
-                        .addGap(6, 6, 6)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)
-                        .addComponent(btnSave))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(15, 15, 15)
+                        .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtUnitCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblTextUnitCost))
+                            .addGroup(pnlContentLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(lblPictureUnitCost)))
+                        .addGap(4, 4, 4)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlContentLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(lblTextGeneralCost)))
+                .addGap(142, 142, 142))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlContentLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlContent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -382,87 +381,30 @@ public class PnlUpdateAndDeleteMaterial extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtMaterialNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaterialNameKeyReleased
-        validateDates();
-    }//GEN-LAST:event_txtMaterialNameKeyReleased
-    private void pictureWarningMaterial() {
-        lblPictureWarning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
-        lblPictureWarning.setText("");
-    }
-
-    private void pictureWhiteMaterial() {
-        lblPictureWarning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
-        lblPictureWarning.setText("");
-    }
-
-    private void pictureWarningGeneralCost() {
-        lblPicturGeneralCost.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
-        lblPictureWarning.setText("");
-    }
-
-    private void pictureWhiteGeneralCost() {
-        lblPicturGeneralCost.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
-        lblPictureWarning.setText("");
-    }
-
-    private void pictureWarningUnitCost() {
-        lblPictureUnitCost.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
-        lblPictureUnitCost.setText("");
-    }
-
-    private void pictureWhiteUnitCost() {
-        lblPictureUnitCost.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
-        lblPictureUnitCost.setText("");
-    }
-
-    private void txtMaterialNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMaterialNameMousePressed
-        if (!btnUpdate.isEnabled()) {
-            if (txtxGeneralCost.getText().isEmpty()) {
-                txtxGeneralCost.setText("0.00");
-            }
-            if (txtUnitCost.getText().isEmpty()) {
-                txtUnitCost.setText("$ 0.00");
-            }
-            if (txtMaterialName.getText().equals("Name")) {
-                txtMaterialName.setText("");
-            }
+    private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
+        int option = JOptionPane.showConfirmDialog(null, "Are your dure you want to update this material?");
+        if (option == 0) {
+            JOptionPane.showMessageDialog(null, "updated  materials");
 
         }
+    }//GEN-LAST:event_btnSaveMouseClicked
 
-
-    }//GEN-LAST:event_txtMaterialNameMousePressed
-
-    private void txtMaterialNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaterialNameKeyTyped
-        char c = evt.getKeyChar();
-        if (!Character.isLetter(c) && (c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_SPACE)) {
-            //getToolkit().beep();
+    private void txtUnitCostKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUnitCostKeyTyped
+        char character = evt.getKeyChar();
+        if (!Character.isDigit(character) && (character != KeyEvent.VK_BACK_SPACE) && (character != KeyEvent.VK_PERIOD)) {
             evt.consume();
-            pictureWarningMaterial();
-            lblTxtWarning.setText(c + " is not accepted here!");
-
+            pictureWarningUnitCost();
+            lblTextUnitCost.setText(character + " is not accepted here!");
         } else {
-            lblTxtWarning.setText("");
-            pictureWhiteMaterial();
+
+            lblTextUnitCost.setText("");
+            pictureWhiteUnitCost();
         }
-    }//GEN-LAST:event_txtMaterialNameKeyTyped
+    }//GEN-LAST:event_txtUnitCostKeyTyped
 
-    private void txtxGeneralCostMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtxGeneralCostMousePressed
-        if (!btnUpdate.isEnabled()) {
-
-            if (txtUnitCost.getText().equals("")) {
-                txtUnitCost.setText("$ 0.00");
-                //txtxGeneralCost.setText("");
-            }
-            if (txtxGeneralCost.getText().equals("0.00")) {
-                txtxGeneralCost.setText("");
-            }
-            if (txtMaterialName.getText().isEmpty()) {
-                txtMaterialName.setText("Name");
-            }
-
-        }
-
-    }//GEN-LAST:event_txtxGeneralCostMousePressed
+    private void txtUnitCostKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUnitCostKeyReleased
+        validateDates();
+    }//GEN-LAST:event_txtUnitCostKeyReleased
 
     private void txtUnitCostMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUnitCostMousePressed
         if (!btnUpdate.isEnabled()) {
@@ -479,25 +421,7 @@ public class PnlUpdateAndDeleteMaterial extends javax.swing.JPanel {
             }
 
         }
-
     }//GEN-LAST:event_txtUnitCostMousePressed
-
-    private void txtUnitCostKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUnitCostKeyReleased
-        validateDates();
-    }//GEN-LAST:event_txtUnitCostKeyReleased
-
-    private void txtUnitCostKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUnitCostKeyTyped
-        char character = evt.getKeyChar();
-        if (!Character.isDigit(character) && (character != KeyEvent.VK_BACK_SPACE) && (character != KeyEvent.VK_PERIOD)) {
-            evt.consume();
-            pictureWarningUnitCost();
-            lblTextUnitCost.setText(character + " is not accepted here!");
-        } else {
-
-            lblTextUnitCost.setText("");
-            pictureWhiteUnitCost();
-        }
-    }//GEN-LAST:event_txtUnitCostKeyTyped
 
     private void txtxGeneralCostKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtxGeneralCostKeyTyped
         char character = evt.getKeyChar();
@@ -511,6 +435,27 @@ public class PnlUpdateAndDeleteMaterial extends javax.swing.JPanel {
             pictureWhiteGeneralCost();
         }
     }//GEN-LAST:event_txtxGeneralCostKeyTyped
+
+    private void txtxGeneralCostKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtxGeneralCostKeyReleased
+        validateDates();
+    }//GEN-LAST:event_txtxGeneralCostKeyReleased
+
+    private void txtxGeneralCostMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtxGeneralCostMousePressed
+        if (!btnUpdate.isEnabled()) {
+
+            if (txtUnitCost.getText().equals("")) {
+                txtUnitCost.setText("$ 0.00");
+                //txtxGeneralCost.setText("");
+            }
+            if (txtxGeneralCost.getText().equals("0.00")) {
+                txtxGeneralCost.setText("");
+            }
+            if (txtMaterialName.getText().isEmpty()) {
+                txtMaterialName.setText("Name");
+            }
+
+        }
+    }//GEN-LAST:event_txtxGeneralCostMousePressed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
 
@@ -544,21 +489,72 @@ public class PnlUpdateAndDeleteMaterial extends javax.swing.JPanel {
         txtMaterialName.setEnabled(true);
     }//GEN-LAST:event_btnUpdateMouseClicked
 
-    private void txtxGeneralCostKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtxGeneralCostKeyReleased
-        validateDates();
-    }//GEN-LAST:event_txtxGeneralCostKeyReleased
+    private void txtMaterialNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaterialNameKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isLetter(c) && (c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_SPACE)) {
+            //getToolkit().beep();
+            evt.consume();
+            pictureWarningMaterial();
+            lblTxtWarning.setText(c + " is not accepted here!");
 
-    private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
-        int option = JOptionPane.showConfirmDialog(null, "Are your dure you want to update this material?");
-        if (option == 0) {
-            JOptionPane.showMessageDialog(null, "updated  materials");
-
+        } else {
+            lblTxtWarning.setText("");
+            pictureWhiteMaterial();
         }
-    }//GEN-LAST:event_btnSaveMouseClicked
+    }//GEN-LAST:event_txtMaterialNameKeyTyped
+
+    private void txtMaterialNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaterialNameKeyReleased
+        validateDates();
+    }//GEN-LAST:event_txtMaterialNameKeyReleased
 
     private void txtMaterialNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaterialNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMaterialNameActionPerformed
+
+    private void txtMaterialNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMaterialNameMousePressed
+        if (!btnUpdate.isEnabled()) {
+            if (txtxGeneralCost.getText().isEmpty()) {
+                txtxGeneralCost.setText("0.00");
+            }
+            if (txtUnitCost.getText().isEmpty()) {
+                txtUnitCost.setText("$ 0.00");
+            }
+            if (txtMaterialName.getText().equals("Name")) {
+                txtMaterialName.setText("");
+            }
+
+        }
+
+    }//GEN-LAST:event_txtMaterialNameMousePressed
+    private void pictureWarningMaterial() {
+        lblPictureWarning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
+        lblPictureWarning.setText("");
+    }
+
+    private void pictureWhiteMaterial() {
+        lblPictureWarning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
+        lblPictureWarning.setText("");
+    }
+
+    private void pictureWarningGeneralCost() {
+        lblPicturGeneralCost.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
+        lblPictureWarning.setText("");
+    }
+
+    private void pictureWhiteGeneralCost() {
+        lblPicturGeneralCost.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
+        lblPictureWarning.setText("");
+    }
+
+    private void pictureWarningUnitCost() {
+        lblPictureUnitCost.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
+        lblPictureUnitCost.setText("");
+    }
+
+    private void pictureWhiteUnitCost() {
+        lblPictureUnitCost.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/whiteSeen.png"))); // NOI18N
+        lblPictureUnitCost.setText("");
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
