@@ -23,7 +23,7 @@ public class CostCalculator {
     }
     
     private static float computeMaterialsCostPerProduct(Product product){
-        ArrayList materialsListPerProduct = DictionaryConversor.convertToArrayList(product.getMaterials(), "values");
+        ArrayList materialsListPerProduct  = DictionaryConversor.convertToArrayList(product.getMaterials(), "values");
         ArrayList materialsQuantitiesPerProduct = DictionaryConversor.convertToArrayList(product.getMaterials(), "keys");
         float totalMaterialsCostPerProduct = 0;
         if(!materialsListPerProduct.isEmpty()){

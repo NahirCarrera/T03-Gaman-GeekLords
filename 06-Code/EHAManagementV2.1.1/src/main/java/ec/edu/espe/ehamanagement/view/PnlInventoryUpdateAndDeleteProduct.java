@@ -2,11 +2,9 @@
 package ec.edu.espe.ehamanagement.view;
 
 import com.mongodb.client.MongoCollection;
-import ec.edu.espe.ehamanagement.controller.Agenda;
 import ec.edu.espe.ehamanagement.controller.Inventory;
 import ec.edu.espe.ehamanagement.controller.MaterialsOrganizer;
 import ec.edu.espe.ehamanagement.model.Product;
-import ec.edu.espe.mongodbmanager.MongoDbManager;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,13 +42,14 @@ public class PnlInventoryUpdateAndDeleteProduct extends javax.swing.JPanel {
         this.tblMaterials.setModel(tableModel);
         openFields(false);
         updateCbxMaterials();
+        writeFields();
     }
 
     private void writeFields(){
         String name = (String) Inventory.getValueFromProduct(productsCollection, "id",idToUpdate,"name");
-        int quantity = Integer.parseInt(String.valueOf(Inventory.getValueFromProduct(productsCollection, "id",idToUpdate,"queantity")));
-        int workingTime = Integer.parseInt(String.valueOf(Inventory.getValueFromProduct(productsCollection,"id",idToUpdate,"workingTime")));
-        String description = (String) Inventory.getValueFromProduct(productsCollection,"id",idToUpdate,"workingTime");
+        int quantity = Integer.valueOf(String.valueOf(Inventory.getValueFromProduct(productsCollection, "id",idToUpdate,"quantity")));
+        int workingTime = Integer.valueOf(String.valueOf(Inventory.getValueFromProduct(productsCollection,"id",idToUpdate,"workingTime")));
+        String description = (String) Inventory.getValueFromProduct(productsCollection,"id",idToUpdate,"description");
         String productionCost = String.valueOf(Inventory.getValueFromProduct(productsCollection,"id",idToUpdate,"cost"));
         ArrayList <Integer> materialsIds = (ArrayList <Integer>) Inventory.getValueFromProduct(productsCollection,"id",idToUpdate,"materialsIds");
         ArrayList <Float> materialsQuantities = (ArrayList <Float>) Inventory.getValueFromProduct(productsCollection, "id",idToUpdate, "materialsQuantities");
@@ -60,6 +59,7 @@ public class PnlInventoryUpdateAndDeleteProduct extends javax.swing.JPanel {
         spnrWorkingTime.setValue(workingTime);
         txtADescription.setText(description);
         lblProductionCost.setText(productionCost);
+        
         for (int i = 0; i < materialsIds.size(); i++){
             int id = materialsIds.get(i);
             String[] information = new String[3];
@@ -162,14 +162,14 @@ public class PnlInventoryUpdateAndDeleteProduct extends javax.swing.JPanel {
         switch (title) {
             case "id" -> {
                 for (int i = 0; i < row; i++) {
-                    int value = Integer.parseInt(tblMaterials.getValueAt(i, column).toString());
+                    int value = Integer.valueOf(tblMaterials.getValueAt(i, column).toString());
                     columnValues.add(value);
                 }
                 return columnValues;
             }
             case "quantity" -> {
                 for (int i = 0; i < row; i++) {
-                    float value = Float.parseFloat(tblMaterials.getValueAt(i, column).toString());
+                    float value = Float.valueOf((tblMaterials.getValueAt(i, column).toString()));
                     columnValues.add(value);
                 }
                 return columnValues;
