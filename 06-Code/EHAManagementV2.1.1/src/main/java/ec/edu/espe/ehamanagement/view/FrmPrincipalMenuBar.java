@@ -4,6 +4,7 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighte
 import com.mongodb.client.MongoCollection;
 import ec.edu.espe.ehamanagement.controller.Agenda;
 import ec.edu.espe.ehamanagement.controller.Inventory;
+import ec.edu.espe.ehamanagement.controller.MaterialsOrganizer;
 import ec.edu.espe.ehamanagement.controller.Profile;
 import ec.edu.espe.ehamanagement.view.panels.PnlAbout;
 import java.awt.BorderLayout;
@@ -16,6 +17,7 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
     private MongoCollection productsCollection;
     private MongoCollection userCollection;
     private MongoCollection ordersCollection;
+    private MongoCollection materialsCollection;
     /**
      * Creates new form FrmAbout2
      */
@@ -23,6 +25,7 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
         productsCollection = Inventory.createConnectionToCollection();
         userCollection = Profile.createConnectionToCollection();
         ordersCollection = Agenda.createConnectionToCollection();
+        materialsCollection = MaterialsOrganizer.createConnectionToCollection();
         initComponents();
         InitContent();
     }
@@ -60,7 +63,7 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
     }
    
     private void initPnlInventory(){
-        PnlInventory pnlInventory = new PnlInventory(productsCollection);
+        PnlInventory pnlInventory = new PnlInventory(productsCollection, materialsCollection);
         pnlInventory.setSize(996, 623);
         pnlInventory.setLocation(0,0);
         

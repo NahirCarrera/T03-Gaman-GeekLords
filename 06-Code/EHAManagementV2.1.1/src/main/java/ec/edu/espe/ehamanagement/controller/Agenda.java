@@ -15,17 +15,17 @@ import utils.DictionaryConversor;
  */
 public class Agenda {
     public static ArrayList getFieldsToInsert(){
-        ArrayList keys = new ArrayList(5);
-        keys.add("id");
-        keys.add("clientName");
-        keys.add("description");
-        keys.add("deliveryDate");
-        keys.add("deliveryPlace");
-        keys.add("isDelivered");
-        return keys;   
+        ArrayList fields = new ArrayList();
+        fields.add("id");
+        fields.add("clientName");
+        fields.add("description");
+        fields.add("deliveryDate");
+        fields.add("deliveryPlace");
+        fields.add("isDelivered");
+        return fields;   
     }
     public static ArrayList getValuesToInsert(Order order){
-        ArrayList values = new ArrayList(5);
+        ArrayList values = new ArrayList();
         values.add(order.getId());
         values.add(order.getClientName());
         values.add(order.getDescription());
@@ -46,17 +46,17 @@ public class Agenda {
         }
     }
     
-    public static ArrayList <Object> getAll(MongoCollection ordersCollection, String key){
+    public static ArrayList <Object> getAll(MongoCollection ordersCollection, String field){
         ArrayList <Object> values;
-        values = MongoDbManager.getFieldValues(ordersCollection, key);
+        values = MongoDbManager.getFieldValues(ordersCollection, field);
         return values;
     }
     public static boolean insertOrder(MongoCollection ordersCollection, Order order){
         int newId = assignIdToOrder(ordersCollection);
         order.setId(newId);
-        ArrayList keys = getFieldsToInsert();
+        ArrayList fields = getFieldsToInsert();
         ArrayList values = getValuesToInsert(order);
-        HashMap orderToInsert = DictionaryConversor.convertToDictionary(keys, values);
+        HashMap orderToInsert = DictionaryConversor.convertToDictionary(fields, values);
         MongoDbManager.insertDocument(ordersCollection, orderToInsert);
         return true;
     }
@@ -65,9 +65,9 @@ public class Agenda {
         return MongoDbManager.deleteDocument(ordersCollection,"id", id);
     }
     
-    public static Object getValueFromOrder(MongoCollection ordersCollection,String key,  Object value, String keyToFind){
+    public static Object getValueFromOrder(MongoCollection ordersCollection,String searchField,  Object SearchValue, String fieldToFind){
         Object foundValue;
-        foundValue = MongoDbManager.getDocumentValue(ordersCollection, key,value, keyToFind);
+        foundValue = MongoDbManager.getDocumentValue(ordersCollection, searchField,SearchValue, fieldToFind);
         return foundValue;
     }
     
@@ -81,9 +81,8 @@ public class Agenda {
         MongoDbManager.updateDocument(ordersCollection,"id", id, "isDelivered", String.valueOf(order.getIsDelivered()));
         return true;
     }
-    public static  boolean existsOrder(String key, Object value){
-        MongoCollection ordersCollection = createConnectionToCollection();
-        return MongoDbManager.existsDocument(ordersCollection, key, value);
+    public static  boolean existsOrder(MongoCollection ordersCollection, String field, Object value){
+        return MongoDbManager.existsDocument(ordersCollection, field, value);
     }
     
     public static ArrayList <Order> readAgenda( MongoCollection ordersCollection){

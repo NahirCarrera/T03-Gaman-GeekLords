@@ -15,21 +15,21 @@ import utils.DictionaryConversor;
  */
 public class Inventory {
 
-    private static ArrayList getKeysToInsert(){
-        ArrayList keys = new ArrayList(8);
-        keys.add("id");
-        keys.add("name");
-        keys.add("cost");
-        keys.add("description");
-        keys.add("materialsIds");
-        keys.add("materialsQuantities");
-        keys.add("workingTime");
-        keys.add("quantity");
-        return keys;   
+    private static ArrayList getFieldsToInsert(){
+        ArrayList fields = new ArrayList();
+        fields.add("id");
+        fields.add("name");
+        fields.add("cost");
+        fields.add("description");
+        fields.add("materialsIds");
+        fields.add("materialsQuantities");
+        fields.add("workingTime");
+        fields.add("quantity");
+        return fields;   
     }
     
     private static ArrayList getValuesToInsert(Product product){
-        ArrayList values = new ArrayList(8);
+        ArrayList values = new ArrayList();
         values.add(product.getId());
         values.add(product.getName());
         values.add(product.getProductionCost());
@@ -45,9 +45,9 @@ public class Inventory {
     
 
     public static boolean insertProduct( MongoCollection productsCollection ,Product product){
-        ArrayList keys = getKeysToInsert();
+        ArrayList fields = getFieldsToInsert();
         ArrayList values = getValuesToInsert(product);
-        HashMap productToInsert = DictionaryConversor.convertToDictionary(keys, values);
+        HashMap productToInsert = DictionaryConversor.convertToDictionary(fields, values);
         MongoDbManager.insertDocument(productsCollection, productToInsert);
         return true;
     }
@@ -67,9 +67,9 @@ public class Inventory {
         return MongoDbManager.deleteDocument(productsCollection, "id", id);
     }
     
-    public static Object getValueFromProduct(MongoCollection productsCollection,int id, String field){
+    public static Object getValueFromProduct(MongoCollection productsCollection,String searchField, Object searchValue, String fieldToFind){
         Object foundValue;
-        foundValue = MongoDbManager.getDocumentValue(productsCollection, "id",id, field);
+        foundValue = MongoDbManager.getDocumentValue(productsCollection, searchField,searchValue, fieldToFind);
         return foundValue;
     }
     
@@ -79,9 +79,8 @@ public class Inventory {
         return productsIds;
     }
     
-    public static boolean updateProduct(Product product){
+    public static boolean updateProduct(MongoCollection productsCollection, Product product){
         int id = product.getId();
-        MongoCollection productsCollection = createConnectionToCollection();
         MongoDbManager.updateDocument(productsCollection, "id",id, "name", product.getName());
         MongoDbManager.updateDocument(productsCollection, "id",id, "description", product.getDescription());
         MongoDbManager.updateDocument(productsCollection, "id",id, "quantity", product.getQuantity());
@@ -90,20 +89,24 @@ public class Inventory {
         MongoDbManager.updateDocument(productsCollection,"id",id, "materialsQuantities", product.getMaterials().keySet());
         return true;
     }
-        public static ArrayList <Product> readInventory( MongoCollection productsCollection){
+    public static  boolean existsProduct(MongoCollection productsCollection, String field, Object value){
+        return MongoDbManager.existsDocument(productsCollection, field, value);
+    }
+    
+    public static ArrayList <Product> readInventory( MongoCollection productsCollection){
         ArrayList <Object> ids = readAll(productsCollection, "id");
         Product readedProduct;
         ArrayList <Product> readedProducts = new ArrayList();
         for (Object readedId: ids){
             int id = Integer.parseInt(String.valueOf(readedId));
-            String name = String.valueOf(getValueFromProduct( productsCollection, id, "name"));
-            Float productionCost = Float.valueOf(String.valueOf(getValueFromProduct(productsCollection,id, "cost")));
-            String description = String.valueOf(getValueFromProduct(productsCollection,id, "description"));
-            ArrayList materialsIds = (ArrayList<Object>)(getValueFromProduct(productsCollection,id, "materialsIds"));
-            ArrayList materialsQuantities = (ArrayList<Object>)(getValueFromProduct(productsCollection,id, "materialsQuantities"));
+            String name = String.valueOf(getValueFromProduct( productsCollection,"id",  id, "name"));
+            Float productionCost = Float.valueOf(String.valueOf(getValueFromProduct(productsCollection,"id", id, "cost")));
+            String description = String.valueOf(getValueFromProduct(productsCollection,"id", id, "description"));
+            ArrayList materialsIds = (ArrayList<Object>)(getValueFromProduct(productsCollection,"id", id, "materialsIds"));
+            ArrayList materialsQuantities = (ArrayList<Object>)(getValueFromProduct(productsCollection,"id", id, "materialsQuantities"));
             HashMap materials = DictionaryConversor.convertToDictionary(materialsIds, materialsQuantities);
-            int workingTime = Integer.parseInt(String.valueOf(getValueFromProduct( productsCollection, id, "workingTime")));
-            int quantity = Integer.parseInt(String.valueOf(getValueFromProduct( productsCollection, id, "quantity")));
+            int workingTime = Integer.parseInt(String.valueOf(getValueFromProduct( productsCollection, "id", id, "workingTime")));
+            int quantity = Integer.parseInt(String.valueOf(getValueFromProduct( productsCollection, "id", id, "quantity")));
             readedProduct = new Product(id,  name, productionCost, description, materials, workingTime, quantity);
             readedProducts.add(readedProduct);
         }

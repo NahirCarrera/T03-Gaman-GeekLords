@@ -12,7 +12,7 @@ import java.util.HashMap;
  * @author Nahir Carrera, Gaman GeekLords, DCC0-ESPE
  */
 public class DictionaryConversor {
-    public static HashMap<Object, Object> convertToDictionary(ArrayList<String> keys, ArrayList<Object> values) {
+    public static HashMap<Object, Object> convertToDictionary(ArrayList<Object> keys, ArrayList<Object> values) {
         HashMap<Object, Object> dictionary = new HashMap<>();
         for (int i = 0; i < keys.size(); i++) {
             if (i < values.size()) {
