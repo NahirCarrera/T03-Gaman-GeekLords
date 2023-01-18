@@ -2,6 +2,7 @@ package ec.edu.espe.ehamanagement.view;
 
 import com.mongodb.client.MongoCollection;
 import ec.edu.espe.ehamanagement.controller.Inventory;
+import ec.edu.espe.ehamanagement.controller.MaterialsOrganizer;
 import ec.edu.espe.ehamanagement.model.Product;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -14,15 +15,17 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PnlInventoryTable extends javax.swing.JPanel {
     private final MongoCollection productsCollection;
+    private final MongoCollection materialsCollection;
     private DefaultTableModel tableModel;
     private  ArrayList <Product> readedOrders ;
     /**
      * Creates new form PnlShowFindInformation
      * @param collection
      */
-    public PnlInventoryTable(MongoCollection collection) {
+    public PnlInventoryTable(MongoCollection collectionProducts, MongoCollection collectionMaterials) {
         initComponents();
-        productsCollection = collection;
+        productsCollection = collectionProducts;
+        materialsCollection = collectionMaterials;
         readedOrders = Inventory.readInventory(productsCollection);
         tableModel = new DefaultTableModel();
         tableModel.addColumn("ID");
@@ -94,9 +97,9 @@ public class PnlInventoryTable extends javax.swing.JPanel {
     }
     
     
-    private void initPnlInventoryUpdateAndDeleteProduct()
-    {
-        PnlInventoryUpdateAndDeleteProduct pnlInventoryUpdateAndDeleleProduct = new PnlInventoryUpdateAndDeleteProduct(productsCollection);
+    private void initPnlInventoryUpdateAndDeleteProduct(int id){
+        PnlInventoryUpdateAndDeleteProduct.setIdToUpdate(id);
+        PnlInventoryUpdateAndDeleteProduct pnlInventoryUpdateAndDeleleProduct = new PnlInventoryUpdateAndDeleteProduct(productsCollection, materialsCollection);
         pnlInventoryUpdateAndDeleleProduct.setSize(713,528);
         pnlInventoryUpdateAndDeleleProduct.setLocation(0,0);
         pnlContent.removeAll();
@@ -142,8 +145,8 @@ public class PnlInventoryTable extends javax.swing.JPanel {
         rbtnProductsInShortage = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         lblTableTitle = new javax.swing.JLabel();
-        rbtnSearchId = new javax.swing.JRadioButton();
-        rbtnSearchName = new javax.swing.JRadioButton();
+        rbtnByID = new javax.swing.JRadioButton();
+        rbtnByName = new javax.swing.JRadioButton();
         txtSearch = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         btnSearch = new javax.swing.JButton();
@@ -209,35 +212,35 @@ public class PnlInventoryTable extends javax.swing.JPanel {
         lblTableTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTableTitle.setText("All Products");
 
-        rbtnSearchId.setBackground(new java.awt.Color(255, 255, 255));
-        btnGroupSearch.add(rbtnSearchId);
-        rbtnSearchId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        rbtnSearchId.setSelected(true);
-        rbtnSearchId.setText("By ID");
-        rbtnSearchId.addMouseListener(new java.awt.event.MouseAdapter() {
+        rbtnByID.setBackground(new java.awt.Color(255, 255, 255));
+        btnGroupSearch.add(rbtnByID);
+        rbtnByID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rbtnByID.setSelected(true);
+        rbtnByID.setText("By ID");
+        rbtnByID.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rbtnSearchIdMouseClicked(evt);
+                rbtnByIDMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                rbtnSearchIdMousePressed(evt);
+                rbtnByIDMousePressed(evt);
             }
         });
-        rbtnSearchId.addActionListener(new java.awt.event.ActionListener() {
+        rbtnByID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnSearchIdActionPerformed(evt);
+                rbtnByIDActionPerformed(evt);
             }
         });
 
-        rbtnSearchName.setBackground(new java.awt.Color(255, 255, 255));
-        btnGroupSearch.add(rbtnSearchName);
-        rbtnSearchName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        rbtnSearchName.setText("By Name");
-        rbtnSearchName.addMouseListener(new java.awt.event.MouseAdapter() {
+        rbtnByName.setBackground(new java.awt.Color(255, 255, 255));
+        btnGroupSearch.add(rbtnByName);
+        rbtnByName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rbtnByName.setText("By Name");
+        rbtnByName.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rbtnSearchNameMouseClicked(evt);
+                rbtnByNameMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                rbtnSearchNameMousePressed(evt);
+                rbtnByNameMousePressed(evt);
             }
         });
 
@@ -307,8 +310,8 @@ public class PnlInventoryTable extends javax.swing.JPanel {
                                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rbtnSearchId)
-                                    .addComponent(rbtnSearchName))
+                                    .addComponent(rbtnByID)
+                                    .addComponent(rbtnByName))
                                 .addGap(33, 33, 33)
                                 .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -343,7 +346,7 @@ public class PnlInventoryTable extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addGap(31, 31, 31))
                     .addGroup(pnlContentLayout.createSequentialGroup()
-                        .addComponent(rbtnSearchId)
+                        .addComponent(rbtnByID)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlContentLayout.createSequentialGroup()
                         .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -356,7 +359,7 @@ public class PnlInventoryTable extends javax.swing.JPanel {
                                         .addComponent(lblPictureWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(3, 3, 3)
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(rbtnSearchName))
+                            .addComponent(rbtnByName))
                         .addGap(39, 39, 39))))
         );
 
@@ -372,12 +375,29 @@ public class PnlInventoryTable extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rbtnSearchIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnSearchIdActionPerformed
+    private void rbtnByIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnByIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rbtnSearchIdActionPerformed
+    }//GEN-LAST:event_rbtnByIDActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        initPnlInventoryUpdateAndDeleteProduct();
+        String search = txtSearch.getText();
+        if (rbtnByID.isSelected() && Inventory.existsProduct(productsCollection, "id", Integer.valueOf(search))) {
+            int id;
+            id = Integer.valueOf(search);
+            System.out.println("ID to search: "+ id);
+            initPnlInventoryUpdateAndDeleteProduct(id);
+  
+        } else if (rbtnByName.isSelected() && Inventory.existsProduct(productsCollection, "name", search)) {
+            int id;
+            id = Integer.parseInt(String.valueOf(Inventory.getValueFromProduct(productsCollection, "name",search,"id")));
+            initPnlInventoryUpdateAndDeleteProduct(id);
+        } else {
+            JOptionPane.showMessageDialog(this, "Order not found", "Search failed", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+        
+        
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
@@ -397,13 +417,13 @@ public class PnlInventoryTable extends javax.swing.JPanel {
             lblTextWarning.setText(" requiered to search");
             pictureWarningSearch();
         }else{
-            if (rbtnSearchName.isSelected() && !Character.isLetter(character) && (character != KeyEvent.VK_BACK_SPACE && character != KeyEvent.VK_SPACE)) 
+            if (rbtnByName.isSelected() && !Character.isLetter(character) && (character != KeyEvent.VK_BACK_SPACE && character != KeyEvent.VK_SPACE)) 
             {
                 evt.consume();
                 pictureWarningSearch();
                 lblTextWarning.setText(character + " is not accepted here!");
             }else{
-                if (rbtnSearchId.isSelected() && !Character.isDigit(character) && (character != KeyEvent.VK_BACK_SPACE )) {
+                if (rbtnByID.isSelected() && !Character.isDigit(character) && (character != KeyEvent.VK_BACK_SPACE )) {
                     evt.consume();
                     pictureWarningSearch();
                     lblTextWarning.setText(character + " is not accepted here!");
@@ -421,7 +441,7 @@ public class PnlInventoryTable extends javax.swing.JPanel {
         validateDates();
     }//GEN-LAST:event_txtSearchKeyReleased
 
-    private void rbtnSearchIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtnSearchIdMouseClicked
+    private void rbtnByIDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtnByIDMouseClicked
         txtSearch.setText("Search...");
         if (txtSearch.getText().equals("Search...")||txtSearch.getText().equals("")) {
             lblTextWarning.setText(" requiered to search");
@@ -429,16 +449,16 @@ public class PnlInventoryTable extends javax.swing.JPanel {
         } else {
             lblTextWarning.setText("");
         }
-    }//GEN-LAST:event_rbtnSearchIdMouseClicked
+    }//GEN-LAST:event_rbtnByIDMouseClicked
 
-    private void rbtnSearchIdMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtnSearchIdMousePressed
+    private void rbtnByIDMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtnByIDMousePressed
         txtSearch.setText("Search...");
         if (txtSearch.getText().isEmpty()) {
             txtSearch.setText("Search...");
         }
-    }//GEN-LAST:event_rbtnSearchIdMousePressed
+    }//GEN-LAST:event_rbtnByIDMousePressed
 
-    private void rbtnSearchNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtnSearchNameMouseClicked
+    private void rbtnByNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtnByNameMouseClicked
         txtSearch.setText("Search...");
         if (txtSearch.getText().equals("Search...")) {
             lblTextWarning.setText(" requiered to search");
@@ -446,14 +466,14 @@ public class PnlInventoryTable extends javax.swing.JPanel {
         } else {
             lblTextWarning.setText("");
         }
-    }//GEN-LAST:event_rbtnSearchNameMouseClicked
+    }//GEN-LAST:event_rbtnByNameMouseClicked
 
-    private void rbtnSearchNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtnSearchNameMousePressed
+    private void rbtnByNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtnByNameMousePressed
         txtSearch.setText("Search...");
         if (txtSearch.getText().isEmpty()) {
             txtSearch.setText("Search...");
         }
-    }//GEN-LAST:event_rbtnSearchNameMousePressed
+    }//GEN-LAST:event_rbtnByNameMousePressed
 
     private void rbtnProductsInShortageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnProductsInShortageActionPerformed
         refreshTable();
@@ -481,10 +501,10 @@ public class PnlInventoryTable extends javax.swing.JPanel {
     private javax.swing.JLabel lblTextWarning;
     private javax.swing.JPanel pnlContent;
     private javax.swing.JRadioButton rbtnAllProducts;
+    private javax.swing.JRadioButton rbtnByID;
+    private javax.swing.JRadioButton rbtnByName;
     private javax.swing.JRadioButton rbtnProductsInShortage;
     private javax.swing.JRadioButton rbtnProductsStock;
-    private javax.swing.JRadioButton rbtnSearchId;
-    private javax.swing.JRadioButton rbtnSearchName;
     private javax.swing.JTable tblInventory;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables

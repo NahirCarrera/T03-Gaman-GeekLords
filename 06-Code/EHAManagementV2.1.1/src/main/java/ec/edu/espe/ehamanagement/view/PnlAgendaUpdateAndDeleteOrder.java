@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 public class PnlAgendaUpdateAndDeleteOrder extends javax.swing.JPanel {
     static int idToUpdate;
     private final MongoCollection ordersCollection;
-
+    
     /**
      * Creates new form PnlOrderInformation
      * @param collection
@@ -158,6 +158,12 @@ public class PnlAgendaUpdateAndDeleteOrder extends javax.swing.JPanel {
         btnUpdate.setEnabled(!active); 
     }
     
+    
+    private boolean updateOrder(){
+        Order orderToUpdate = createOrderToUpdate();
+        return Agenda.updateOrder(ordersCollection,orderToUpdate);
+    }
+    
     private Order createOrderToUpdate(){
         Order orderToUpdate;
         String clientName = txtClientName.getText();
@@ -173,11 +179,6 @@ public class PnlAgendaUpdateAndDeleteOrder extends javax.swing.JPanel {
         orderToUpdate =  new Order(idToUpdate, clientName, deliveryPlace, deliveryDate, description, delivered);
         return orderToUpdate;
     }
-    private boolean updateOrder(){
-        Order orderToUpdate = createOrderToUpdate();
-        return Agenda.updateOrder(ordersCollection,orderToUpdate);
-    }
-    
     private boolean deleteOrder(){
         return Agenda.deleteOrder(ordersCollection,idToUpdate);
     }
@@ -523,7 +524,7 @@ public class PnlAgendaUpdateAndDeleteOrder extends javax.swing.JPanel {
         switch(decision){
             case 0 -> {
                 if(updateOrder()){
-                    JOptionPane.showMessageDialog(this, "Yor changes have been successfully saved!", "Updated successfully", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Your changes have been successfully saved!", "Updated successfully", JOptionPane.INFORMATION_MESSAGE);
                 } else{
                    JOptionPane.showMessageDialog(this, "Something went wrong. Failed to save you changes in this order", "Updated failed", JOptionPane.ERROR_MESSAGE); 
                 }        

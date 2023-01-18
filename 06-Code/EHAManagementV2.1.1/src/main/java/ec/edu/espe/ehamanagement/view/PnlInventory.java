@@ -8,18 +8,20 @@ import com.mongodb.client.MongoCollection;
  */
 public class PnlInventory extends javax.swing.JPanel {
     MongoCollection productsCollection;
+    MongoCollection materialsCollection;
     /**
      * Creates new form PnlAgend
      * @param collection
      */
-    public PnlInventory(MongoCollection collection) {
+    public PnlInventory(MongoCollection collectionProducts, MongoCollection collectionMaterials) {
         initComponents();
-        productsCollection = collection;
+        productsCollection = collectionProducts;
+        materialsCollection = collectionMaterials;
         InitContentTable();
     }
      private void InitContentTable()
     {
-        PnlInventoryTable InventoryTable = new PnlInventoryTable(productsCollection);
+        PnlInventoryTable InventoryTable = new PnlInventoryTable(productsCollection, materialsCollection);
         InventoryTable.setSize(713,518);
         InventoryTable.setLocation(0,0);
         pnlContent.removeAll();

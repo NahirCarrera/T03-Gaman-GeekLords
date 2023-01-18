@@ -405,13 +405,13 @@ public class PnlAgendaTable extends javax.swing.JPanel {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String search = txtSearch.getText();
-        if (rbtnByID.isSelected() && Agenda.existsOrder("id", Integer.valueOf(search))) {
+        if (rbtnByID.isSelected() && Agenda.existsOrder(ordersCollection, "id", Integer.valueOf(search))) {
             int id;
             id = Integer.valueOf(search);
             System.out.println("ID to search: "+ id);
             initPnlAgendaUpdateAndDeleteOrder(id);
             
-        } else if (rbtnByName.isSelected() && Agenda.existsOrder("clientName", search)) {
+        } else if (rbtnByName.isSelected() && Agenda.existsOrder(ordersCollection, "clientName", search)) {
             int id;
             id = Integer.parseInt(String.valueOf(Agenda.getValueFromOrder(ordersCollection, "clientName",search,"id")));
             initPnlAgendaUpdateAndDeleteOrder(id);
