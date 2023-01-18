@@ -69,6 +69,18 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
         PnlWindow.revalidate();
         PnlWindow.repaint();    
     }
+    public void initContentMaterials()
+    {
+        PnlMaterials pnlAgendaTable = new PnlMaterials();
+        pnlAgendaTable.setSize(980, 629);
+        pnlAgendaTable.setLocation(0,0);
+        
+        PnlWindow.removeAll();
+        PnlWindow.add(pnlAgendaTable, BorderLayout.CENTER);
+        PnlWindow.revalidate();
+        PnlWindow.repaint();
+             
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -147,6 +159,11 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
 
         MnMaterialsOrganizer.setText("Materials Organizer");
         MnMaterialsOrganizer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MnMaterialsOrganizer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MnMaterialsOrganizerMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(MnMaterialsOrganizer);
 
         MnReport.setText("Report");
@@ -192,6 +209,10 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
     private void MnInventoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MnInventoryMouseClicked
         initPnlInventory();
     }//GEN-LAST:event_MnInventoryMouseClicked
+
+    private void MnMaterialsOrganizerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MnMaterialsOrganizerMouseClicked
+        initContentMaterials();
+    }//GEN-LAST:event_MnMaterialsOrganizerMouseClicked
 
     /**
      * @param args the command line arguments
