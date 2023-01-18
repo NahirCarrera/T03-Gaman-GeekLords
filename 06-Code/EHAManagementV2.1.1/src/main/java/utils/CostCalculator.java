@@ -1,6 +1,7 @@
 package utils;
 
 import com.mongodb.client.MongoCollection;
+import ec.edu.espe.ehamanagement.controller.MaterialsOrganizer;
 import ec.edu.espe.ehamanagement.model.Product;
 import ec.edu.espe.mongodbmanager.MongoDbManager;
 import java.util.ArrayList;
@@ -15,8 +16,8 @@ public class CostCalculator {
         String dataBase = "ManagementSoftware";
         String collection = "Materials";
         MongoCollection materialsCollection =  MongoDbManager.connectToCollection(uri, dataBase, collection);
-        float totalCost = Float.parseFloat(String.valueOf(MongoDbManager.getDocumentValue(materialsCollection,"id", id, "cost")));
-        int quantity = Integer.parseInt(String.valueOf(MongoDbManager.getDocumentValue(materialsCollection,"id", id, "quantity")));
+        float totalCost = Float.parseFloat(String.valueOf(MaterialsOrganizer.getValueFromMaterial(materialsCollection,"id", id, "cost")));
+        int quantity = Integer.parseInt(String.valueOf(MaterialsOrganizer.getValueFromMaterial(materialsCollection,"id", id, "quantity")));
         float unitQuantity = Math.round(totalCost/quantity);
         MongoDbManager.updateDocument(materialsCollection,"id", id, "unitCost", unitQuantity);
         return unitQuantity;
@@ -28,9 +29,9 @@ public class CostCalculator {
         float totalMaterialsCostPerProduct = 0;
         if(!materialsListPerProduct.isEmpty()){
             for(int i = 0; i< materialsListPerProduct.size(); i++){
-                int materialId = Integer.parseInt(String.valueOf(materialsListPerProduct.get(i)));
+                int materialId = Integer.valueOf(String.valueOf(materialsListPerProduct.get(i)));
                 float materialUnitCost = computeMaterialUnitCost(materialId);
-                float materialQuantity =  Float.parseFloat(String.valueOf(materialsQuantitiesPerProduct.get(i)));
+                float materialQuantity =  Float.valueOf(String.valueOf(materialsQuantitiesPerProduct.get(i)));
                 float materialTotalCost = materialUnitCost * materialQuantity;
                 totalMaterialsCostPerProduct += materialTotalCost;
                 }
