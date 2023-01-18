@@ -18,6 +18,7 @@ public class PnlInventoryTable extends javax.swing.JPanel {
     private  ArrayList <Product> readedOrders ;
     /**
      * Creates new form PnlShowFindInformation
+     * @param collection
      */
     public PnlInventoryTable(MongoCollection collection) {
         initComponents();
@@ -95,7 +96,7 @@ public class PnlInventoryTable extends javax.swing.JPanel {
     
     private void initPnlInventoryUpdateAndDeleteProduct()
     {
-        PnlInventoryUpdateAndDeleteProduct pnlInventoryUpdateAndDeleleProduct = new PnlInventoryUpdateAndDeleteProduct();
+        PnlInventoryUpdateAndDeleteProduct pnlInventoryUpdateAndDeleleProduct = new PnlInventoryUpdateAndDeleteProduct(productsCollection);
         pnlInventoryUpdateAndDeleleProduct.setSize(713,528);
         pnlInventoryUpdateAndDeleleProduct.setLocation(0,0);
         pnlContent.removeAll();
