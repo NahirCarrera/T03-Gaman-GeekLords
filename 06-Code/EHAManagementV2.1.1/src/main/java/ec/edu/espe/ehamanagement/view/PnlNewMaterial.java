@@ -124,8 +124,6 @@ public class PnlNewMaterial extends javax.swing.JPanel {
             }
         });
 
-        lblPictureWarning.setText("5");
-
         lblGetMessageArea.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         lblGetMessageArea.setForeground(new java.awt.Color(204, 0, 0));
 
@@ -164,8 +162,6 @@ public class PnlNewMaterial extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        lblTextWarning.setText("551");
-
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("General Cost");
 
@@ -191,10 +187,7 @@ public class PnlNewMaterial extends javax.swing.JPanel {
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
 
-        lblPicturGeneralCost.setText("jLabel5");
-
         lblTextGeneralCost.setForeground(new java.awt.Color(255, 0, 0));
-        lblTextGeneralCost.setText("jLabel7");
 
         jPanel3.setBackground(new java.awt.Color(52, 122, 52));
 

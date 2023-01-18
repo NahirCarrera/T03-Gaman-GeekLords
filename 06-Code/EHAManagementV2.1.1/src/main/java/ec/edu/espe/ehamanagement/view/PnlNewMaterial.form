@@ -197,9 +197,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblPictureWarning">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="5"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblGetMessageArea">
           <Properties>
@@ -263,9 +260,6 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="lblTextWarning">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="551"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -307,16 +301,12 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblPicturGeneralCost">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel5"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTextGeneralCost">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="jLabel7"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel3">

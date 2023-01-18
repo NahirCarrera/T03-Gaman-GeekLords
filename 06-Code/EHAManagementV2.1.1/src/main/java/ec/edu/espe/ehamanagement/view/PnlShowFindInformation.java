@@ -122,6 +122,11 @@ public class PnlShowFindInformation extends javax.swing.JPanel {
                 rbtnSearchIdActionPerformed(evt);
             }
         });
+        rbtnSearchId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                rbtnSearchIdKeyReleased(evt);
+            }
+        });
 
         btnGroupSearch.add(rbtnSearchName);
         rbtnSearchName.setText("By Name");
@@ -167,10 +172,7 @@ public class PnlShowFindInformation extends javax.swing.JPanel {
 
         jSeparator1.setForeground(new java.awt.Color(51, 51, 51));
 
-        lblPictureWarning.setText("5");
-
         lblTextWarning.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblTextWarning.setText("5");
 
         javax.swing.GroupLayout pnlContentLayout = new javax.swing.GroupLayout(pnlContent);
         pnlContent.setLayout(pnlContentLayout);
@@ -185,28 +187,25 @@ public class PnlShowFindInformation extends javax.swing.JPanel {
                         .addGap(284, 284, 284)
                         .addComponent(jLabel1))
                     .addGroup(pnlContentLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbtnSearchId)
+                            .addComponent(rbtnSearchName))
+                        .addGap(32, 32, 32)
+                        .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnlContentLayout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rbtnSearchId)
-                                    .addComponent(rbtnSearchName))
-                                .addGap(32, 32, 32)
-                                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlContentLayout.createSequentialGroup()
-                                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(pnlContentLayout.createSequentialGroup()
-                                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lblPictureWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblTextWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))))
-                .addContainerGap(46, Short.MAX_VALUE))
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlContentLayout.createSequentialGroup()
+                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblPictureWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTextWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 146, Short.MAX_VALUE)))))
+                .addContainerGap(42, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         pnlContentLayout.setVerticalGroup(
             pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,7 +233,7 @@ public class PnlShowFindInformation extends javax.swing.JPanel {
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -247,7 +246,7 @@ public class PnlShowFindInformation extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -315,6 +314,7 @@ public class PnlShowFindInformation extends javax.swing.JPanel {
         if (txtSearch.getText().isEmpty()) {
             txtSearch.setText("Search...");
         }
+        
     }//GEN-LAST:event_rbtnSearchIdMousePressed
 
     private void rbtnSearchNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtnSearchNameMouseClicked
@@ -333,6 +333,10 @@ public class PnlShowFindInformation extends javax.swing.JPanel {
             txtSearch.setText("Search...");
         }
     }//GEN-LAST:event_rbtnSearchNameMousePressed
+
+    private void rbtnSearchIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rbtnSearchIdKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnSearchIdKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
