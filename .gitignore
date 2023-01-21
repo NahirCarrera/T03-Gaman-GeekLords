@@ -17,3 +17,4 @@
 *.zip
 *.tar.gz
 *.rar
+/06-Code/MongoDbManager Library V3.0.0/target/
