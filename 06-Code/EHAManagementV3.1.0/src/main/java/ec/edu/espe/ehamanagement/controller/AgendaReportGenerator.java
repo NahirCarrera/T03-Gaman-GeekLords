@@ -11,7 +11,7 @@ import utils.DictionaryConversor;
 
 /**
  *
- * @author Usuario
+ * @author Nahir Carrera, Gaman GeekLords, DCC0-ESPE
  */
 public class AgendaReportGenerator {
     public static ArrayList getFieldsToInsert(){
