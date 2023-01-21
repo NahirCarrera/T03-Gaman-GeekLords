@@ -112,9 +112,13 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
         mnuAgenda = new javax.swing.JMenuItem();
         mnuMaterialsOrganizer = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        MnItGeneralReport = new javax.swing.JMenuItem();
+        MnInventoryReport = new javax.swing.JMenu();
+        MnItInventoryStockReport = new javax.swing.JMenuItem();
+        MnItInventoryShortageReport = new javax.swing.JMenuItem();
+        MnAgendaReport = new javax.swing.JMenu();
+        MnItAgendaCompletedOrderReport = new javax.swing.JMenuItem();
+        MnItAgendaPendingOrderReport = new javax.swing.JMenuItem();
         MnHelp = new javax.swing.JMenu();
         mnuContactUs = new javax.swing.JMenuItem();
         mnuAbout = new javax.swing.JMenuItem();
@@ -202,17 +206,55 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
 
         jMenu2.setText("Reports");
 
-        jMenuItem4.setText("General Report");
-        jMenuItem4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenu2.add(jMenuItem4);
+        MnItGeneralReport.setText("General");
+        MnItGeneralReport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MnItGeneralReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnItGeneralReportActionPerformed(evt);
+            }
+        });
+        jMenu2.add(MnItGeneralReport);
 
-        jMenuItem5.setText("Inventory Report");
-        jMenuItem5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenu2.add(jMenuItem5);
+        MnInventoryReport.setText("Inventory");
 
-        jMenuItem6.setText("Agenda Report");
-        jMenuItem6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenu2.add(jMenuItem6);
+        MnItInventoryStockReport.setText("Stock");
+        MnItInventoryStockReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnItInventoryStockReportActionPerformed(evt);
+            }
+        });
+        MnInventoryReport.add(MnItInventoryStockReport);
+
+        MnItInventoryShortageReport.setText("Shortage");
+        MnItInventoryShortageReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnItInventoryShortageReportActionPerformed(evt);
+            }
+        });
+        MnInventoryReport.add(MnItInventoryShortageReport);
+
+        jMenu2.add(MnInventoryReport);
+
+        MnAgendaReport.setText("Agenda");
+
+        MnItAgendaCompletedOrderReport.setText("Completed");
+        MnItAgendaCompletedOrderReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnItAgendaCompletedOrderReportActionPerformed(evt);
+            }
+        });
+        MnAgendaReport.add(MnItAgendaCompletedOrderReport);
+
+        MnItAgendaPendingOrderReport.setText("Pending");
+        MnItAgendaPendingOrderReport.setToolTipText("");
+        MnItAgendaPendingOrderReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnItAgendaPendingOrderReportActionPerformed(evt);
+            }
+        });
+        MnAgendaReport.add(MnItAgendaPendingOrderReport);
+
+        jMenu2.add(MnAgendaReport);
 
         mnuActions.add(jMenu2);
 
@@ -297,6 +339,36 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
        initPnlContactUs();
     }//GEN-LAST:event_mnuContactUsMousePressed
 
+    private void MnItGeneralReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItGeneralReportActionPerformed
+        FrmPrintGeneralReport open = new FrmPrintGeneralReport();
+        open.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MnItGeneralReportActionPerformed
+
+    private void MnItInventoryStockReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItInventoryStockReportActionPerformed
+        FrmPrintStockProductReport open = new FrmPrintStockProductReport();
+        open.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MnItInventoryStockReportActionPerformed
+
+    private void MnItInventoryShortageReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItInventoryShortageReportActionPerformed
+        FrmPrintShortageProductReport open = new FrmPrintShortageProductReport();
+        open.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MnItInventoryShortageReportActionPerformed
+
+    private void MnItAgendaCompletedOrderReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItAgendaCompletedOrderReportActionPerformed
+        FrmPrintCompletedOrderReport open = new FrmPrintCompletedOrderReport();
+        open.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MnItAgendaCompletedOrderReportActionPerformed
+
+    private void MnItAgendaPendingOrderReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItAgendaPendingOrderReportActionPerformed
+        FrmPrintPendingOrderReport open = new FrmPrintPendingOrderReport();
+        open.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MnItAgendaPendingOrderReportActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -313,14 +385,18 @@ public class FrmPrincipalMenuBar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu MnAgendaReport;
     private javax.swing.JMenu MnEHA;
     private javax.swing.JMenu MnHelp;
+    private javax.swing.JMenu MnInventoryReport;
+    private javax.swing.JMenuItem MnItAgendaCompletedOrderReport;
+    private javax.swing.JMenuItem MnItAgendaPendingOrderReport;
+    private javax.swing.JMenuItem MnItGeneralReport;
+    private javax.swing.JMenuItem MnItInventoryShortageReport;
+    private javax.swing.JMenuItem MnItInventoryStockReport;
     private javax.swing.JPanel PnlWindow;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem mnuAbout;
     private javax.swing.JMenu mnuActions;
     private javax.swing.JMenuItem mnuAgenda;
