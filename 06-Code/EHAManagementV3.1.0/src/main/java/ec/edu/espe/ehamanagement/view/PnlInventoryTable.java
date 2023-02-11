@@ -40,6 +40,7 @@ public class PnlInventoryTable extends javax.swing.JPanel {
         refreshTable();
         txtSearch.setEnabled(true);
         btnSearch.setEnabled(false);
+        tblInventory.setEnabled(false);
     }
     
     private void initPnlInventoryUpdateAndDeleteProduct(int id){
@@ -67,15 +68,15 @@ public class PnlInventoryTable extends javax.swing.JPanel {
             if (rbtnAllProducts.isSelected()) {
                 cleanTable();
                 lblTableTitle.setText("All Products");
-                createRow(readedProducts);
+                fillTable(readedProducts);
             } else if (rbtnProductsStock.isSelected()) {
                 lblTableTitle.setText("Products in Stock");
                 cleanTable();
-                createRow( stockOrders);
+                fillTable( stockOrders);
             } else if (rbtnProductsInShortage.isSelected()) {
                 lblTableTitle.setText("Products in Shortage");
                 cleanTable();
-                createRow(shortageOrders);
+                fillTable(shortageOrders);
             }
         }else{
             JOptionPane.showMessageDialog(this, "There´s no products in your inventory", "Empty Inventory", JOptionPane.INFORMATION_MESSAGE);
@@ -84,7 +85,7 @@ public class PnlInventoryTable extends javax.swing.JPanel {
     
     
     
-     private void createRow(ArrayList <Product> products){
+     private void fillTable(ArrayList <Product> products){
         for(Product product: products){
                 String[] information = new String[4];
                 information[0]= String.valueOf(product.getId());

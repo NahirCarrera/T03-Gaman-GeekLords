@@ -1,24 +1,35 @@
 package ec.edu.espe.ehamanagement.view;
 
-import java.awt.Color;
+import com.mongodb.client.MongoCollection;
+import ec.edu.espe.ehamanagement.controller.Profile;
 
 /**
  *
  * @author Jairo Bonilla, Gaman GeekLords, DCCO-ESPE
  */
 public class PnlProfileUserInformation extends javax.swing.JPanel {
-
+    private final MongoCollection userCollection;
     /**
      * Creates new form PnlUser
+     * @param collectionUser
      */
-    public PnlProfileUserInformation() {
+    
+    public PnlProfileUserInformation(MongoCollection collectionUser) {
+        userCollection = collectionUser;
         initComponents();
+        fillInformation();
         txtUserName.setEditable(false);
         txtEmail.setEditable(false);
         txtCurrentSalary.setEditable(false);
-     
     }
-    
+    private void fillInformation(){
+        String userName = (String) Profile.getValueFromUser(userCollection, 1,"userName");
+        String email = (String) Profile.getValueFromUser(userCollection, 1,"email");
+        String currentSalary = String.valueOf(Profile.getValueFromUser(userCollection, 1,"currentSalary"));
+        txtUserName.setText(userName);
+        txtEmail.setText(email);
+        txtCurrentSalary.setText(currentSalary);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,14 +44,15 @@ public class PnlProfileUserInformation extends javax.swing.JPanel {
         txtUserName = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
-        pflPassword = new javax.swing.JPasswordField();
-        jSeparator2 = new javax.swing.JSeparator();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         txtCurrentSalary = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -69,27 +81,6 @@ public class PnlProfileUserInformation extends javax.swing.JPanel {
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jLabel6.setText("Current salary");
-
-        pflPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        pflPassword.setForeground(new java.awt.Color(153, 153, 153));
-        pflPassword.setText("***************");
-        pflPassword.setBorder(null);
-        pflPassword.setEnabled(false);
-        pflPassword.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                pflPasswordMousePressed(evt);
-            }
-        });
-        pflPassword.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                pflPasswordKeyReleased(evt);
-            }
-        });
-
-        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
-        jLabel7.setText("Password");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jLabel8.setText("Email");
@@ -134,6 +125,43 @@ public class PnlProfileUserInformation extends javax.swing.JPanel {
 
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
 
+        jPanel2.setBackground(new java.awt.Color(0, 30, 57));
+        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Profile");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel9)
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/profile.png"))); // NOI18N
+
+        jPanel7.setBackground(new java.awt.Color(0, 30, 57));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 315, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 102, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -141,25 +169,27 @@ public class PnlProfileUserInformation extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
                     .addComponent(jLabel8)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel5)
                         .addComponent(jLabel6)
-                        .addComponent(txtUserName)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                        .addComponent(txtUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
                         .addComponent(jSeparator1)
                         .addComponent(jSeparator3)
                         .addComponent(txtCurrentSalary)
                         .addComponent(txtEmail)
-                        .addComponent(jSeparator4)
-                        .addComponent(pflPassword)))
-                .addContainerGap(125, Short.MAX_VALUE))
+                        .addComponent(jSeparator4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(127, 127, 127)
+                .addGap(44, 44, 44)
                 .addComponent(jLabel5)
                 .addGap(21, 21, 21)
                 .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -177,25 +207,17 @@ public class PnlProfileUserInformation extends javax.swing.JPanel {
                 .addComponent(txtCurrentSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addComponent(pflPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(102, 102, 102))
+                .addGap(21, 160, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtUserNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUserNameMousePressed
-
-        if (txtUserName.getText().equals("Enter your username ")) {
-            txtUserName.setText("");
-
-            txtUserName.setForeground(Color.black);
-
-        }
-
 
     }//GEN-LAST:event_txtUserNameMousePressed
 
@@ -232,28 +254,18 @@ public class PnlProfileUserInformation extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailKeyTyped
 
-    private void pflPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pflPasswordKeyReleased
-
-    }//GEN-LAST:event_pflPasswordKeyReleased
-
-    private void pflPasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pflPasswordMousePressed
-        if (txtUserName.getText().isEmpty()) {
-            txtUserName.setText("Enter your username ");
-            txtUserName.setForeground(Color.gray);
-        }
-    }//GEN-LAST:event_pflPasswordMousePressed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    public javax.swing.JPasswordField pflPassword;
     public javax.swing.JTextField txtCurrentSalary;
     public javax.swing.JTextField txtEmail;
     public javax.swing.JTextField txtUserName;

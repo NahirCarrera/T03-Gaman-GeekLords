@@ -66,7 +66,7 @@ public class PnlInventory extends javax.swing.JPanel {
         btnBack.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/back.png"))); // NOI18N
-        btnBack.setText("Back");
+        btnBack.setText("Back to Inventory");
         btnBack.setToolTipText("Back to Inventory Table");
         btnBack.setBorder(null);
         btnBack.setBorderPainted(false);

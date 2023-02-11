@@ -2,9 +2,11 @@ package ec.edu.espe.ehamanagement.view;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import ec.edu.espe.ehamanagement.controller.Agenda;
 import ec.edu.espe.ehamanagement.controller.AgendaReportGenerator;
 import ec.edu.espe.ehamanagement.model.AgendaReport;
+import utils.MongoConnection;
 import ec.edu.espe.ehamanagement.model.Order;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
@@ -18,6 +20,7 @@ import javax.swing.JOptionPane;
  * @author NicolayChillo Gaman GeekLords at DCOO-ESPE
  */
 public class FrmPrintPendingOrderReport extends javax.swing.JFrame {
+        private final MongoConnection mongoConnection;
         private final MongoCollection ordersCollection;
         private final MongoCollection reportsCollection;
         private final  ArrayList <Order> readedOrders ;
@@ -25,8 +28,9 @@ public class FrmPrintPendingOrderReport extends javax.swing.JFrame {
      * Creates new form FrmPrintPendingOrderReport
      */
     public FrmPrintPendingOrderReport() {
-        ordersCollection = Agenda.createConnectionToCollection();
-        reportsCollection = AgendaReportGenerator.createConnectionToCollection();
+        mongoConnection = MongoConnection.getInstance();
+        ordersCollection = mongoConnection.getCollection("Orders");
+        reportsCollection = mongoConnection.getCollection("Reports");
         readedOrders = Agenda.readAgenda(ordersCollection);
         initComponents();
     }
@@ -59,7 +63,7 @@ public class FrmPrintPendingOrderReport extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlPrintPendingOrderReport1 = new ec.edu.espe.EHAManagement.view.PnlPrintPendingOrderReport();
+        pnlPrintPendingOrderReport1 = new ec.edu.espe.EHAManagement.view.PnlReportPendingOrders();
         jPanel1 = new javax.swing.JPanel();
         BtnBack = new javax.swing.JButton();
         BtnPrint = new javax.swing.JButton();
@@ -164,6 +168,6 @@ public class FrmPrintPendingOrderReport extends javax.swing.JFrame {
     private javax.swing.JButton BtnBack;
     private javax.swing.JButton BtnPrint;
     private javax.swing.JPanel jPanel1;
-    private ec.edu.espe.EHAManagement.view.PnlPrintPendingOrderReport pnlPrintPendingOrderReport1;
+    private ec.edu.espe.EHAManagement.view.PnlReportPendingOrders pnlPrintPendingOrderReport1;
     // End of variables declaration//GEN-END:variables
 }

@@ -2,7 +2,6 @@ package ec.edu.espe.ehamanagement.view;
 
 import com.mongodb.client.MongoCollection;
 import ec.edu.espe.ehamanagement.controller.Agenda;
-import ec.edu.espe.ehamanagement.controller.Inventory;
 import ec.edu.espe.ehamanagement.model.Order;
 import java.awt.Color;
 import java.awt.event.KeyEvent;

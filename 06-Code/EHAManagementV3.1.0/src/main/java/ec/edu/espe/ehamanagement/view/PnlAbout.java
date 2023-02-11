@@ -46,7 +46,7 @@ public class PnlAbout extends javax.swing.JPanel {
         jLabel4.setText("Copyright (c) 2023 Gaman GeekLords. All rights reserved");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("Version: V3.0.0");
+        jLabel5.setText("Version: V3.2.0");
 
         jPanel2.setBackground(new java.awt.Color(255, 80, 162));
 

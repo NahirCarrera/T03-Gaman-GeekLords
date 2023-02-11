@@ -14,6 +14,7 @@ public class PnlAgendaAddNewOrder extends javax.swing.JPanel {
     private final MongoCollection ordersCollection;
     /**
      * Creates new form PnlNewOrder
+     * @param collection
      */
     public PnlAgendaAddNewOrder(MongoCollection collection) {
         ordersCollection = collection;

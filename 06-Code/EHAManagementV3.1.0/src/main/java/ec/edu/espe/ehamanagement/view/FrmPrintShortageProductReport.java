@@ -2,10 +2,12 @@ package ec.edu.espe.ehamanagement.view;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import ec.edu.espe.ehamanagement.controller.AgendaReportGenerator;
 import ec.edu.espe.ehamanagement.controller.Inventory;
 import ec.edu.espe.ehamanagement.controller.InventoryReportGenerator;
 import ec.edu.espe.ehamanagement.model.InventoryReport;
+import utils.MongoConnection;
 import ec.edu.espe.ehamanagement.model.Product;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
@@ -19,6 +21,7 @@ import javax.swing.JOptionPane;
  * @author NicolayChillo Gaman GeekLords at DCOO-ESPE
  */
 public class FrmPrintShortageProductReport extends javax.swing.JFrame {
+    private final MongoConnection mongoConnection;
     private final MongoCollection productsCollection;
     private final MongoCollection reportsCollection;
     private final  ArrayList <Product> readedProducts ;
@@ -26,10 +29,11 @@ public class FrmPrintShortageProductReport extends javax.swing.JFrame {
      * Creates new form FrmPrintShortageProductReport
      */
     public FrmPrintShortageProductReport() {
-        initComponents();
-        productsCollection = Inventory.createConnectionToCollection();
-        reportsCollection = AgendaReportGenerator.createConnectionToCollection();
+        mongoConnection = MongoConnection.getInstance();
+        productsCollection = mongoConnection.getCollection("Products");
+        reportsCollection = mongoConnection.getCollection("Reports");
         readedProducts = Inventory.readInventory(productsCollection);
+        initComponents();
     }
 private void insertReport(){
         ArrayList <Product> stockProducts = InventoryReportGenerator.filterProducts(readedProducts, "stock");
@@ -59,7 +63,7 @@ private void insertReport(){
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlPrintShortageProductReport1 = new ec.edu.espe.EHAManagement.view.PnlPrintShortageProductReport();
+        pnlPrintShortageProductReport1 = new ec.edu.espe.EHAManagement.view.PnlReportShortageProducts();
         jPanel1 = new javax.swing.JPanel();
         BtnBack = new javax.swing.JButton();
         BtnPrint = new javax.swing.JButton();
@@ -165,6 +169,6 @@ private void insertReport(){
     private javax.swing.JButton BtnBack;
     private javax.swing.JButton BtnPrint;
     private javax.swing.JPanel jPanel1;
-    private ec.edu.espe.EHAManagement.view.PnlPrintShortageProductReport pnlPrintShortageProductReport1;
+    private ec.edu.espe.EHAManagement.view.PnlReportShortageProducts pnlPrintShortageProductReport1;
     // End of variables declaration//GEN-END:variables
 }

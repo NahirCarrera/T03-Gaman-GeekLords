@@ -1,6 +1,7 @@
 package ec.edu.espe.ehamanagement.controller;
 
 import com.mongodb.client.MongoCollection;
+import utils.MongoConnection;
 import ec.edu.espe.ehamanagement.model.Product;
 import ec.edu.espe.mongodbmanager.MongoDbManager;
 import java.util.ArrayList;
@@ -94,6 +95,7 @@ public class Inventory {
         MongoDbManager.updateDocument(productsCollection,"id",id, "materialsQuantities", product.getMaterials().values());
         return true;
     }
+    
     public static  boolean existsProduct(MongoCollection productsCollection, String field, Object value){
         return MongoDbManager.existsDocument(productsCollection, field, value);
     }
@@ -101,8 +103,8 @@ public class Inventory {
     public static ArrayList <Product> readInventory( MongoCollection productsCollection){
         ArrayList <Object> ids = readAll(productsCollection, "id");
         Product readedProduct;
-        CostsCalculator calculator = new CostsCalculator();
         ArrayList <Product> readedProducts = new ArrayList();
+        MongoConnection mongoConnection = MongoConnection.getInstance();
         for (Object readedId: ids){
             int id = Integer.parseInt(String.valueOf(readedId));
             String name = String.valueOf(getValueFromProduct( productsCollection,"id",  id, "name"));
@@ -113,23 +115,19 @@ public class Inventory {
             HashMap materials = DictionaryConversor.convertToDictionary(materialsIds, materialsQuantities);
             int workingTime = Integer.parseInt(String.valueOf(getValueFromProduct( productsCollection, "id", id, "workingTime")));
             int quantity = Integer.parseInt(String.valueOf(getValueFromProduct( productsCollection, "id", id, "quantity")));
+            
             readedProduct = new Product(id,  name, productionCost, description, materials, workingTime, quantity);
-            materialsCollection = MaterialsOrganizer.createConnectionToCollection();
-            userCollection = Profile.createConnectionToCollection();
+            
+            materialsCollection = mongoConnection.getCollection("Materials"); 
+            userCollection = mongoConnection.getCollection("User"); 
             float calculatedCost = CostsCalculator.computeTotalProductProductionCost(materialsCollection, userCollection, readedProduct);
+            
             readedProduct.setProductionCost(calculatedCost);
             readedProducts.add(readedProduct);
         }
         return readedProducts;
     }
         
-        
-    public static MongoCollection createConnectionToCollection(){
-        String uri = "mongodb+srv://oop:oop@cluster0.og4urrq.mongodb.net/?retryWrites=true&w=majority";
-        String dataBase = "ManagementSoftware";
-        String collection = "Products";
-        MongoCollection productsCollection =MongoDbManager.connectToCollection(uri, dataBase, collection);
-        return productsCollection;
-    }
+
     
 }

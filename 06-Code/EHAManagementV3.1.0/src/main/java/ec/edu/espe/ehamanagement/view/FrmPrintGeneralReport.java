@@ -3,10 +3,10 @@ package ec.edu.espe.ehamanagement.view;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.mongodb.client.MongoCollection;
 import ec.edu.espe.ehamanagement.controller.Agenda;
-import ec.edu.espe.ehamanagement.controller.AgendaReportGenerator;
 import ec.edu.espe.ehamanagement.controller.GeneralReportGenerator;
 import ec.edu.espe.ehamanagement.controller.Inventory;
 import ec.edu.espe.ehamanagement.model.GeneralReport;
+import utils.MongoConnection;
 import ec.edu.espe.ehamanagement.model.Order;
 import ec.edu.espe.ehamanagement.model.Product;
 import java.awt.print.PrinterException;
@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
  * @author NicolayChillo Gaman GeekLords at DCOO-ESPE
  */
 public class FrmPrintGeneralReport extends javax.swing.JFrame {
+    private final MongoConnection mongoConnection;
     private final MongoCollection ordersCollection;
     private final MongoCollection reportsCollection;
     private final MongoCollection productsCollection;
@@ -30,12 +31,13 @@ public class FrmPrintGeneralReport extends javax.swing.JFrame {
      * Creates new form FrmPrintGeneralReport
      */
     public FrmPrintGeneralReport() {
-        initComponents();
-        ordersCollection = Agenda.createConnectionToCollection();
-        reportsCollection = AgendaReportGenerator.createConnectionToCollection();
-        productsCollection = Inventory.createConnectionToCollection();
+        mongoConnection = MongoConnection.getInstance();
+        productsCollection = mongoConnection.getCollection("Products");
+        ordersCollection = mongoConnection.getCollection("Orders");
+        reportsCollection = mongoConnection.getCollection("Reports");
         readedOrders = Agenda.readAgenda(ordersCollection);
         readedProducts = Inventory.readInventory(productsCollection);
+        initComponents();
     }
 private void insertReport(){
         ArrayList <Integer> ordersIds = new ArrayList();
@@ -63,7 +65,7 @@ private void insertReport(){
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlPrintGeneralReport1 = new ec.edu.espe.EHAManagement.view.PnlPrintGeneralReport();
+        pnlPrintGeneralReport1 = new ec.edu.espe.EHAManagement.view.PnlReportGeneral();
         jPanel1 = new javax.swing.JPanel();
         BtnBack = new javax.swing.JButton();
         BtnPrint = new javax.swing.JButton();
@@ -170,6 +172,6 @@ private void insertReport(){
     private javax.swing.JButton BtnBack;
     private javax.swing.JButton BtnPrint;
     private javax.swing.JPanel jPanel1;
-    private ec.edu.espe.EHAManagement.view.PnlPrintGeneralReport pnlPrintGeneralReport1;
+    private ec.edu.espe.EHAManagement.view.PnlReportGeneral pnlPrintGeneralReport1;
     // End of variables declaration//GEN-END:variables
 }

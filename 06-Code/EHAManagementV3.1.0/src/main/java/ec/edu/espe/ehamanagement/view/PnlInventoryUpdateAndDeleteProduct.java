@@ -33,12 +33,16 @@ public class PnlInventoryUpdateAndDeleteProduct extends javax.swing.JPanel {
      */
     
     public PnlInventoryUpdateAndDeleteProduct(MongoCollection collectionProducts, MongoCollection collectionMaterials, MongoCollection collectionUser) {
+        initComponents();
         productsCollection = collectionProducts;
         materialsCollection = collectionMaterials;
         userCollection = collectionUser;
-        initComponents();
         btnSave.setEnabled(false);
-        tableModel =  new DefaultTableModel();
+        tableModel =  new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }};
         tableModel.addColumn("ID");
         tableModel.addColumn("Material");
         tableModel.addColumn("Quantity");

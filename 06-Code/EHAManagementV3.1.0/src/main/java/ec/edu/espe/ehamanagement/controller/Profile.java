@@ -9,8 +9,7 @@ import ec.edu.espe.mongodbmanager.MongoDbManager;
  */
 public class Profile {
     
-    public static boolean updateUser(User user){
-        MongoCollection userCollection = createConnectionToCollection();
+    public static boolean updateUser(User user, MongoCollection userCollection){
         MongoDbManager.updateDocument(userCollection, "id",1, "userName", user.getUserName());
         MongoDbManager.updateDocument(userCollection,"id", 1, "email", user.getEmail());
         MongoDbManager.updateDocument(userCollection, "id",1, "password", user.getPassword());
@@ -18,8 +17,7 @@ public class Profile {
         return true;
     }
     
-    public static boolean deleteUser( int id){
-        MongoCollection userCollection = createConnectionToCollection();
+    public static boolean deleteUser( int id, MongoCollection userCollection){
         return MongoDbManager.deleteDocument(userCollection, "id", id);
     }
     
@@ -27,13 +25,5 @@ public class Profile {
         Object foundValue;
         foundValue = MongoDbManager.getDocumentValue(userCollection, "id",id, key);
         return foundValue;
-    }
-
-    public static MongoCollection createConnectionToCollection(){
-        String uri = "mongodb+srv://oop:oop@cluster0.og4urrq.mongodb.net/?retryWrites=true&w=majority";
-        String dataBase = "ManagementSoftware";
-        String collection = "User";
-        MongoCollection userCollection =MongoDbManager.connectToCollection(uri, dataBase, collection);
-        return userCollection;
     }
 }

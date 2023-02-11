@@ -1,9 +1,6 @@
 package ec.edu.espe.ehamanagement.controller;
 
 import com.mongodb.client.MongoCollection;
-import static ec.edu.espe.ehamanagement.controller.AgendaReportGenerator.getFieldsToInsert;
-import static ec.edu.espe.ehamanagement.controller.AgendaReportGenerator.getValuesToInsert;
-import ec.edu.espe.ehamanagement.model.AgendaReport;
 import ec.edu.espe.ehamanagement.model.InventoryReport;
 import ec.edu.espe.ehamanagement.model.Product;
 import ec.edu.espe.mongodbmanager.MongoDbManager;
@@ -73,11 +70,4 @@ public class InventoryReportGenerator{
         }
     }    
     
-    public static MongoCollection createConnectionToCollection(){
-        String uri = "mongodb+srv://oop:oop@cluster0.og4urrq.mongodb.net/?retryWrites=true&w=majority";
-        String dataBase = "ManagementSoftware";
-        String collection = "Materials";
-        MongoCollection userCollection =MongoDbManager.connectToCollection(uri, dataBase, collection);
-        return userCollection;
-    }
 }

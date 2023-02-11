@@ -30,11 +30,12 @@ public class PnlAgendaTable extends javax.swing.JPanel{
         model.addColumn("Client Name");
         model.addColumn("Delivery Date");
         model.addColumn("Delivered");
-        this.tblAllOrders.setModel(model);
+        this.tblAgenda.setModel(model);
         
         refreshTable();
         txtSearch.setEnabled(true);
         btnSearch.setEnabled(false);
+        tblAgenda.setEnabled(false);
     }
     
     private void initPnlAgendaUpdateAndDeleteOrder(int id) {
@@ -100,7 +101,7 @@ public class PnlAgendaTable extends javax.swing.JPanel{
     }
 
     private void cleanTable() {
-        int row = tblAllOrders.getRowCount();
+        int row = tblAgenda.getRowCount();
         for (int i = row - 1; i >= 0; i--) {
             model.removeRow(i);
         }
@@ -121,7 +122,7 @@ public class PnlAgendaTable extends javax.swing.JPanel{
         buttonGroup2 = new javax.swing.ButtonGroup();
         pnlTable = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblAllOrders = new javax.swing.JTable();
+        tblAgenda = new javax.swing.JTable();
         lblTableTitle = new javax.swing.JLabel();
         rbtnAllOrders = new javax.swing.JRadioButton();
         rbtnPendingOrders = new javax.swing.JRadioButton();
@@ -152,10 +153,10 @@ public class PnlAgendaTable extends javax.swing.JPanel{
         pnlTable.setBackground(new java.awt.Color(255, 255, 255));
         pnlTable.setPreferredSize(new java.awt.Dimension(900, 500));
 
-        tblAllOrders.setBackground(new java.awt.Color(255, 225, 150));
-        tblAllOrders.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        tblAllOrders.setForeground(new java.awt.Color(126, 53, 2));
-        tblAllOrders.setModel(new javax.swing.table.DefaultTableModel(
+        tblAgenda.setBackground(new java.awt.Color(255, 225, 150));
+        tblAgenda.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        tblAgenda.setForeground(new java.awt.Color(126, 53, 2));
+        tblAgenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -166,10 +167,10 @@ public class PnlAgendaTable extends javax.swing.JPanel{
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblAllOrders.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tblAllOrders.setRowSelectionAllowed(false);
-        tblAllOrders.setSelectionBackground(new java.awt.Color(255, 229, 31));
-        jScrollPane2.setViewportView(tblAllOrders);
+        tblAgenda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tblAgenda.setRowSelectionAllowed(false);
+        tblAgenda.setSelectionBackground(new java.awt.Color(255, 229, 31));
+        jScrollPane2.setViewportView(tblAgenda);
 
         lblTableTitle.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         lblTableTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -538,7 +539,7 @@ public class PnlAgendaTable extends javax.swing.JPanel{
     private javax.swing.JRadioButton rbtnByName;
     private javax.swing.JRadioButton rbtnDeliveredOrders;
     private javax.swing.JRadioButton rbtnPendingOrders;
-    private javax.swing.JTable tblAllOrders;
+    private javax.swing.JTable tblAgenda;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 

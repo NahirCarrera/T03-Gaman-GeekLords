@@ -28,12 +28,13 @@ public class PnlOrganizerTable extends javax.swing.JPanel {
         tableModel.addColumn("Name");
         tableModel.addColumn("Unit Cost");
         readedMaterials = MaterialsOrganizer.readMaterialsOrganizer(materialsCollection);
-        this.tblMaterial.setModel(tableModel);
+        this.tblOrganizer.setModel(tableModel);
         btnSearch.setEnabled(false);
         refreshTable();
         txtSearch.setEnabled(true);
         txtSearch.setEditable(true);
         btnSearch.setEnabled(false);
+        tblOrganizer.setEnabled(false);
     }
     
     private void initPnlOrganizerUpdateAndDeleteMaterial(int id){
@@ -96,7 +97,7 @@ public class PnlOrganizerTable extends javax.swing.JPanel {
         btnGroupSearch = new javax.swing.ButtonGroup();
         pnlContent = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblMaterial = new javax.swing.JTable();
+        tblOrganizer = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         lblTableTitle = new javax.swing.JLabel();
         rbtnSearchId = new javax.swing.JRadioButton();
@@ -110,10 +111,10 @@ public class PnlOrganizerTable extends javax.swing.JPanel {
 
         pnlContent.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblMaterial.setBackground(new java.awt.Color(112, 172, 61));
-        tblMaterial.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        tblMaterial.setForeground(new java.awt.Color(2, 82, 42));
-        tblMaterial.setModel(new javax.swing.table.DefaultTableModel(
+        tblOrganizer.setBackground(new java.awt.Color(112, 172, 61));
+        tblOrganizer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        tblOrganizer.setForeground(new java.awt.Color(2, 82, 42));
+        tblOrganizer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -124,8 +125,8 @@ public class PnlOrganizerTable extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3"
             }
         ));
-        tblMaterial.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane1.setViewportView(tblMaterial);
+        tblOrganizer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setViewportView(tblOrganizer);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -403,7 +404,7 @@ public class PnlOrganizerTable extends javax.swing.JPanel {
     private javax.swing.JPanel pnlContent;
     private javax.swing.JRadioButton rbtnSearchId;
     private javax.swing.JRadioButton rbtnSearchName;
-    private javax.swing.JTable tblMaterial;
+    private javax.swing.JTable tblOrganizer;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ec.edu.espe</groupId>
     <artifactId>EHAManagement</artifactId>
-    <version>V3.1.0</version>
+    <version>V3.2.0</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>ec.edu.espe</groupId>
             <artifactId>MongoDbManager</artifactId>
-            <version>V2.0.0</version>
+            <version>V3.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.formdev</groupId>

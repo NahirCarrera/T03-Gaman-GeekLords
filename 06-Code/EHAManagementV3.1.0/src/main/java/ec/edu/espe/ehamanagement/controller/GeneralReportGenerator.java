@@ -51,11 +51,5 @@ public class GeneralReportGenerator {
             return 1;
         }
     }    
-    public static MongoCollection createConnectionToCollection(){
-        String uri = "mongodb+srv://oop:oop@cluster0.og4urrq.mongodb.net/?retryWrites=true&w=majority";
-        String dataBase = "ManagementSoftware";
-        String collection = "Reports";
-        MongoCollection productsCollection =MongoDbManager.connectToCollection(uri, dataBase, collection);
-        return productsCollection;
-    }
+
 }

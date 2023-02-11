@@ -34,7 +34,11 @@ import utils.DictionaryConversor;
         materialsCollection = collectionMaterials;
         productsCollection = collectionProducts;
         userCollection = collectionUser;
-        tableModel =  new DefaultTableModel();
+        tableModel =  new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }};
         tableModel.addColumn("ID");
         tableModel.addColumn("Material");
         tableModel.addColumn("Quantity");

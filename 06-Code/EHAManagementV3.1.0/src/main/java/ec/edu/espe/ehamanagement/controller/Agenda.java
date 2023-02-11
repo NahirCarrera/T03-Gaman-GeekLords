@@ -101,11 +101,4 @@ public class Agenda {
         return readedOrders;
     }
     
-    public static MongoCollection createConnectionToCollection(){
-        String uri = "mongodb+srv://oop:oop@cluster0.og4urrq.mongodb.net/?retryWrites=true&w=majority";
-        String dataBase = "ManagementSoftware";
-        String collection = "Orders";
-        MongoCollection userCollection =MongoDbManager.connectToCollection(uri, dataBase, collection);
-        return userCollection;
-    }
 }

@@ -3,6 +3,7 @@ package ec.edu.espe.ehamanagement.view;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.mongodb.client.MongoCollection;
 import ec.edu.espe.ehamanagement.controller.Profile;
+import utils.MongoConnection;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -12,16 +13,18 @@ import javax.swing.JOptionPane;
  * @author Jairo Bonilla & Nahir Carrera, Gaman GeekLords, DCCO-ESPE
  */
 public class FrmLogin extends javax.swing.JFrame {
+    private final MongoConnection mongoConnection;
     private final MongoCollection userCollection;
     /**
      * Creates new form FrmLogin
      */
     public FrmLogin() {
-
+        mongoConnection = MongoConnection.getInstance();
+        userCollection = mongoConnection.getCollection("User");
         initComponents();
         btnLogin.setEnabled(false);
-        userCollection = Profile.createConnectionToCollection(); 
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -97,11 +97,4 @@ public static ArrayList getFieldsToInsert(){
         return readedMaterials;
     }
     
-    public static MongoCollection createConnectionToCollection(){
-        String uri = "mongodb+srv://oop:oop@cluster0.og4urrq.mongodb.net/?retryWrites=true&w=majority";
-        String dataBase = "ManagementSoftware";
-        String collection = "Materials";
-        MongoCollection userCollection =MongoDbManager.connectToCollection(uri, dataBase, collection);
-        return userCollection;
-    }
 }

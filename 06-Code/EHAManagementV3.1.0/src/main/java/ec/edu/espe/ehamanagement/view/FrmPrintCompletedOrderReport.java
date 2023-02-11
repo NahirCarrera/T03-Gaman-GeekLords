@@ -5,6 +5,7 @@ import com.mongodb.client.MongoCollection;
 import ec.edu.espe.ehamanagement.controller.Agenda;
 import ec.edu.espe.ehamanagement.controller.AgendaReportGenerator;
 import ec.edu.espe.ehamanagement.model.AgendaReport;
+import utils.MongoConnection;
 import ec.edu.espe.ehamanagement.model.Order;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
@@ -18,6 +19,7 @@ import javax.swing.JOptionPane;
  * @author NicolayChillo Gaman GeekLords at DCOO-ESPE
  */
 public class FrmPrintCompletedOrderReport extends javax.swing.JFrame {
+    private final MongoConnection mongoConnection;
     private final MongoCollection ordersCollection;
     private final MongoCollection reportsCollection;
     private final  ArrayList <Order> readedOrders ;
@@ -25,8 +27,9 @@ public class FrmPrintCompletedOrderReport extends javax.swing.JFrame {
      * Creates new form FrmPrintCompletedOrderReport
      */
     public FrmPrintCompletedOrderReport() {
-        ordersCollection = Agenda.createConnectionToCollection();
-        reportsCollection = AgendaReportGenerator.createConnectionToCollection();
+        mongoConnection = MongoConnection.getInstance();
+        ordersCollection = mongoConnection.getCollection("Orders");
+        reportsCollection = mongoConnection.getCollection("Reports");
         readedOrders = Agenda.readAgenda(ordersCollection);
         initComponents();
         
@@ -59,7 +62,7 @@ public class FrmPrintCompletedOrderReport extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlPrintCompletedOrderReport1 = new ec.edu.espe.EHAManagement.view.PnlPrintCompletedOrderReport();
+        pnlPrintCompletedOrderReport1 = new ec.edu.espe.EHAManagement.view.PnlReportCompletedOrders();
         jPanel1 = new javax.swing.JPanel();
         btnBack = new javax.swing.JButton();
         btnPrint = new javax.swing.JButton();
@@ -165,6 +168,6 @@ public class FrmPrintCompletedOrderReport extends javax.swing.JFrame {
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnPrint;
     private javax.swing.JPanel jPanel1;
-    private ec.edu.espe.EHAManagement.view.PnlPrintCompletedOrderReport pnlPrintCompletedOrderReport1;
+    private ec.edu.espe.EHAManagement.view.PnlReportCompletedOrders pnlPrintCompletedOrderReport1;
     // End of variables declaration//GEN-END:variables
 }
