@@ -5,6 +5,10 @@ import ec.edu.espe.ehamanagement.controller.MaterialsOrganizer;
 import ec.edu.espe.ehamanagement.controller.Profile;
 import ec.edu.espe.ehamanagement.model.Material;
 import ec.edu.espe.ehamanagement.model.Product;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -13,10 +17,12 @@ import java.util.ArrayList;
  */
 public class CostsCalculator {
  
-    public  static float computeMaterialUnitCost(Material material){
+    public  static float computeMaterialUnitCost(Material material) throws ParseException{
         float totalCost = material.getGeneralCost();
         double quantity = material.getGeneralQuantity();
         float unitQuantity = (float) (totalCost/quantity);
+        unitQuantity =  roundToTwoDecimalPlaces(unitQuantity);
+        System.out.println("material unit quantity ->" +unitQuantity);
         return unitQuantity;
     }
     
@@ -47,5 +53,12 @@ public class CostsCalculator {
     public static float computeTotalProductProductionCost( MongoCollection materialsCollection, MongoCollection userCollection, Product product){
         float totalProductProductionCost = computeMaterialsCostPerProduct(materialsCollection, product) + computeWorkingTimeCostPerProduct(userCollection,product);
         return totalProductProductionCost;
+    }
+    private static float roundToTwoDecimalPlaces(float number) throws ParseException{
+        BigDecimal bd = new BigDecimal(number);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        double roundedNumber = bd.doubleValue();
+        float convertedNumber = Float.parseFloat(String.valueOf(roundedNumber));
+        return convertedNumber;
     }
 }
