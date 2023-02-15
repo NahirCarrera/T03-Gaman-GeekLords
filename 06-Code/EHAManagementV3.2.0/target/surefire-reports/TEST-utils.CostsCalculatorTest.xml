@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="utils.CostsCalculatorTest" time="0.022" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="utils.CostsCalculatorTest" time="0.071" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="19.0.1+10-21"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-19\bin"/>
-    <property name="maven.multiModuleProjectDirectory" value="C:\Users\Ok Pc\Desktop\T03-Gaman-GeekLords\06-Code\EHAManagementV3.2.0"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV3.2.0"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="java.vendor.url" value="https://java.oracle.com/"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="test" value="utils.CostsCalculatorTest"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\Ok Pc\Desktop\T03-Gaman-GeekLords\06-Code\EHAManagementV3.2.0"/>
+    <property name="user.dir" value="C:\Users\Ok Pc\Desktop\CUARTO SEMESTRE\P.O.O 7996\T03-Gaman-GeekLords\06-Code\EHAManagementV3.2.0"/>
     <property name="java.vm.compressedOopsMode" value="32-bit"/>
     <property name="java.runtime.version" value="19.0.1+10-21"/>
     <property name="os.arch" value="amd64"/>
@@ -27,7 +27,7 @@
     <property name="user.variant" value=""/>
     <property name="stderr.encoding" value="Cp1252"/>
     <property name="os.name" value="Windows 10"/>
-    <property name="maven.ext.class.path" value="C:\Program Files\NetBeans-15\netbeans\java\maven-nblib\netbeans-eventspy.jar;C:\Program Files\NetBeans-15\netbeans\java\maven-nblib\netbeans-cos.jar"/>
+    <property name="maven.ext.class.path" value="C:\Program Files\NetBeans-15\netbeans\java\maven-nblib\netbeans-eventspy.jar"/>
     <property name="classworlds.conf" value="C:\Program Files\NetBeans-15\netbeans\java\maven\bin\m2.conf"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="stdout.encoding" value="Cp1252"/>
@@ -47,7 +47,7 @@
     <property name="java.class.path" value="C:\Program Files\NetBeans-15\netbeans\java\maven\boot\plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="19"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=utils.CostsCalculatorTest -Dmaven.ext.class.path=C:\Program Files\NetBeans-15\netbeans\java\maven-nblib\netbeans-eventspy.jar;C:\Program Files\NetBeans-15\netbeans\java\maven-nblib\netbeans-cos.jar surefire:test"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=utils.CostsCalculatorTest -Dmaven.ext.class.path=C:\Program Files\NetBeans-15\netbeans\java\maven-nblib\netbeans-eventspy.jar surefire:test"/>
     <property name="java.home" value="C:\Program Files\Java\jdk-19"/>
     <property name="user.language" value="es"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -63,10 +63,10 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="utils.CostsCalculatorTest" name="utils.CostsCalculatorTest.testComputeMaterialUnitCostNoneDecimalPlacesForGeneralCost" time="0.02"/>
-  <testcase classname="utils.CostsCalculatorTest" name="utils.CostsCalculatorTest.testComputeMaterialUnitCostTwoDecimalPlacesForGeneralCost" time="0"/>
+  <testcase classname="utils.CostsCalculatorTest" name="utils.CostsCalculatorTest.testComputeMaterialUnitCostCeroForGeneralCost" time="0.065"/>
+  <testcase classname="utils.CostsCalculatorTest" name="utils.CostsCalculatorTest.testComputeMaterialUnitCostBigNumberToGeneralCost" time="0"/>
+  <testcase classname="utils.CostsCalculatorTest" name="utils.CostsCalculatorTest.testComputeMaterialUnitCostTwoDecimalPlacesForBoth" time="0.003"/>
+  <testcase classname="utils.CostsCalculatorTest" name="utils.CostsCalculatorTest.testComputeMaterialUnitCostTwoDecimalPlacesForGeneralCost" time="0.001"/>
+  <testcase classname="utils.CostsCalculatorTest" name="utils.CostsCalculatorTest.testComputeMaterialUnitCostNoneDecimalPlacesForGeneralCost" time="0.002"/>
   <testcase classname="utils.CostsCalculatorTest" name="utils.CostsCalculatorTest.testComputeMaterialUnitCostBigNumberToGeneralQuantity" time="0"/>
-  <testcase classname="utils.CostsCalculatorTest" name="utils.CostsCalculatorTest.testComputeMaterialUnitCostCeroForGeneralCost" time="0"/>
-  <testcase classname="utils.CostsCalculatorTest" name="utils.CostsCalculatorTest.testComputeMaterialUnitCostBigNumberToGeneralCost" time="0.001"/>
-  <testcase classname="utils.CostsCalculatorTest" name="utils.CostsCalculatorTest.testComputeMaterialUnitCostTwoDecimalPlacesForBoth" time="0.001"/>
 </testsuite>

@@ -4,6 +4,9 @@ import com.mongodb.client.MongoCollection;
 import ec.edu.espe.ehamanagement.controller.MaterialsOrganizer;
 import ec.edu.espe.ehamanagement.model.Material;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import utils.CostsCalculator;
 
@@ -31,13 +34,13 @@ public class PnlOrganizerUpdateAndDeleteMaterial extends javax.swing.JPanel {
         idToUpdate = id;
     }
     
-    private boolean updateMaterial(){
+    private boolean updateMaterial() throws ParseException{
         Material materialToUpdate = createMaterialToUpdate();
         lblUnitCost.setText(String.valueOf(materialToUpdate.getUnitCost()));
         return MaterialsOrganizer.updateMaterial(materialsCollection,materialToUpdate);
     }
     
-    private Material createMaterialToUpdate(){
+    private Material createMaterialToUpdate() throws ParseException{
         String name = txtMaterialName.getText();
         int generalQuantity = Integer.valueOf(String.valueOf(spnrQuantity.getValue()));
         float generalCost = Float.valueOf(txtGeneralCost.getText());
@@ -467,11 +470,15 @@ public class PnlOrganizerUpdateAndDeleteMaterial extends javax.swing.JPanel {
         int decision = JOptionPane.showConfirmDialog(this,"Are you sure you want to update this material?", "Update Order", JOptionPane.YES_NO_OPTION);
         switch(decision){
             case 0 -> {
+            try {
                 if(updateMaterial()){
                     JOptionPane.showMessageDialog(this, "Your changes have been successfully saved!", "Updated successfully", JOptionPane.INFORMATION_MESSAGE);
                 } else{
-                   JOptionPane.showMessageDialog(this, "Something went wrong. Failed to save you changes in this material", "Updated failed", JOptionPane.ERROR_MESSAGE); 
+                    JOptionPane.showMessageDialog(this, "Something went wrong. Failed to save you changes in this material", "Updated failed", JOptionPane.ERROR_MESSAGE);
                 }           
+            } catch (ParseException ex) {
+                Logger.getLogger(PnlOrganizerUpdateAndDeleteMaterial.class.getName()).log(Level.SEVERE, null, ex);
+            }
             }
         }
         

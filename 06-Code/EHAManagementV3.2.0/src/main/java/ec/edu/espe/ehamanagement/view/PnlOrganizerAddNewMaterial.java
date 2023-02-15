@@ -4,6 +4,9 @@ import com.mongodb.client.MongoCollection;
 import ec.edu.espe.ehamanagement.controller.MaterialsOrganizer;
 import ec.edu.espe.ehamanagement.model.Material;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import utils.CostsCalculator;
 
@@ -24,12 +27,12 @@ public class PnlOrganizerAddNewMaterial extends javax.swing.JPanel {
         
     }
 
-    private boolean addMaterial(){
+    private boolean addMaterial() throws ParseException{
         Material materialToAdd = createMaterialToAdd();
         return MaterialsOrganizer.insertMaterial(materialsCollection,materialToAdd);
     }
     
-    private Material createMaterialToAdd(){
+    private Material createMaterialToAdd() throws ParseException{
         String name = txtMaterialName.getText();
         float generalCost = Float.valueOf(String.valueOf(txtGeneralCost.getText()));
         float generalQuantity = Float.valueOf(String.valueOf(spnrQuantity.getValue()));
@@ -403,13 +406,17 @@ public class PnlOrganizerAddNewMaterial extends javax.swing.JPanel {
         int decision = JOptionPane.showConfirmDialog(this,"Are you sure you want to save thismaterial?", "Add Material", JOptionPane.YES_NO_OPTION);
             switch(decision){
                 case 0 -> {
-                    if(addMaterial()){
-                        btnSave.setEnabled(false);
-                        JOptionPane.showMessageDialog(this, "Your material has been successfully saved!", "Added successfully to your Organizer", JOptionPane.INFORMATION_MESSAGE);
-                        cleanFields();
-                    } else{
-                       JOptionPane.showMessageDialog(this, "Something went wrong. Failed to save this material", "Saved failed", JOptionPane.ERROR_MESSAGE); 
-                    }        
+            try {
+                if(addMaterial()){
+                    btnSave.setEnabled(false);
+                    JOptionPane.showMessageDialog(this, "Your material has been successfully saved!", "Added successfully to your Organizer", JOptionPane.INFORMATION_MESSAGE);
+                    cleanFields();
+                } else{
+                    JOptionPane.showMessageDialog(this, "Something went wrong. Failed to save this material", "Saved failed", JOptionPane.ERROR_MESSAGE);        
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(PnlOrganizerAddNewMaterial.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 }
 
             }
