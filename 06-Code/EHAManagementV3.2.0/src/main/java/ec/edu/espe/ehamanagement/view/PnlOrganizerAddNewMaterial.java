@@ -27,12 +27,12 @@ public class PnlOrganizerAddNewMaterial extends javax.swing.JPanel {
         
     }
 
-    private boolean addMaterial() throws ParseException{
+    private boolean addMaterial(){
         Material materialToAdd = createMaterialToAdd();
         return MaterialsOrganizer.insertMaterial(materialsCollection,materialToAdd);
     }
     
-    private Material createMaterialToAdd() throws ParseException{
+    private Material createMaterialToAdd(){
         String name = txtMaterialName.getText();
         float generalCost = Float.valueOf(String.valueOf(txtGeneralCost.getText()));
         float generalQuantity = Float.valueOf(String.valueOf(spnrQuantity.getValue()));
