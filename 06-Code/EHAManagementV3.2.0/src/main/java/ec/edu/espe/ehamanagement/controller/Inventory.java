@@ -4,6 +4,7 @@ import com.mongodb.client.MongoCollection;
 import utils.MongoConnection;
 import ec.edu.espe.ehamanagement.model.Product;
 import ec.edu.espe.mongodbmanager.MongoDbManager;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -100,7 +101,7 @@ public class Inventory {
         return MongoDbManager.existsDocument(productsCollection, field, value);
     }
     
-    public static ArrayList <Product> readInventory( MongoCollection productsCollection){
+    public static ArrayList <Product> readInventory( MongoCollection productsCollection) throws ParseException{
         ArrayList <Object> ids = readAll(productsCollection, "id");
         Product readedProduct;
         ArrayList <Product> readedProducts = new ArrayList();

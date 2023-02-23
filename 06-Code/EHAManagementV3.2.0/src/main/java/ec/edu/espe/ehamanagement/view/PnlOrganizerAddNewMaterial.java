@@ -27,12 +27,12 @@ public class PnlOrganizerAddNewMaterial extends javax.swing.JPanel {
         
     }
 
-    private boolean addMaterial(){
+    private boolean addMaterial() throws ParseException{
         Material materialToAdd = createMaterialToAdd();
         return MaterialsOrganizer.insertMaterial(materialsCollection,materialToAdd);
     }
     
-    private Material createMaterialToAdd(){
+    private Material createMaterialToAdd() throws ParseException{
         String name = txtMaterialName.getText();
         float generalCost = Float.valueOf(String.valueOf(txtGeneralCost.getText()));
         float generalQuantity = Float.valueOf(String.valueOf(spnrQuantity.getValue()));
@@ -418,6 +418,7 @@ public class PnlOrganizerAddNewMaterial extends javax.swing.JPanel {
                 Logger.getLogger(PnlOrganizerAddNewMaterial.class.getName()).log(Level.SEVERE, null, ex);
             }
                 }
+
 
             }
     }//GEN-LAST:event_btnSaveActionPerformed

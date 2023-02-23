@@ -5,8 +5,11 @@ import ec.edu.espe.ehamanagement.controller.Inventory;
 import ec.edu.espe.ehamanagement.controller.MaterialsOrganizer;
 import ec.edu.espe.ehamanagement.model.Product;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -51,7 +54,7 @@ import utils.DictionaryConversor;
         updateCbxMaterials(); 
     }   
 
-    private boolean addProduct(){
+    private boolean addProduct() throws ParseException{
         Product productToAdd = createProductToUpdate();
         if(!Inventory.existsProduct(productsCollection,"name", productToAdd.getName())){
             return Inventory.insertProduct(productsCollection,productToAdd);
@@ -61,7 +64,7 @@ import utils.DictionaryConversor;
         }
     }
     
-    private Product createProductToUpdate(){
+    private Product createProductToUpdate() throws ParseException{
         String name = txtProductName.getText();
         float productionCost = 0.0F;
         String description = txtADescription.getText();
@@ -577,13 +580,17 @@ import utils.DictionaryConversor;
         int decision = JOptionPane.showConfirmDialog(this,"Are you sure you want to save this product?", "Add Product", JOptionPane.YES_NO_OPTION);
         switch(decision){
             case 0 -> {
+            try {
                 if(addProduct()){
                     cleanFields();
                     btnSave.setEnabled(false);
                     JOptionPane.showMessageDialog(this, "Your changes have been successfully saved!", "Added successfully to your Inventory", JOptionPane.INFORMATION_MESSAGE);
                 } else{
-                   JOptionPane.showMessageDialog(this, "Something went wrong. Failed to save this product", "Saved failed", JOptionPane.ERROR_MESSAGE); 
+                    JOptionPane.showMessageDialog(this, "Something went wrong. Failed to save this product", "Saved failed", JOptionPane.ERROR_MESSAGE);
                 }        
+            } catch (ParseException ex) {
+                Logger.getLogger(PnlInventoryAddNewProduct.class.getName()).log(Level.SEVERE, null, ex);
+            }
             }
 
         }

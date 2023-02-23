@@ -34,13 +34,13 @@ public class PnlOrganizerUpdateAndDeleteMaterial extends javax.swing.JPanel {
         idToUpdate = id;
     }
     
-    private boolean updateMaterial(){
+    private boolean updateMaterial() throws ParseException{
         Material materialToUpdate = createMaterialToUpdate();
         lblUnitCost.setText(String.valueOf(materialToUpdate.getUnitCost()));
         return MaterialsOrganizer.updateMaterial(materialsCollection,materialToUpdate);
     }
     
-    private Material createMaterialToUpdate(){
+    private Material createMaterialToUpdate() throws ParseException{
         String name = txtMaterialName.getText();
         int generalQuantity = Integer.valueOf(String.valueOf(spnrQuantity.getValue()));
         float generalCost = Float.valueOf(txtGeneralCost.getText());
