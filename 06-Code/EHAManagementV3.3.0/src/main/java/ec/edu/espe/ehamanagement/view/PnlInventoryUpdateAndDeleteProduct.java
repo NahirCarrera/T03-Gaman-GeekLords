@@ -71,20 +71,29 @@ public class PnlInventoryUpdateAndDeleteProduct extends javax.swing.JPanel {
         idToUpdate = aIdToUpdate;
     }
     
-    
 
-    private boolean updateProduct() throws ParseException{
+    private boolean updateProduct(){
+        String productsName;
+        String newName;
+        
         Product productToUpdate = createProductToUpdate();
+        productsName = (String) Inventory.getValueFromProduct(productsCollection, "id", idToUpdate, "name");
+        newName = productToUpdate.getName();
+        
         lblProductionCost.setText(String.valueOf(productToUpdate.getProductionCost()));
-        if(!Inventory.existsProduct(productsCollection,"name",productToUpdate.getName())){
-            return Inventory.updateProduct(productsCollection,productToUpdate);
+        if(Inventory.existsProduct(productsCollection,"name",productToUpdate.getName())){
+            if(productsName.equals(newName)){
+                return Inventory.updateProduct(productsCollection,productToUpdate);
+            }else{
+                JOptionPane.showMessageDialog(this, "There's already a product in your inventory named: "+ productToUpdate.getName(), "Saved failed", JOptionPane.ERROR_MESSAGE); 
+                return false;
+            }
         }else{
-            JOptionPane.showMessageDialog(this, "There's already a product in your inventory named: "+ productToUpdate.getName(), "Saved failed", JOptionPane.ERROR_MESSAGE); 
-            return false;
+            return Inventory.updateProduct(productsCollection,productToUpdate);
         }
     }
     
-    private Product createProductToUpdate() throws ParseException{
+    private Product createProductToUpdate(){
         String name = txtProductName.getText();
         float productionCost = 0.0F;
         String description = txtADescription.getText();
@@ -727,16 +736,13 @@ public class PnlInventoryUpdateAndDeleteProduct extends javax.swing.JPanel {
         int decision = JOptionPane.showConfirmDialog(this,"Are you sure you want to update this product?", "Update Product", JOptionPane.YES_NO_OPTION);
         switch(decision){
             case 0 -> {
-            try {
                 if(updateProduct()){
                     JOptionPane.showMessageDialog(this, "Your changes have been successfully saved!", "Updated successfully", JOptionPane.INFORMATION_MESSAGE);
                 } else{
                     JOptionPane.showMessageDialog(this, "Something went wrong. Failed to save you changes in this product", "Updated failed", JOptionPane.ERROR_MESSAGE);
-                }        
-            } catch (ParseException ex) {
-                Logger.getLogger(PnlInventoryUpdateAndDeleteProduct.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            }
+
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 

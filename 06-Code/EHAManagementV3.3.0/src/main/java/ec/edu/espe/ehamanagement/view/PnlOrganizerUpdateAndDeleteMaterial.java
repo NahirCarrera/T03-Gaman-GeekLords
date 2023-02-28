@@ -1,6 +1,7 @@
 package ec.edu.espe.ehamanagement.view;
 
 import com.mongodb.client.MongoCollection;
+import ec.edu.espe.ehamanagement.controller.Inventory;
 import ec.edu.espe.ehamanagement.controller.MaterialsOrganizer;
 import ec.edu.espe.ehamanagement.model.Material;
 import java.awt.event.KeyEvent;
@@ -37,7 +38,7 @@ public class PnlOrganizerUpdateAndDeleteMaterial extends javax.swing.JPanel {
     private boolean updateMaterial() throws ParseException{
         Material materialToUpdate = createMaterialToUpdate();
         lblUnitCost.setText(String.valueOf(materialToUpdate.getUnitCost()));
-        return MaterialsOrganizer.updateMaterial(materialsCollection,materialToUpdate);
+        return MaterialsOrganizer.updateMaterial(materialsCollection,materialToUpdate, this);
     }
     
     private Material createMaterialToUpdate() throws ParseException{
@@ -471,6 +472,8 @@ public class PnlOrganizerUpdateAndDeleteMaterial extends javax.swing.JPanel {
         switch(decision){
             case 0 -> {
             try {
+                MaterialsOrganizer materialsOrganizer = new MaterialsOrganizer();
+                Inventory inventory = new Inventory(materialsOrganizer);
                 if(updateMaterial()){
                     JOptionPane.showMessageDialog(this, "Your changes have been successfully saved!", "Updated successfully", JOptionPane.INFORMATION_MESSAGE);
                 } else{

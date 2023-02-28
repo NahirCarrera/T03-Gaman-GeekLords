@@ -11,9 +11,12 @@ import utils.MongoConnection;
 import ec.edu.espe.ehamanagement.model.Product;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,7 +31,7 @@ public class FrmPrintStockProductReport extends javax.swing.JFrame {
     /**
      * Creates new form FrmPrintStockProductReport
      */
-    public FrmPrintStockProductReport() {
+    public FrmPrintStockProductReport(){
         mongoConnection = MongoConnection.getInstance();
         productsCollection = mongoConnection.getCollection("Products");
         reportsCollection = mongoConnection.getCollection("Reports");

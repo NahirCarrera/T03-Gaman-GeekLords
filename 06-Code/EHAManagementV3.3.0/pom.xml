@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ec.edu.espe</groupId>
     <artifactId>EHAManagement</artifactId>
-    <version>V3.2.0</version>
+    <version>V3.3.0</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
