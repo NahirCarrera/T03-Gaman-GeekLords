@@ -6,13 +6,16 @@ import ec.edu.espe.mongodbmanager.MongoDbManager;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import javax.swing.JPanel;
 import utils.DictionaryConversor;
 /**
  *
  * @author Nahir Carrera, Gaman GeekLords, DCC0-ESPE
  */
 public class MaterialsOrganizer {
-public static ArrayList getFieldsToInsert(){
+    private static ArrayList<Observer> observers = new ArrayList<>();
+    
+    public static ArrayList getFieldsToInsert(){
         ArrayList fields = new ArrayList();
         fields.add("id");
         fields.add("name");
@@ -68,12 +71,13 @@ public static ArrayList getFieldsToInsert(){
     }
     
     
-    public static boolean updateMaterial(MongoCollection materialsCollection, Material material){
+    public static boolean updateMaterial(MongoCollection materialsCollection, Material material, JPanel frame){
         int id = material.getId();
         MongoDbManager.updateDocument(materialsCollection,"id", id, "name", material.getName());
         MongoDbManager.updateDocument(materialsCollection,"id", id, "generalQuantity", material.getGeneralQuantity());
         MongoDbManager.updateDocument(materialsCollection,"id", id, "generalCost", material.getGeneralCost());
         MongoDbManager.updateDocument(materialsCollection, "id",id, "unitCost", material.getUnitCost());
+        notifyObservers(frame);
         return true;
     }
 
@@ -97,4 +101,17 @@ public static ArrayList getFieldsToInsert(){
         return readedMaterials;
     }
     
+    private static void notifyObservers(JPanel frame) {
+        for (Observer observer : observers) {
+            observer.update(frame);
+        }
+    }
+    
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }   
 }

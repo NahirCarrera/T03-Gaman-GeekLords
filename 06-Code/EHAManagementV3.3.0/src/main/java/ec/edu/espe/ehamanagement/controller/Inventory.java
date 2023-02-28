@@ -4,10 +4,11 @@ import com.mongodb.client.MongoCollection;
 import utils.MongoConnection;
 import ec.edu.espe.ehamanagement.model.Product;
 import ec.edu.espe.mongodbmanager.MongoDbManager;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import utils.CostsCalculator;
 import utils.DictionaryConversor;
 
@@ -15,10 +16,20 @@ import utils.DictionaryConversor;
  *
  * @author Nahir Carrera, Gaman GeekLords, DCC0-ESPE
  */
-public class Inventory {
+public class Inventory implements Observer{
     private static  MongoCollection materialsCollection;
     private static MongoCollection userCollection;
+    private final MaterialsOrganizer materialsOrganizer;
     
+    public Inventory(MaterialsOrganizer materialsOrganizer) {
+        this.materialsOrganizer = materialsOrganizer;
+        this.materialsOrganizer.registerObserver(this);
+    }
+    
+    @Override
+    public  void update(JPanel frame) {
+        JOptionPane.showMessageDialog(frame, "Inventory is going to be updated too", "Inventory update", JOptionPane.INFORMATION_MESSAGE); 
+    }
     
     private static ArrayList getFieldsToInsert(){
         ArrayList fields = new ArrayList();
@@ -101,7 +112,7 @@ public class Inventory {
         return MongoDbManager.existsDocument(productsCollection, field, value);
     }
     
-    public static ArrayList <Product> readInventory( MongoCollection productsCollection) throws ParseException{
+    public static ArrayList <Product> readInventory( MongoCollection productsCollection){
         ArrayList <Object> ids = readAll(productsCollection, "id");
         Product readedProduct;
         ArrayList <Product> readedProducts = new ArrayList();
@@ -121,13 +132,16 @@ public class Inventory {
             
             materialsCollection = mongoConnection.getCollection("Materials"); 
             userCollection = mongoConnection.getCollection("User"); 
-            float calculatedCost = CostsCalculator.computeTotalProductProductionCost(materialsCollection, userCollection, readedProduct);
-            
+            float calculatedCost;
+            calculatedCost = CostsCalculator.computeTotalProductProductionCost(materialsCollection, userCollection, readedProduct);
             readedProduct.setProductionCost(calculatedCost);
             readedProducts.add(readedProduct);
+
         }
         return readedProducts;
     }
+
+
         
 
     

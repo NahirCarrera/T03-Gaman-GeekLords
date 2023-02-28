@@ -23,6 +23,7 @@ public class PnlInventoryTable extends javax.swing.JPanel {
      * Creates new form PnlShowFindInformation
      * @param collectionProducts
      * @param collectionMaterials
+     * @param collectionUser
      */
     public PnlInventoryTable(MongoCollection collectionProducts, MongoCollection collectionMaterials, MongoCollection collectionUser) {
         initComponents();

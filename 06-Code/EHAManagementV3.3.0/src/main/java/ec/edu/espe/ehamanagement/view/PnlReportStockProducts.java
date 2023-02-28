@@ -12,6 +12,7 @@ import java.awt.print.Printable;
 import static java.awt.print.Printable.NO_SUCH_PAGE;
 import static java.awt.print.Printable.PAGE_EXISTS;
 import java.awt.print.PrinterException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,7 +31,7 @@ public class PnlReportStockProducts extends javax.swing.JPanel implements Printa
     /**
      * Creates new form PnlPrintStockInventoryReport
      */
-    public PnlReportStockProducts() {
+    public PnlReportStockProducts(){
         initComponents();
         mongoConnection = MongoConnection.getInstance();
         productsCollection = mongoConnection.getCollection("Products");
