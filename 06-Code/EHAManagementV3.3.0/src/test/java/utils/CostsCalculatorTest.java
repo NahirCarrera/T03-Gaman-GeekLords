@@ -126,8 +126,6 @@ public class CostsCalculatorTest {
     /**
      * Test of computeWorkingTimeCostProduct method with two equal decimal places, of class CostsCalculator.
      */
-    
-    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     @Test
     public void testComputeWorkingTimeCostProductTwoEqualDecimalPlaces(){
         System.out.println("computeWorkingTimeCostProduct with  two equal decimal places");
@@ -136,11 +134,12 @@ public class CostsCalculatorTest {
         float expResult = 8.33F;
         float result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
         assertEquals(expResult, result, 0);
-        currentSalary=400.63F;
-        working=10;
-        expResult=18.78F;
-        result=CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
-
+        
+        currentSalary = 22.33F;
+        working = 1;
+        expResult = 0.09F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
     }
     //*
     
@@ -153,6 +152,7 @@ public class CostsCalculatorTest {
         float result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
         assertEquals(expResult, result, 0);
     }
+    
     @Test
      public void testComputeWorkingTimeCostProductLargeNumbersMixedNewspapers(){
         System.out.println("computeWorkingTimeCostProduct with with cero value ");
@@ -161,13 +161,18 @@ public class CostsCalculatorTest {
         float expResult = 274691355558642.00F;
         float result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
         assertEquals(expResult, result, 0);
+        
+        currentSalary = 951.000001F;
+        working = 2126;
+        expResult = 8424.28F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
     }
 
     /**
      *
      * Test the computeWorkingTimeCostProduct method with 2 decimal places.
      */
-
     @Test
     public void testComputeWorkingTimeCostProductTwoDecimal(){
         System.out.println("computeWorkingTimeCostProduct with two decimal");
@@ -176,13 +181,66 @@ public class CostsCalculatorTest {
         float expResult = 32.90F;
         float result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
         assertEquals(expResult, result, 0);
+        
+        currentSalary = 450.63F;
+        working = 10;
+        expResult = 18.78F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
 
+        currentSalary = 12.66F;
+        working = 10;
+        expResult = 0.5F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
+        
+        currentSalary = 123.32F;
+        working = 4;
+        expResult = 2.06F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
+
+        currentSalary = 123.21F;
+        working = 19;
+        expResult = 9.75F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
+
+        currentSalary = 598.36F;
+        working = 15;
+        expResult = 37.40F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
+        
+         currentSalary = 999.1F;
+        working = 9;
+        expResult = 37.47F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
+        
+         currentSalary = 126.32F;
+        working = 5;
+        expResult = 2.63F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
+        
+         currentSalary = 174.98F;
+        working = 9;
+        expResult = 6.56F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
+        
+         currentSalary = 12.12F;
+        working = 15;
+        expResult = 0.76F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
+        
     }
 
     /**
      * Test of computeWorkingTimeCostProduct method with big number , of class CostsCalculator.
      */
-
     @Test
     public void testComputeWorkingTimeCostProductUnitCostBigNumber(){
         System.out.println("computeWorkingTimeCostProduct with big number");
@@ -191,12 +249,43 @@ public class CostsCalculatorTest {
         float expResult = 5552.67F;
         float result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
         assertEquals(expResult, result, 0);
+        
         currentSalary = 98765.22F;
         working = 12;
         expResult = 4938.26F;
         result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
         assertEquals(expResult, result, 0);
-
+        
+        currentSalary = 2352.62F;
+        working = 3;
+        expResult = 29.41F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
+        
+        currentSalary = 7.66666F;
+        working = 888888888;
+        expResult = 28395037.01F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
+        
+         currentSalary = 98888888.1F;
+        working = 666666666;
+        expResult = 274691355558642.00F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
+        
+         currentSalary = 87965432.1F;
+        working = 98;
+        expResult = 35919218.11F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
+        
+         currentSalary = 980000.9F;
+        working = 12;
+        expResult = 49000.05F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
+        
     }
 
     /**
@@ -210,6 +299,12 @@ public class CostsCalculatorTest {
         int working = 0;
         float expResult = 0.00F;
         float result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
+        
+        currentSalary = 0;
+        working = 0;
+        expResult = 0.00F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
         assertEquals(expResult, result, 0);
     }
 
@@ -226,8 +321,18 @@ public class CostsCalculatorTest {
         float result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
         assertEquals(expResult, result, 0);
 
+        currentSalary = 2;
+        working = 2;
+        expResult = 0.02F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
+        
+        currentSalary = 23;
+        working = 91;
+        expResult = 8.72F;
+        result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
     }
-    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     /**
      * Test of computeMaterialsCostPerProduct method with two decimal places
@@ -243,7 +348,19 @@ public class CostsCalculatorTest {
         float expResult = 8.82F;
         float result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
         assertEquals(expResult, result, 0);
-
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(3.00F, 1.2F, 0.3F, 4.2F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(0.314F, 2.0F, 2F, 1.0f));
+        expResult = 8.14F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(2.1F, 1.2F, 2F, 0.21F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(1.00F, 1F, 1F, 1F));
+        expResult = 5.51F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
     }
     
     /**
@@ -276,6 +393,54 @@ public class CostsCalculatorTest {
         float expResult = 14.34F;
         float result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
         assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(2F, 0.3F, 1F, 0.3F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(2F, 2F, 1F, 4f));
+        expResult = 6.8F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(1.32F, 0.74F, 2.32F, 4F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(2F, 1F, 3F, 1f));
+        expResult = 14.34F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(1.12F, 2.22001F, 3.21F, 1F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(2F, 1F, 1F, 1F));
+        expResult = 8.67F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(0F, 0.32F, 1.1221F, 0.65F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(1F, 2F, 1F, 1F));
+        expResult = 2.41F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(1F, 4.12F, 2F,2F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(0F, 21.1111F, 1F, 1F));
+        expResult = 90.98F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(2F, 12F, 1F, 0F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(1F, 1F, 1F, 12.2121F));
+        expResult = 15F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(21F, 1F, 3.21F, 921212.11F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(0.02F, 0.2F, 0.76F, 0.72F));
+        expResult = 663275.78F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(1.21F, 0.00F, 2F, 0F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(1F, 1F, 0F, 0F));
+        expResult = 1.21F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
     }
     
     /**
@@ -295,7 +460,31 @@ public class CostsCalculatorTest {
         
         materialsUnitCosts = new ArrayList <>(Arrays.asList(0.32F, 2F, 1.2F, 0.3221F));
         materialsQuantities = new ArrayList <>(Arrays.asList(6F, 0.3F, 1F, 1.111111111F));
-            expResult = 4.08F;
+        expResult = 4.08F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(2.1212F, 0.25F, 1.754F, 2F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(2.588F, 4.53F, 1.0004F, 6.5F));
+        expResult = 21.38F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(0.0001F, 1F, 0.32F, 2.3F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(1F, 1F, 2F, 1F));
+        expResult = 3.94F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(21.01F, 12F, 12F, 1F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(21.22222F, 0F, 0.21F, 0.1F));
+        expResult = 448.50F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(1.92F, 1F, 2.41F, 1F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(0.83F, 2F, 1F, 2.1457F));
+        expResult = 4.08F;
         result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
         assertEquals(expResult, result, 0);
     }
@@ -313,6 +502,24 @@ public class CostsCalculatorTest {
         materialsQuantities = new ArrayList <>(Arrays.asList(0.3F, 10F, 1.3F));
         float expResult = 9.5F;
         float result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(1.0221F, 0.32F, 3F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(2F, 9F, 212122F));
+        expResult = 636370.92F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(3F, 2F, 0.93F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(1F, 0.21F,1F));
+        expResult = 4.35F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(233.1F, 3435F, 2F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(0.21F, 1F,1F));
+        expResult = 3485.95F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
         assertEquals(expResult, result, 0);
     }
     
@@ -334,6 +541,18 @@ public class CostsCalculatorTest {
         materialsUnitCosts = new ArrayList <>(Arrays.asList(21F, 1F, 3.21F, 921212.11F));
         materialsQuantities = new ArrayList <>(Arrays.asList(0.02F, 0.2F, 0.76F,0.72F));
         expResult = 663275.78F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(1111111.1F,212F, 2222222.2F,0.21F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(0.1F, 0.12F, 0.55F, 0.03F));
+        expResult = 1333358.77F;
+        result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
+        assertEquals(expResult, result, 0);
+        
+        materialsUnitCosts = new ArrayList <>(Arrays.asList(66666.6F,1222.12F, 11.00101F,22F));
+        materialsQuantities = new ArrayList <>(Arrays.asList(2F, 57.2111F, 12.2F, 1F));
+        expResult = 203408.37F;
         result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
         assertEquals(expResult, result, 0);
     }
@@ -368,7 +587,5 @@ public class CostsCalculatorTest {
         float expResult = 3F;
         float result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
         assertEquals(expResult, result, 0);
-    }
-    
-    
+    } 
 }
