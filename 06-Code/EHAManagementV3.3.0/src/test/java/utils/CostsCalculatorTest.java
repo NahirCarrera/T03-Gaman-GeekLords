@@ -126,6 +126,8 @@ public class CostsCalculatorTest {
     /**
      * Test of computeWorkingTimeCostProduct method with two equal decimal places, of class CostsCalculator.
      */
+    
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     @Test
     public void testComputeWorkingTimeCostProductTwoEqualDecimalPlaces(){
         System.out.println("computeWorkingTimeCostProduct with  two equal decimal places");
@@ -134,7 +136,31 @@ public class CostsCalculatorTest {
         float expResult = 8.33F;
         float result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
         assertEquals(expResult, result, 0);
+        currentSalary=400.63F;
+        working=10;
+        expResult=18.78F;
+        result=CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
 
+    }
+    //*
+    
+     @Test
+    public void testComputeWorkingTimeCostProductSmallPurePeriodicDecimals(){
+        System.out.println("computeWorkingTimeCostProduct with compute small pure periodic decimals  ");
+        float currentSalary = 22F;
+        int working = 1;
+        float expResult = 0.09F;
+        float result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
+    }
+    @Test
+     public void testComputeWorkingTimeCostProductLargeNumbersMixedNewspapers(){
+        System.out.println("computeWorkingTimeCostProduct with with cero value ");
+        float currentSalary = 98888888.10F;
+        int working = 666666666;
+        float expResult = 274691355558642.00F;
+        float result = CostsCalculator.computeWorkingTimeCostProduct(currentSalary, working);
+        assertEquals(expResult, result, 0);
     }
 
     /**
@@ -201,6 +227,7 @@ public class CostsCalculatorTest {
         assertEquals(expResult, result, 0);
 
     }
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     /**
      * Test of computeMaterialsCostPerProduct method with two decimal places
