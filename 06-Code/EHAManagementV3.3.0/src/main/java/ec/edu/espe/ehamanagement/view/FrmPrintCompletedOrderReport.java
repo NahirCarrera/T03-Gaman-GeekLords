@@ -32,6 +32,7 @@ public class FrmPrintCompletedOrderReport extends javax.swing.JFrame {
         reportsCollection = mongoConnection.getCollection("Reports");
         readedOrders = Agenda.readAgenda(ordersCollection);
         initComponents();
+       
         
     }
     private void insertReport(){

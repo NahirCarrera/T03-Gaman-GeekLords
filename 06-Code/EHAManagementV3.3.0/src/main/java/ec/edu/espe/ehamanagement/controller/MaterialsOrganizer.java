@@ -12,8 +12,17 @@ import utils.DictionaryConversor;
  *
  * @author Nahir Carrera, Gaman GeekLords, DCC0-ESPE
  */
-public class MaterialsOrganizer {
-    private static ArrayList<Observer> observers = new ArrayList<>();
+public class MaterialsOrganizer extends Subject{
+    private static boolean state;
+
+    public boolean getState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
+    
     
     public static ArrayList getFieldsToInsert(){
         ArrayList fields = new ArrayList();
@@ -77,7 +86,9 @@ public class MaterialsOrganizer {
         MongoDbManager.updateDocument(materialsCollection,"id", id, "generalQuantity", material.getGeneralQuantity());
         MongoDbManager.updateDocument(materialsCollection,"id", id, "generalCost", material.getGeneralCost());
         MongoDbManager.updateDocument(materialsCollection, "id",id, "unitCost", material.getUnitCost());
-        notifyObservers(frame);
+        state = true;
+        Subject.notifyObservers(frame);
+        state = false;
         return true;
     }
 
@@ -100,18 +111,4 @@ public class MaterialsOrganizer {
         }
         return readedMaterials;
     }
-    
-    private static void notifyObservers(JPanel frame) {
-        for (Observer observer : observers) {
-            observer.update(frame);
-        }
-    }
-    
-    public void registerObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
-    }   
 }

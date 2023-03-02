@@ -42,7 +42,7 @@ public class PnlReportStockProducts extends javax.swing.JPanel implements Printa
         tableModel.addColumn("Cost");
         tableModel.addColumn("Quantity");
         this.tblTableStockProductReport.setModel(tableModel);
-        
+        tblTableStockProductReport.setEnabled(false);
         refreshTable();
     }
     private void refreshTable() {

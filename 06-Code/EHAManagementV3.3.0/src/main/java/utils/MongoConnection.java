@@ -13,7 +13,7 @@ public class MongoConnection {
     private final MongoDatabase database;
     private MongoCollection collection;
 
-    public MongoConnection() {
+    private MongoConnection() {
         String uri = "mongodb+srv://oop:oop@cluster0.og4urrq.mongodb.net/?retryWrites=true&w=majority";
         String dataBase = "ManagementSoftware";
         this.database = MongoDbManager.connectToDatabase(uri, dataBase);

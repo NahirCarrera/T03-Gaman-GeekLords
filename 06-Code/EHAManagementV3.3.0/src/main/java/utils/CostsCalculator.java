@@ -7,7 +7,6 @@ import ec.edu.espe.ehamanagement.model.Material;
 import ec.edu.espe.ehamanagement.model.Product;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -17,23 +16,33 @@ import java.util.ArrayList;
 public class CostsCalculator {
 
     public static float computeMaterialUnitCost(Material material){
-        float totalCost = material.getGeneralCost();
-        double quantity = material.getGeneralQuantity();
-        float unitQuantity = (float) (totalCost / quantity);
-        unitQuantity = roundToTwoDecimalPlaces(unitQuantity);
-        System.out.println("material unit quantity ->" + unitQuantity);
+        float totalCost;
+        double quantity;
+        float unitQuantity ;
+        
+        totalCost = material.getGeneralCost();
+        quantity = material.getGeneralQuantity();
+        unitQuantity = roundToTwoDecimalPlaces((float)(totalCost / quantity));
+
         return unitQuantity;
     }
 
     private static float computeMaterialsCostPerProduct(MongoCollection materialsCollection, Product product) {
-        ArrayList materialsListPerProduct = DictionaryConversor.convertToArrayList(product.getMaterials(), "keys");
-        ArrayList materialsQuantitiesPerProduct = DictionaryConversor.convertToArrayList(product.getMaterials(), "values");
+        ArrayList materialsListPerProduct;
+        ArrayList materialsQuantitiesPerProduct; 
         float totalMaterialsCostPerProduct;
-        ArrayList <Float> materialsUnitCosts = new ArrayList();
-        ArrayList <Float> materialsQuantities = new ArrayList();
+        ArrayList <Float> materialsUnitCosts; 
+        ArrayList <Float> materialsQuantities;
+        double materialId;
+        
+        materialsListPerProduct = DictionaryConversor.convertToArrayList(product.getMaterials(), "keys");
+        materialsQuantitiesPerProduct = DictionaryConversor.convertToArrayList(product.getMaterials(), "values");
+        materialsUnitCosts = new ArrayList();
+        materialsQuantities = new ArrayList();
+        
         if (!materialsListPerProduct.isEmpty()) {
             for (int i = 0; i < materialsListPerProduct.size(); i++) {
-                double materialId = Double.valueOf(String.valueOf(materialsListPerProduct.get(i)));
+                materialId = Double.valueOf(String.valueOf(materialsListPerProduct.get(i)));
                 materialsUnitCosts.add(Float.parseFloat(String.valueOf(MaterialsOrganizer.getValueFromMaterial(materialsCollection, "id", (int) materialId, "unitCost"))));
                 materialsQuantities.add(Float.valueOf(String.valueOf(materialsQuantitiesPerProduct.get(i))));
             }
@@ -43,19 +52,63 @@ public class CostsCalculator {
     }
 
     public static float computeMaterialsCostPerProduct(ArrayList <Float> materialsUnitCosts, ArrayList <Float> materialsQuantities ){
-        float totalMaterialsCostPerProduct = 0;
+        float totalMaterialsCostPerProduct;
+        totalMaterialsCostPerProduct = 0;
+        float materialTotalCost;
+        
         for (int i = 0; i < materialsUnitCosts.size(); i++) {
-            float materialTotalCost = materialsUnitCosts.get(i)* materialsQuantities.get(i);
+            materialTotalCost = materialsUnitCosts.get(i)* materialsQuantities.get(i);
             totalMaterialsCostPerProduct += materialTotalCost;
         }
         return roundToTwoDecimalPlaces(totalMaterialsCostPerProduct);
     }
     
+    
+    
+    private static float computeWorkingTimeCostProduct(MongoCollection userCollection, Product product){
+        int workingTime;
+        float currentSalary; 
+        float workingTimeCost;
+        
+        workingTime = product.getWorkingTime();
+        currentSalary = Float.valueOf(String.valueOf(Profile.getValueFromUser(userCollection, 1, "currentSalary")));
+        workingTimeCost = computeWorkingTimeCostProduct(currentSalary, workingTime);
+        
+        return workingTimeCost;
+    }
+    
+    public static float computeWorkingTimeCostProduct(float currentSalary, int working){
+        int workingTime;
+        float workingHourCost;
+        float workingTimeCostPerProduct; 
+        
+        workingTime = working;
+        workingHourCost = (float) ((currentSalary / 30) / 8);
+        workingTimeCostPerProduct = workingHourCost * workingTime;
+        
+        return roundToTwoDecimalPlaces(workingTimeCostPerProduct);
+    }
+    
     public static float computeTotalProductProductionCost(MongoCollection materialsCollection, MongoCollection userCollection, Product product){
-        float totalProductProductionCost = computeMaterialsCostPerProduct(materialsCollection, product) + computeWorkingTimeCostProduct(userCollection, product);
-        return totalProductProductionCost;
+        float materialsCostPerProduct;
+        float workingTimeCostPerProduct;
+        float totalProductProductionCost;
+        
+        materialsCostPerProduct =  computeMaterialsCostPerProduct(materialsCollection, product);
+        workingTimeCostPerProduct = computeWorkingTimeCostProduct(userCollection, product);
+        totalProductProductionCost = computeTotalProductProductionCost(materialsCostPerProduct, workingTimeCostPerProduct);
+        
+        return roundToTwoDecimalPlaces(totalProductProductionCost);
     }
 
+    public static float computeTotalProductProductionCost(float materialsCostPerProduct, float workingTimeCostPerProduct){
+        float totalProductProductionCost;
+        
+        totalProductProductionCost = materialsCostPerProduct+ workingTimeCostPerProduct;
+        
+        return roundToTwoDecimalPlaces(totalProductProductionCost);
+    }
+    
     private static float roundToTwoDecimalPlaces(float number){
         if (Float.isNaN(number) || Float.isInfinite(number)) {
             throw new IllegalArgumentException("Número inválido: " + number);
@@ -66,20 +119,5 @@ public class CostsCalculator {
             float convertedNumber = Float.parseFloat(String.valueOf(roundedNumber));
             return convertedNumber;
         }
-    }
-    
-    private static float computeWorkingTimeCostProduct(MongoCollection userCollection, Product product){
-        int workingTime = product.getWorkingTime();
-        float currentSalary = Float.valueOf(String.valueOf(Profile.getValueFromUser(userCollection, 1, "currentSalary")));
-        return computeWorkingTimeCostProduct(currentSalary, workingTime);
-
-    }
-    
-    public static float computeWorkingTimeCostProduct(float currentSalar, int working){
-        int workingTime = working;
-        float currentSalary = currentSalar;
-        float workingHourCost = (float) ((currentSalary / 30) / 8);
-        float workingTimeCostPerProduct = roundToTwoDecimalPlaces(workingHourCost * workingTime);
-        return workingTimeCostPerProduct;
     }
 }

@@ -1,7 +1,6 @@
 package utils;
 
 import ec.edu.espe.ehamanagement.model.Material;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
@@ -484,7 +483,7 @@ public class CostsCalculatorTest {
         
         materialsUnitCosts = new ArrayList <>(Arrays.asList(1.92F, 1F, 2.41F, 1F));
         materialsQuantities = new ArrayList <>(Arrays.asList(0.83F, 2F, 1F, 2.1457F));
-        expResult = 4.08F;
+        expResult = 8.15F;
         result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
         assertEquals(expResult, result, 0);
     }
@@ -588,4 +587,180 @@ public class CostsCalculatorTest {
         float result = CostsCalculator.computeMaterialsCostPerProduct(materialsUnitCosts, materialsQuantities);
         assertEquals(expResult, result, 0);
     } 
+    
+    /**
+     * Test of computeTotalProductProductionCost method with two decimal places for generalCost
+     */
+    @Test
+    public void tesComputeTotalProductProductionCostTwoDecimalPlaces(){
+        System.out.println("computeTotalProductProductionCost with two decimal places for generalCost");
+        float generalCost;
+        float generalQuantity;
+    
+        generalCost = 5.00F;
+        generalQuantity = 10F;
+        
+        float expResult = 0.5F;
+        float result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0);
+        
+        generalCost = 2.50F;
+        generalQuantity = 2F;
+        
+        expResult = 1.25F;
+        result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0);
+        
+        generalCost = 6.50F;
+        generalQuantity = 7.40F;
+        
+        expResult = 1.25F;
+        result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0);
+        
+        generalCost = 4.5F;
+        generalQuantity = 0.02F;
+        
+        expResult = 225F;
+        result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0);
+    } 
+    
+     /**
+     * Test of computeTotalProductProductionCost method with negative numbers
+     */
+    @Test
+    public void tesComputeTotalProductProductionCostNegative(){
+        System.out.println("computeTotalProductProductionCost with negative numbers");
+        float generalCost;
+        float generalQuantity;
+    
+        generalCost = -8.41F;
+        generalQuantity = -5F;
+        
+        float expResult = -13.41F;
+        float result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0);
+        
+        generalCost = 5.222F;
+        generalQuantity = -9F;
+        
+        expResult = -0.58F;
+        result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0);
+        
+        generalCost = 2F;
+        generalQuantity = -8F;
+        
+        expResult = -0.25F;
+        result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0);  
+    }
+    
+    /**
+     * Test of computeTotalProductProductionCost method with more decimal places
+     */
+    @Test
+    public void tesComputeTotalProductProductionCostDecimals(){
+        System.out.println("computeTotalProductProductionCost with more decimal places");
+        float generalCost;
+        float generalQuantity;
+    
+        generalCost = 2.666666F;
+        generalQuantity = 2.4F;
+        
+        float expResult = 1.11F;
+        float result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0);
+        
+        generalCost = 0.000002F;
+        generalQuantity = 10F;
+        
+        expResult = 0.20F;
+        result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0);
+        
+        generalCost = 0.00004F;
+        generalQuantity = 0.00F;
+        
+        expResult = 1F;
+        result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0);  
+        
+        generalCost = 2.55555555F;
+        generalQuantity = 20F;
+        
+        expResult = 0.13F;
+        result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0); 
+    }
+    
+    /**
+     * Test of computeTotalProductProductionCost method with zero
+     */
+    @Test
+    public void tesComputeTotalProductProductionCostZero(){
+        System.out.println("computeTotalProductProductionCost with zero values");
+        float generalCost;
+        float generalQuantity;
+    
+        generalCost = 0F;
+        generalQuantity = 0F;
+        
+        float expResult = 0F;
+        float result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0);
+        
+        generalCost = 23.56F;
+        generalQuantity = 0F;
+        
+        expResult = 0F;
+        result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0);
+        
+        generalCost = 22F;
+        generalQuantity = 0F;
+        
+        expResult = 0F;
+        result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0);  
+    }
+    
+    /**
+     * Test of computeTotalProductProductionCost method with big numbers
+     */
+    @Test
+    public void tesComputeTotalProductProductionCostBigNumbers(){
+        System.out.println("computeTotalProductProductionCost with big numbers");
+        float generalCost;
+        float generalQuantity;
+    
+        generalCost = 2222222.2F;
+        generalQuantity = 700F;
+        
+        float expResult = 296.30F;
+        float result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0);
+        
+        generalCost = 0F;
+        generalQuantity = 10000F;
+        
+        expResult = 0.00F;
+        result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0);
+        
+        generalCost = 2222222222F;
+        generalQuantity = 30000001F;
+        
+        expResult = 74.07F;
+        result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0);
+        
+        generalCost = 555555555F;
+        generalQuantity = 10F;
+        
+        expResult = 5.56E+07F;
+        result = CostsCalculator.computeTotalProductProductionCost(generalCost,generalQuantity);
+        assertEquals(expResult, result, 0);  
+    }
 }
