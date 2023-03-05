@@ -3,6 +3,7 @@ package ec.edu.espe.EHAManagement.view;
 import com.mongodb.client.MongoCollection;
 import ec.edu.espe.ehamanagement.controller.Inventory;
 import ec.edu.espe.ehamanagement.controller.InventoryReportGenerator;
+import ec.edu.espe.ehamanagement.controller.PnlReportStockProductsController;
 import utils.MongoConnection;
 import ec.edu.espe.ehamanagement.model.Product;
 import java.awt.Graphics;
@@ -12,11 +13,9 @@ import java.awt.print.Printable;
 import static java.awt.print.Printable.NO_SUCH_PAGE;
 import static java.awt.print.Printable.PAGE_EXISTS;
 import java.awt.print.PrinterException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import javax.swing.JOptionPane;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -43,37 +42,9 @@ public class PnlReportStockProducts extends javax.swing.JPanel implements Printa
         tableModel.addColumn("Quantity");
         this.tblTableStockProductReport.setModel(tableModel);
         tblTableStockProductReport.setEnabled(false);
-        refreshTable();
-    }
-    private void refreshTable() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        Date date = new Date();
-        lblDate.setText(String.valueOf(dateFormat.format(date)));
-        ArrayList <Product> shortageProducts = InventoryReportGenerator.filterProducts(readedProducts, "stock");
-        if(!readedProducts.isEmpty()){
-            cleanTable();
-            createRow(shortageProducts);
-        }else{
-            JOptionPane.showMessageDialog(this, "There´s no products in your Inventory", "Empty Inventory", JOptionPane.INFORMATION_MESSAGE);
-        }
+        PnlReportStockProductsController.refreshTable(this);
     }
     
-     private void createRow(ArrayList <Product> products){
-        for(Product product: products){
-                String[] information = new String[4];
-                information[0]= String.valueOf(product.getId());
-                information[1] = product.getName();
-                information [2] = String.valueOf(product.getProductionCost());
-                information [3] = String.valueOf(product.getQuantity());
-                tableModel.addRow(information);
-            }
-    }
-    private void cleanTable() {
-        int row = tblTableStockProductReport.getRowCount();
-        for (int i = row - 1; i >= 0; i--) {
-            tableModel.removeRow(i);
-        }
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -166,6 +137,29 @@ public class PnlReportStockProducts extends javax.swing.JPanel implements Printa
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public MongoConnection getMongoConnection() {
+        return mongoConnection;
+    }
+
+    public MongoCollection getProductsCollection() {
+        return productsCollection;
+    }
+
+    public DefaultTableModel getTableModel() {
+        return tableModel;
+    }
+
+    public ArrayList<Product> getReadedProducts() {
+        return readedProducts;
+    }
+
+    public JLabel getLblDate() {
+        return lblDate;
+    }
+
+    public JTable getTblTableStockProductReport() {
+        return tblTableStockProductReport;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

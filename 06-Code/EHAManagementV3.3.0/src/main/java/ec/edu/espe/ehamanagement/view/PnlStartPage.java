@@ -1,8 +1,8 @@
 package ec.edu.espe.ehamanagement.view;
 
 import com.mongodb.client.MongoCollection;
-import java.util.ArrayList;
-import utils.Tasks;
+import ec.edu.espe.ehamanagement.controller.PnlStartPageController;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -26,35 +26,11 @@ public class PnlStartPage extends javax.swing.JPanel {
         txtAOrders.setWrapStyleWord(true);
         txtAOrders.setEditable(false);
         txtAProducts.setEditable(false);
-        warningProductsInShortage();
-        warningPendingOrders();
+        PnlStartPageController.warningProductsInShortage(this);
+        PnlStartPageController.warningPendingOrders(this);
     }
     
-    public void warningProductsInShortage(){
-        ArrayList productsInShortage = Tasks.countProductsInShortage(productsCollection);
-        if(!productsInShortage.isEmpty()){
-             txtAProducts.setText("You have " + productsInShortage.size() + " product/s in shortage in your Inventory : ");
-             for(Object product: productsInShortage){
-                 String productName = String.valueOf(product);
-                 txtAProducts.append("\n"+productName);
-             }
-        }else{
-            txtAProducts.setText("There's no products in shortage in your Inventory");
-        }
-    }
     
-    public void warningPendingOrders(){
-        ArrayList pendingOrders = Tasks.countPendingOrders(ordersCollection);
-        if(!pendingOrders.isEmpty()){
-             txtAOrders.setText("You have - " + pendingOrders.size() + " - pending order/s in your Agenda: " );
-             for(Object orders: pendingOrders){
-                 String dateAndClient = String.valueOf(orders);
-                 txtAOrders.append("\n"+dateAndClient);
-             }
-        }else{
-            txtAOrders.setText("There's no pending orders in your Agenda");
-        }
-    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -194,6 +170,21 @@ public class PnlStartPage extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public MongoCollection getProductsCollection() {
+        return productsCollection;
+    }
+
+    public MongoCollection getOrdersCollection() {
+        return ordersCollection;
+    }
+
+    public JTextArea getTxtAOrders() {
+        return txtAOrders;
+    }
+
+    public JTextArea getTxtAProducts() {
+        return txtAProducts;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

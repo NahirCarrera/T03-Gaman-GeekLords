@@ -1,11 +1,15 @@
 package ec.edu.espe.ehamanagement.view;
 
 import com.mongodb.client.MongoCollection;
-import ec.edu.espe.ehamanagement.controller.Agenda;
+import ec.edu.espe.ehamanagement.controller.PnlAgendaAddNewOrderController;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
-import ec.edu.espe.ehamanagement.model.Order;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 /**
  *
  * @author NicolayChillo Gaman GeekLords at DCOO-ESPE
@@ -25,19 +29,7 @@ public class PnlAgendaAddNewOrder extends javax.swing.JPanel {
         
     }
 
-    private Order collectInformation(){
-        String clientName = txtClientName.getText();
-        String deliveryPlace = txtDeliveryPlace.getText();
-        String deliveryDate = cbxMonthDelivery.getSelectedItem() + "/" + cbxDayDelivery.getSelectedItem() + "/" + cbxYearDelivery.getSelectedItem();
-        String description = txtADescription.getText();
-        boolean isDelivered = false;
-        Order newOrder =  new Order(0, clientName,  deliveryPlace, deliveryDate, description, isDelivered);
-        return newOrder;
-    }
-    private boolean insertOrder(){
-        Order newOrder = collectInformation();
-        return Agenda.insertOrder(ordersCollection, newOrder);
-    }
+   
     
     private void validateFields(){
         if(txtClientName.getText().equals("client's  name"))
@@ -76,27 +68,7 @@ public class PnlAgendaAddNewOrder extends javax.swing.JPanel {
             btnSave.setEnabled(true);
         }
     }
-    private void writeFields(){
-        if(txtClientName.getText().isEmpty()){
-                txtClientName.setText("client's  name");
-                txtClientName.setForeground(Color.gray);
-            }
-        if(txtDeliveryPlace.getText().isEmpty()){
-                txtDeliveryPlace.setText("216 Newbury Street");
-                txtDeliveryPlace.setForeground(Color.gray);
-               
-            }
-        if(txtADescription.getText().isEmpty()){
-                txtADescription.setText("Product's description");
-                txtADescription.setForeground(Color.gray);
-                
-            }
-    }
-    private void cleanFields(){
-        txtClientName.setText("");
-        txtDeliveryPlace.setText("");
-        txtADescription.setText("");
-    }
+    
     
     private void pictureWarningDescription() {
         lblPictureWarningDes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec.edu.espe.ehamanagement.picture/alert.png"))); // NOI18N
@@ -421,11 +393,11 @@ public class PnlAgendaAddNewOrder extends javax.swing.JPanel {
         int decision = JOptionPane.showConfirmDialog(this,"Are you sure you want to save this order?", "Save Order", JOptionPane.YES_NO_OPTION);
         switch(decision){
             case 0 -> {
-                if(insertOrder()){
+                if(PnlAgendaAddNewOrderController.insertOrder(this)){
                     JOptionPane.showMessageDialog(this,"Your order  has been successfully saved!", "Saved successfully", JOptionPane.INFORMATION_MESSAGE);
                     btnSave.setEnabled(false);
-                    cleanFields();
-                    writeFields();
+                    PnlAgendaAddNewOrderController.cleanFields(this);
+                    PnlAgendaAddNewOrderController.writeFields(this);
                 }else{
                     JOptionPane.showMessageDialog(this,"Something went wrong. Failed to save this order", "Saved failed", JOptionPane.ERROR_MESSAGE);
             }  
@@ -455,7 +427,7 @@ public class PnlAgendaAddNewOrder extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDeliveryPlaceKeyReleased
 
     private void txtClientNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtClientNameMousePressed
-        writeFields();
+        PnlAgendaAddNewOrderController.writeFields(this);
         if(txtClientName.getText().equals("client's  name"))
         {
             txtClientName.setText("");
@@ -467,7 +439,7 @@ public class PnlAgendaAddNewOrder extends javax.swing.JPanel {
     }//GEN-LAST:event_txtClientNameMousePressed
 
     private void txtDeliveryPlaceMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDeliveryPlaceMousePressed
-        writeFields();
+        PnlAgendaAddNewOrderController.writeFields(this);
         if(txtDeliveryPlace.getText().equals("216 Newbury Street"))
         {
             txtDeliveryPlace.setText("");
@@ -479,7 +451,7 @@ public class PnlAgendaAddNewOrder extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDeliveryPlaceMousePressed
 
     private void txtADescriptionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtADescriptionMousePressed
-        writeFields();
+        PnlAgendaAddNewOrderController.writeFields(this);
         if(txtADescription.getText().equals("Product's description"))
         {
             txtADescription.setText("");
@@ -493,6 +465,62 @@ public class PnlAgendaAddNewOrder extends javax.swing.JPanel {
     private void cbxMonthDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMonthDeliveryActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxMonthDeliveryActionPerformed
+
+    public MongoCollection getOrdersCollection() {
+        return ordersCollection;
+    }
+
+    public JButton getBtnSave() {
+        return btnSave;
+    }
+
+    public JComboBox<String> getCbxDayDelivery() {
+        return cbxDayDelivery;
+    }
+
+    public JComboBox<String> getCbxMonthDelivery() {
+        return cbxMonthDelivery;
+    }
+
+    public JComboBox<String> getCbxYearDelivery() {
+        return cbxYearDelivery;
+    }
+
+    public JLabel getLblPictureWarningClient() {
+        return lblPictureWarningClient;
+    }
+
+    public JLabel getLblPictureWarningDes() {
+        return lblPictureWarningDes;
+    }
+
+    public JLabel getLblPictureWarningPlace() {
+        return lblPictureWarningPlace;
+    }
+
+    public JLabel getLblTextWarningClient() {
+        return lblTextWarningClient;
+    }
+
+    public JLabel getLblTextWarningDes() {
+        return lblTextWarningDes;
+    }
+
+    public JLabel getLblTextWarningPlace() {
+        return lblTextWarningPlace;
+    }
+
+    public JTextArea getTxtADescription() {
+        return txtADescription;
+    }
+
+    public JTextField getTxtClientName() {
+        return txtClientName;
+    }
+
+    public JTextField getTxtDeliveryPlace() {
+        return txtDeliveryPlace;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

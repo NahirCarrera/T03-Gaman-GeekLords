@@ -92,7 +92,7 @@ public class MaterialsOrganizer extends Subject{
         return true;
     }
 
-    public static  boolean existsMaterial(MongoCollection materialsCollection, String field, Object value){
+    public static  boolean findMaterialExistence(MongoCollection materialsCollection, String field, Object value){
         return MongoDbManager.existsDocument(materialsCollection, field, value);
     }
     

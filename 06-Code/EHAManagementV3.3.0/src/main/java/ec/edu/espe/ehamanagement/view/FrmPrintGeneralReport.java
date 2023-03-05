@@ -2,21 +2,17 @@ package ec.edu.espe.ehamanagement.view;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.mongodb.client.MongoCollection;
+import ec.edu.espe.EHAManagement.view.PnlReportGeneral;
 import ec.edu.espe.ehamanagement.controller.Agenda;
-import ec.edu.espe.ehamanagement.controller.GeneralReportGenerator;
+import ec.edu.espe.ehamanagement.controller.FrmPrintGeneralReportController;
 import ec.edu.espe.ehamanagement.controller.Inventory;
-import ec.edu.espe.ehamanagement.model.GeneralReport;
 import utils.MongoConnection;
 import ec.edu.espe.ehamanagement.model.Order;
 import ec.edu.espe.ehamanagement.model.Product;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -42,23 +38,7 @@ public class FrmPrintGeneralReport extends javax.swing.JFrame {
         readedProducts = Inventory.readInventory(productsCollection);
         initComponents();
     }
-private void insertReport(){
-        ArrayList <Integer> ordersIds = new ArrayList();
-        ArrayList <Integer> productsIds = new ArrayList();
-        for(Order order: readedOrders){
-            ordersIds.add(order.getId());
-        }
-        for (Product product:readedProducts){
-            productsIds.add(product.getId());
-        }
-        
-        GeneralReport newReport = new GeneralReport( ordersIds, productsIds);
-        newReport.setType("General Report");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        Date date = new Date();
-        newReport.setDate(String.valueOf(dateFormat.format(date)));
-        GeneralReportGenerator.insertReport(reportsCollection, newReport);
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -135,19 +115,8 @@ private void insertReport(){
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrintActionPerformed
-        insertReport();
-        PrinterJob job = PrinterJob.getPrinterJob();
-
-        job.setPrintable(pnlPrintGeneralReport1);
-
-        if(job.printDialog()){
-            try{
-                job.print();
-            }catch (PrinterException ex){
-            }
-        }else{
-            JOptionPane.showMessageDialog(this, "The print was canceled");
-        }
+        FrmPrintGeneralReportController.insertReport(this);
+        FrmPrintGeneralReportController.printReport(this);
     }//GEN-LAST:event_BtnPrintActionPerformed
 
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
@@ -169,6 +138,42 @@ private void insertReport(){
                 new FrmPrintGeneralReport().setVisible(true);
             }
         });
+    }
+
+    public MongoConnection getMongoConnection() {
+        return mongoConnection;
+    }
+
+    public MongoCollection getOrdersCollection() {
+        return ordersCollection;
+    }
+
+    public MongoCollection getReportsCollection() {
+        return reportsCollection;
+    }
+
+    public MongoCollection getProductsCollection() {
+        return productsCollection;
+    }
+
+    public ArrayList<Order> getReadedOrders() {
+        return readedOrders;
+    }
+
+    public ArrayList<Product> getReadedProducts() {
+        return readedProducts;
+    }
+
+    public JButton getBtnBack() {
+        return BtnBack;
+    }
+
+    public JButton getBtnPrint() {
+        return BtnPrint;
+    }
+
+    public PnlReportGeneral getPnlPrintGeneralReport1() {
+        return pnlPrintGeneralReport1;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

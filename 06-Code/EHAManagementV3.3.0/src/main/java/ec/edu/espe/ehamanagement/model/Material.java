@@ -90,23 +90,4 @@ public class Material {
     public void setGeneralCost(float generalCost) {
         this.generalCost = generalCost;
     }
-
-    public static ArrayList getAttributesNames(){
-        ArrayList keys = new ArrayList(4);
-        keys.add("id");
-        keys.add("name");
-        keys.add("generalQuantity");
-        keys.add("generalCost");
-        keys.add("unitCost");
-        return keys;   
-    }
-    public static ArrayList getAttributes(Material material){
-        ArrayList values = new ArrayList(4);
-        values.add(material.getId());
-        values.add(material.getName());
-        values.add(material.getGeneralQuantity());
-        values.add(material.getGeneralCost());
-        values.add(material.getUnitCost());
-        return values;
-    }
 }

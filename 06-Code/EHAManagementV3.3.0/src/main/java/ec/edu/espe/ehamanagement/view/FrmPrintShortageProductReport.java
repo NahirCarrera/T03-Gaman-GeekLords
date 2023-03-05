@@ -2,18 +2,15 @@ package ec.edu.espe.ehamanagement.view;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import ec.edu.espe.ehamanagement.controller.AgendaReportGenerator;
+import ec.edu.espe.EHAManagement.view.PnlReportShortageProducts;
+import ec.edu.espe.ehamanagement.controller.FrmPrintShortageProductReportController;
 import ec.edu.espe.ehamanagement.controller.Inventory;
-import ec.edu.espe.ehamanagement.controller.InventoryReportGenerator;
-import ec.edu.espe.ehamanagement.model.InventoryReport;
 import utils.MongoConnection;
 import ec.edu.espe.ehamanagement.model.Product;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -35,25 +32,7 @@ public class FrmPrintShortageProductReport extends javax.swing.JFrame {
         readedProducts = Inventory.readInventory(productsCollection);
         initComponents();
     }
-private void insertReport(){
-        ArrayList <Product> stockProducts = InventoryReportGenerator.filterProducts(readedProducts, "stock");
-        ArrayList <Product> sortageProducts = InventoryReportGenerator.filterProducts(readedProducts, "shortage");
-        ArrayList <Integer> stockProductsIds = new ArrayList();
-        ArrayList <Integer> shortageProductsIds = new ArrayList();
-        for(Product product: stockProducts){
-            stockProductsIds.add(product.getId());
-        }
-        for (Product product:sortageProducts){
-            shortageProductsIds.add(product.getId());
-        }
-        
-        InventoryReport newReport = new InventoryReport( stockProductsIds, shortageProductsIds);
-        newReport.setType("Shortage Products");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        Date date = new Date();
-        newReport.setDate(String.valueOf(dateFormat.format(date)));
-        InventoryReportGenerator.insertReport(reportsCollection, newReport);
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -129,19 +108,8 @@ private void insertReport(){
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrintActionPerformed
-        insertReport();
-        PrinterJob job = PrinterJob.getPrinterJob();
-
-        job.setPrintable(pnlPrintShortageProductReport1);
-
-        if(job.printDialog()){
-            try{
-                job.print();
-            }catch (PrinterException ex){
-            }
-        }else{
-            JOptionPane.showMessageDialog(this, "The print was canceled");
-        }
+        FrmPrintShortageProductReportController.insertReport(this);
+        FrmPrintShortageProductReportController.printReport(this);
     }//GEN-LAST:event_BtnPrintActionPerformed
 
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
@@ -163,6 +131,34 @@ private void insertReport(){
                 new FrmPrintShortageProductReport().setVisible(true);
             }
         });
+    }
+
+    public MongoConnection getMongoConnection() {
+        return mongoConnection;
+    }
+
+    public MongoCollection getProductsCollection() {
+        return productsCollection;
+    }
+
+    public MongoCollection getReportsCollection() {
+        return reportsCollection;
+    }
+
+    public ArrayList<Product> getReadedProducts() {
+        return readedProducts;
+    }
+
+    public JButton getBtnBack() {
+        return BtnBack;
+    }
+
+    public JButton getBtnPrint() {
+        return BtnPrint;
+    }
+
+    public PnlReportShortageProducts getPnlPrintShortageProductReport1() {
+        return pnlPrintShortageProductReport1;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

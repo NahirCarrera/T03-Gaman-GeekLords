@@ -2,17 +2,15 @@ package ec.edu.espe.ehamanagement.view;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import ec.edu.espe.EHAManagement.view.PnlReportPendingOrders;
 import ec.edu.espe.ehamanagement.controller.Agenda;
-import ec.edu.espe.ehamanagement.controller.AgendaReportGenerator;
-import ec.edu.espe.ehamanagement.model.AgendaReport;
+import ec.edu.espe.ehamanagement.controller.FrmPrintPendingOrderReportController;
 import utils.MongoConnection;
 import ec.edu.espe.ehamanagement.model.Order;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -35,25 +33,7 @@ public class FrmPrintPendingOrderReport extends javax.swing.JFrame {
         initComponents();
     }
     
-    private void insertReport(){
-        ArrayList <Order> completedOrders = AgendaReportGenerator.filterOrders(readedOrders, "completed");
-        ArrayList <Order> pendingOrders = AgendaReportGenerator.filterOrders(readedOrders, "pending");
-        ArrayList <Integer> completedOrdersIds = new ArrayList();
-        ArrayList <Integer> pendingOrdersIds = new ArrayList();
-        for(Order order: completedOrders){
-            completedOrdersIds.add(order.getId());
-        }
-        for (Order order:pendingOrders){
-            pendingOrdersIds.add(order.getId());
-        }
-        
-        AgendaReport newReport = new AgendaReport(pendingOrdersIds, completedOrdersIds);
-        newReport.setType("Pending Orders");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        Date date = new Date();
-        newReport.setDate(String.valueOf(dateFormat.format(date)));
-        AgendaReportGenerator.insertReport(reportsCollection, newReport);
-    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -128,19 +108,8 @@ public class FrmPrintPendingOrderReport extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrintActionPerformed
-        insertReport();
-        PrinterJob job = PrinterJob.getPrinterJob();
-
-        job.setPrintable(pnlPrintPendingOrderReport1);
-
-        if(job.printDialog()){
-            try{
-                job.print();
-            }catch (PrinterException ex){
-            }
-        }else{
-            JOptionPane.showMessageDialog(this, "The print was canceled");
-        }
+        FrmPrintPendingOrderReportController.insertReport(this);
+        FrmPrintPendingOrderReportController.printReport(this);
     }//GEN-LAST:event_BtnPrintActionPerformed
 
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
@@ -162,6 +131,34 @@ public class FrmPrintPendingOrderReport extends javax.swing.JFrame {
                 new FrmPrintPendingOrderReport().setVisible(true);
             }
         });
+    }
+
+    public MongoConnection getMongoConnection() {
+        return mongoConnection;
+    }
+
+    public MongoCollection getOrdersCollection() {
+        return ordersCollection;
+    }
+
+    public MongoCollection getReportsCollection() {
+        return reportsCollection;
+    }
+
+    public ArrayList<Order> getReadedOrders() {
+        return readedOrders;
+    }
+
+    public JButton getBtnBack() {
+        return BtnBack;
+    }
+
+    public JButton getBtnPrint() {
+        return BtnPrint;
+    }
+
+    public PnlReportPendingOrders getPnlPrintPendingOrderReport1() {
+        return pnlPrintPendingOrderReport1;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

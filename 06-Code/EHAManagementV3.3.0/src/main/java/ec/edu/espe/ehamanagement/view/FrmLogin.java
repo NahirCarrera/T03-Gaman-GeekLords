@@ -2,11 +2,14 @@ package ec.edu.espe.ehamanagement.view;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.mongodb.client.MongoCollection;
-import ec.edu.espe.ehamanagement.controller.Profile;
+import ec.edu.espe.ehamanagement.controller.FrmLoginController;
 import utils.MongoConnection;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import javax.swing.JOptionPane;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -330,19 +333,7 @@ public class FrmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String userName = txtUserName.getText();
-        String password = pflPassword.getText();
-
-        String correctUserName = (String) Profile.getValueFromUser(userCollection, 1, "userName");
-        String correctPassword = (String) Profile.getValueFromUser(userCollection, 1, "password");
-
-        if (userName.equals(correctUserName) && password.equals(correctPassword)){
-            this.setVisible(false);
-            FrmPrincipalMenuBar frmPrincipalMenuBar = new FrmPrincipalMenuBar();
-            frmPrincipalMenuBar.setVisible(true);
-        }else{
-            JOptionPane.showMessageDialog(this,"The username or password is incorrect, please try again", "Login Failed", JOptionPane.ERROR_MESSAGE);
-        }
+        FrmLoginController.loginUser(this);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void pflPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pflPasswordKeyReleased
@@ -473,6 +464,46 @@ public class FrmLogin extends javax.swing.JFrame {
                 new FrmLogin().setVisible(true);
             }
         });
+    }
+
+    public MongoConnection getMongoConnection() {
+        return mongoConnection;
+    }
+
+    public MongoCollection getUserCollection() {
+        return userCollection;
+    }
+
+    public JButton getBtnLogin() {
+        return btnLogin;
+    }
+
+    public JLabel getLbPictureUserWarning() {
+        return lbPictureUserWarning;
+    }
+
+    public JLabel getLbPictureWarningPass() {
+        return lbPictureWarningPass;
+    }
+
+    public JLabel getLbWarningPasd() {
+        return lbWarningPasd;
+    }
+
+    public JLabel getLbWarningPassword() {
+        return lbWarningPassword;
+    }
+
+    public JLabel getLbWarningUser() {
+        return lbWarningUser;
+    }
+
+    public JPasswordField getPflPassword() {
+        return pflPassword;
+    }
+
+    public JTextField getTxtUserName() {
+        return txtUserName;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

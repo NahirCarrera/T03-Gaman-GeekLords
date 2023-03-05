@@ -300,7 +300,7 @@ public class PnlOrganizerTable extends javax.swing.JPanel {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String search = txtSearch.getText();
-        if (MaterialsOrganizer.existsMaterial(materialsCollection, "id", Integer.valueOf(search))) {
+        if (MaterialsOrganizer.findMaterialExistence(materialsCollection, "id", Integer.valueOf(search))) {
             int id;
             id = Integer.valueOf(search);
             initPnlOrganizerUpdateAndDeleteMaterial(id);
